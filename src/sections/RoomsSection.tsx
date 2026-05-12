@@ -7,9 +7,9 @@ import { useRef } from "react";
 
 const rooms = [
   {
-    title: "Private Suites",
+    title: "Fully Equipped Rooms",
     description:
-      "Elegant living spaces designed for tranquility and personal autonomy.",
+      "Hygienic living spaces designed for tranquility and personal autonomy.",
     image: "/images/room-suite.png",
   },
   {
@@ -91,8 +91,7 @@ export default function RoomsSection() {
             Thoughtfully Designed Spaces
           </h2>
           <p className="font-sans text-base md:text-lg text-on-surface-variant max-w-2xl mx-auto">
-            Every room is crafted to provide a sense of peace, security, and
-            private reflection.
+            Our hygienic accommodation is crafted to provide a sense of peace, security, and private reflection for cancer patients and their attendants.
           </p>
         </motion.div>
 

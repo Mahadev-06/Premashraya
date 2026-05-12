@@ -5,9 +5,9 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
 const carePoints = [
-  "24/7 personalized emotional and clinical support.",
-  "Family-inclusive care planning and bereavement support.",
-  "Focus on comfort-first symptom management.",
+  "Hospital procedure and documentation assistance.",
+  "Department guidance and timely access to treatment.",
+  "Connecting patients with our support shelter.",
 ];
 
 export default function CaregiverSection() {
@@ -45,10 +45,10 @@ export default function CaregiverSection() {
               className="absolute -bottom-6 -right-4 md:right-8 bg-surface-container-lowest/90 backdrop-blur-[20px] rounded-sanctuary-md p-6 shadow-sanctuary-lg"
             >
               <p className="font-serif text-3xl font-bold text-primary mb-1">
-                15+
+                24/7
               </p>
               <p className="font-sans text-xs text-on-surface-variant uppercase tracking-wider">
-                Years of Compassionate Care
+                Hospital Guidance
               </p>
             </motion.div>
           </motion.div>
@@ -60,15 +60,13 @@ export default function CaregiverSection() {
             transition={{ duration: 0.8, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
           >
             <span className="inline-block font-sans text-xs font-bold uppercase tracking-[0.2em] text-secondary mb-4">
-              Our Philosophy
+              Premashrya Counsellors
             </span>
             <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-on-background mb-6 leading-tight">
-              Dignity as our North Star
+              Hospital Guidance & Support
             </h2>
             <p className="font-sans text-base md:text-lg text-on-surface-variant leading-relaxed mb-10">
-              Our caregivers are more than just medical professionals; they are
-              companions on a journey. We prioritize the preservation of
-              identity, ensuring every resident is seen, heard, and valued.
+              Premashrya counsellors assist cancer patients in hospitals by helping with procedures, documentation, department guidance, and timely access to treatment. They also help patients connect with the shelter when needed.
             </p>
 
             {/* Care Points */}

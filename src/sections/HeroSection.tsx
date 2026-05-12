@@ -30,7 +30,7 @@ export default function HeroSection() {
             transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
           >
             <span className="inline-block font-sans text-xs font-bold uppercase tracking-[0.2em] text-primary mb-6 bg-primary-container/40 px-4 py-2 rounded-full">
-              Welcome to The Sanctuary
+              Cancer Care Support Shelter • Bhubaneswar & Cuttack
             </span>
           </motion.div>
 
@@ -40,8 +40,8 @@ export default function HeroSection() {
             transition={{ duration: 0.9, delay: 0.1, ease: [0.4, 0, 0.2, 1] }}
             className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-on-background leading-[1.1] mb-6"
           >
-            A Place of Care,{" "}
-            <span className="text-primary">Comfort</span> & Hope
+            A Home of Care, Dignity & Healing for{" "}
+            <span className="text-primary">Cancer Patients</span>
           </motion.h1>
 
           <motion.p
@@ -50,8 +50,7 @@ export default function HeroSection() {
             transition={{ duration: 0.8, delay: 0.25, ease: [0.4, 0, 0.2, 1] }}
             className="font-sans text-lg md:text-xl text-on-surface-variant leading-relaxed mb-10 max-w-xl"
           >
-            A supportive residential sanctuary focused on dignity, emotional
-            support, and peaceful healing. Experience care that feels like home.
+            Premashrya provides free hygienic accommodation, nutritious meals, hospital guidance, and emotional support for cancer patients undergoing treatment in Bhubaneswar & Cuttack.
           </motion.p>
 
           <motion.div
@@ -62,11 +61,11 @@ export default function HeroSection() {
           >
 
             <Link
-              href="/about"
+              href="/contact"
               className="bg-surface-container-lowest/80 text-on-surface px-8 py-4 rounded-full font-sans font-medium text-base text-center shadow-sanctuary hover:bg-surface-container-highest transition-all duration-300"
               id="hero-learn-more"
             >
-              Learn More
+              Contact Us
             </Link>
           </motion.div>
         </div>
