@@ -7,21 +7,21 @@ import { useRef } from "react";
 
 const rooms = [
   {
-    title: "Fully Equipped Rooms",
+    title: "Comfortable Rooms",
     description:
-      "Hygienic living spaces designed for tranquility and personal autonomy.",
+      "Clean and well-maintained accommodation for cancer patients and one attendant.",
     image: "/images/room-suite.png",
   },
   {
-    title: "Garden Access",
+    title: "Peaceful Common Areas",
     description:
-      "Direct connection to our healing gardens and private outdoor terraces.",
+      "Quiet spaces for rest, evening bhajans, light yoga, and emotional well-being.",
     image: "/images/garden.png",
   },
   {
-    title: "Healthy Dining",
+    title: "Nutritious Daily Meals",
     description:
-      "Chef-prepared nutritious meals focused on organic ingredients and vitality.",
+      "Fresh, hygienic meals prepared daily to support patients and their families during their stay.",
     image: "/images/dining.png",
   },
 ];
@@ -57,7 +57,7 @@ function RoomCard({
           loading="lazy"
         />
       </div>
-      <div className="p-8">
+      <div className="p-6 sm:p-8">
         <h3 className="font-serif text-xl font-semibold text-on-surface mb-3">
           {room.title}
         </h3>
@@ -74,8 +74,8 @@ export default function RoomsSection() {
   const headerInView = useInView(headerRef, { once: true, margin: "-100px" });
 
   return (
-    <section className="bg-surface-container-low py-22 md:py-30">
-      <div className="max-w-[1280px] mx-auto px-6 md:px-10">
+    <section className="bg-surface-container-low py-16 md:py-30">
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10">
         {/* Section Header */}
         <motion.div
           ref={headerRef}
@@ -85,13 +85,13 @@ export default function RoomsSection() {
           className="text-center mb-16"
         >
           <span className="inline-block font-sans text-xs font-bold uppercase tracking-[0.2em] text-secondary mb-4">
-            Our Spaces
+            OUR FACILITIES
           </span>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-on-background mb-5">
-            Thoughtfully Designed Spaces
+            Clean, Comfortable Spaces for Patients & Families
           </h2>
           <p className="font-sans text-base md:text-lg text-on-surface-variant max-w-2xl mx-auto">
-            Our hygienic accommodation is crafted to provide a sense of peace, security, and private reflection for cancer patients and their attendants.
+            Premashraya is designed to provide a peaceful and hygienic environment where patients and attendants can rest with comfort and dignity during treatment.
           </p>
         </motion.div>
 

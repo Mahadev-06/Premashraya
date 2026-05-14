@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ScrollToTop from "@/components/ScrollToTop";
+import PageNavigation from "@/components/PageNavigation";
 
 export const metadata: Metadata = {
   title: "Premashraya | A Place of Care, Comfort & Hope",
@@ -29,7 +31,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="overflow-x-hidden w-full">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -38,10 +40,14 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="antialiased">
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+      <body className="antialiased w-full flex flex-col min-h-screen">
+        <div className="relative w-full overflow-hidden flex flex-col min-h-screen">
+          <Navbar />
+          <main className="flex-grow">{children}</main>
+          <Footer />
+          <ScrollToTop />
+          <PageNavigation />
+        </div>
       </body>
     </html>
   );

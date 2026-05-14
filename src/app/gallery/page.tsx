@@ -4,7 +4,7 @@ import Image from "next/image";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
 
-const galleryCategories = ["All", "Rooms & Facilities", "Patient Stories"];
+const galleryCategories = ["All", "Rooms & Facilities", "Daily Life"];
 
 const galleryItems = [
   {
@@ -31,7 +31,7 @@ const galleryItems = [
   {
     title: "Arthur's Journey to Serenity",
     image: "/images/community.png",
-    category: "Patient Stories",
+    category: "Daily Life",
     span: "col-span-1",
     height: "h-60 md:h-72",
   },
@@ -52,7 +52,7 @@ const galleryItems = [
   {
     title: "Art in the Atelier",
     image: "/images/art-therapy.png",
-    category: "Patient Stories",
+    category: "Daily Life",
     span: "col-span-1",
     height: "h-60 md:h-72",
   },
@@ -66,7 +66,7 @@ const galleryItems = [
   {
     title: "Morning Yoga",
     image: "/images/yoga.png",
-    category: "Patient Stories",
+    category: "Daily Life",
     span: "col-span-1 md:col-span-2",
     height: "h-60 md:h-72",
   },
@@ -86,10 +86,10 @@ export default function GalleryPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="bg-surface pt-34 pb-16 md:pt-40 md:pb-22">
+      <section className="bg-surface pt-28 pb-16 md:pt-40 md:pb-22">
         <div
           ref={headerRef}
-          className="max-w-[1280px] mx-auto px-6 md:px-10"
+          className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10"
         >
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -97,15 +97,14 @@ export default function GalleryPage() {
             transition={{ duration: 0.8 }}
             className="text-center"
           >
-            <span className="inline-block font-sans text-xs font-bold uppercase tracking-[0.2em] text-tertiary mb-6">
+            <span className="inline-block font-sans text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-tertiary mb-4 sm:mb-6">
               Gallery
             </span>
-            <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-semibold text-on-background leading-[1.1] mb-6">
-              Visual Moments of Peace
+            <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-semibold text-on-background leading-[1.15] md:leading-[1.1] mb-4 md:mb-6">
+              A Glimpse of Life at Premashraya
             </h1>
-            <p className="font-sans text-lg md:text-xl text-on-surface-variant max-w-2xl mx-auto">
-              Step inside our sanctuary. Every frame tells a story of dignity,
-              comfort, and the gentle embrace of nature.
+            <p className="font-sans text-base md:text-lg lg:text-xl text-on-surface-variant leading-relaxed max-w-2xl mx-auto">
+              Explore our rooms, facilities, dining spaces, and peaceful environment created to support cancer patients and their families during treatment stays.
             </p>
           </motion.div>
         </div>
@@ -113,7 +112,7 @@ export default function GalleryPage() {
 
       {/* Category Filter */}
       <section className="bg-surface pb-8">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-10">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10">
           <div className="flex flex-wrap justify-center gap-3">
             {galleryCategories.map((cat) => (
               <button
@@ -135,7 +134,7 @@ export default function GalleryPage() {
 
       {/* Gallery Grid */}
       <section className="bg-surface-container-low py-12 md:py-16">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-10">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10">
           <motion.div
             layout
             className="grid grid-cols-1 md:grid-cols-3 gap-6"

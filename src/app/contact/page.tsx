@@ -81,10 +81,10 @@ export default function ContactPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="bg-surface pt-34 pb-22 md:pt-40 md:pb-30">
+      <section className="bg-surface pt-28 pb-20 md:pt-40 md:pb-30">
         <div
           ref={heroRef}
-          className="max-w-[1280px] mx-auto px-6 md:px-10"
+          className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10"
         >
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -92,39 +92,51 @@ export default function ContactPage() {
             transition={{ duration: 0.8 }}
             className="max-w-3xl"
           >
-            <span className="inline-block font-sans text-xs font-bold uppercase tracking-[0.2em] text-secondary mb-6">
-              Contact
+            <span className="inline-block font-sans text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-secondary mb-4 sm:mb-6">
+              CONTACT US
             </span>
-            <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-semibold text-on-background leading-[1.1] mb-6">
-              We are here to listen and embrace.
+            <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-semibold text-on-background leading-[1.15] md:leading-[1.1] mb-4 md:mb-6">
+              We’re Here to Support Patients & Families
             </h1>
-            <p className="font-sans text-lg md:text-xl text-on-surface-variant leading-relaxed max-w-2xl">
-              Whether you seek information for a loved one or simply need a
-              quiet conversation, our sanctuary doors are always open to your
-              family.
+            <p className="font-sans text-base md:text-lg lg:text-xl text-on-surface-variant leading-relaxed max-w-2xl">
+              For stay inquiries, accommodation availability, or any questions related to Premashraya,
+              please reach out to our team. We are here to help patients and attendants during their
+              treatment journey.
             </p>
           </motion.div>
         </div>
       </section>
 
       {/* Form + Contact Info */}
-      <section className="bg-surface-container-low py-22 md:py-30">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+      <section className="bg-surface-container-low py-16 md:py-30">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
             {/* Form */}
             <motion.div
               ref={formRef}
-              initial={{ opacity: 0, x: -40 }}
-              animate={formInView ? { opacity: 1, x: 0 } : {}}
+              initial={{ opacity: 0, y: 30 }}
+              animate={formInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8 }}
-              className="bg-surface-container-lowest rounded-sanctuary-lg p-8 md:p-10 shadow-sanctuary"
+              className="bg-surface-container-lowest rounded-sanctuary-lg p-6 sm:p-8 md:p-10 shadow-sanctuary"
             >
               <h2 className="font-serif text-2xl md:text-3xl font-semibold text-on-surface mb-2">
-                Send a Message
+                Inquiry Form
               </h2>
-              <p className="font-sans text-sm text-on-surface-variant mb-8">
-                Your thoughts and questions are met with compassion.
+              <p className="font-sans text-sm text-on-surface-variant mb-6">
+                Please share your details and our team will get in touch with you.
               </p>
+
+              <div className="bg-surface-container-high border-l-4 border-primary p-4 mb-8 rounded-r-sanctuary-sm">
+                <h3 className="font-sans text-xs font-bold uppercase tracking-wider text-on-surface mb-2">
+                  Eligibility / Note
+                </h3>
+                <p className="font-sans text-sm leading-relaxed tracking-wide text-on-surface-variant mb-2">
+                  Premashraya provides free accommodation for cancer patients undergoing treatment and one attendant, subject to availability.
+                </p>
+                <p className="font-sans text-sm leading-relaxed tracking-wide text-on-surface-variant font-medium">
+                  * Premashraya is not a hospital or medical treatment center.
+                </p>
+              </div>
 
               {formState === "success" ? (
                 <motion.div
@@ -262,7 +274,7 @@ export default function ContactPage() {
                   >
                     {formState === "loading"
                       ? "Sending..."
-                      : "Send with Compassion"}
+                      : "Submit Inquiry"}
                   </button>
                 </form>
               )}
@@ -271,12 +283,12 @@ export default function ContactPage() {
             {/* Contact Info */}
             <motion.div
               ref={infoRef}
-              initial={{ opacity: 0, x: 40 }}
-              animate={infoInView ? { opacity: 1, x: 0 } : {}}
+              initial={{ opacity: 0, y: 30 }}
+              animate={infoInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
               <h2 className="font-serif text-2xl md:text-3xl font-semibold text-on-surface mb-8">
-                Reach Out
+                Contact Information
               </h2>
 
               <div className="space-y-8">

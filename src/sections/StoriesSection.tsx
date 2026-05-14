@@ -23,8 +23,8 @@ export default function StoriesSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section className="bg-surface py-22 md:py-30">
-      <div className="max-w-[1280px] mx-auto px-6 md:px-10">
+    <section className="bg-surface py-16 md:py-30">
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10">
         {/* Section Header */}
         <motion.div
           ref={ref}
@@ -37,7 +37,7 @@ export default function StoriesSection() {
             Testimonials
           </span>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-on-background">
-            Voices of Sanctuary
+            Words from Families We’ve Supported
           </h2>
         </motion.div>
 
@@ -53,7 +53,7 @@ export default function StoriesSection() {
                 delay: index * 0.2,
                 ease: [0.4, 0, 0.2, 1],
               }}
-              className="bg-surface-container-lowest rounded-sanctuary-lg p-8 md:p-10 shadow-sanctuary relative"
+              className="bg-surface-container-lowest rounded-sanctuary-lg p-6 sm:p-8 md:p-10 shadow-sanctuary relative"
             >
               {/* Quote mark */}
               <div className="text-primary-container text-6xl font-serif leading-none mb-4 select-none">

@@ -35,9 +35,18 @@ export default function Navbar() {
           : "bg-transparent py-5"
       }`}
     >
-      <div className="max-w-[1280px] mx-auto px-6 md:px-10 flex items-center justify-between">
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-3 group">
+        <Link 
+          href="/" 
+          onClick={(e) => {
+            if (window.innerWidth >= 768) {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }
+          }}
+          className="flex items-center gap-3 group"
+        >
           <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
             <svg
               width="20"
@@ -116,7 +125,7 @@ export default function Navbar() {
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="md:hidden glass-nav overflow-hidden"
           >
-            <nav className="flex flex-col px-6 py-6 gap-4">
+            <nav className="flex flex-col px-4 sm:px-6 py-4 gap-1">
               {navLinks.map((link, i) => (
                 <motion.div
                   key={link.href}
@@ -126,10 +135,10 @@ export default function Navbar() {
                 >
                   <Link
                     href={link.href}
-                    className={`font-sans text-base font-medium block py-2 ${
+                    className={`font-sans text-base font-medium block py-3 px-2 rounded-lg transition-colors duration-200 ${
                       pathname === link.href
-                        ? "text-primary"
-                        : "text-on-surface-variant"
+                        ? "text-primary bg-primary-container/20"
+                        : "text-on-surface-variant active:bg-surface-container-high"
                     }`}
                   >
                     {link.label}

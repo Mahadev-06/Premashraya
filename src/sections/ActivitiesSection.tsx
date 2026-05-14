@@ -3,40 +3,41 @@
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { Flower2, Utensils, Sparkles, Users, HeartHandshake } from "lucide-react";
 
 const activities = [
   {
-    title: "Yoga & Meditation",
+    title: "BHAJANS & LIGHT YOGA",
     description:
-      "Guided morning sessions to calm the mind and strengthen the spirit in our glass-walled studio.",
+      "Gentle evening activities that encourage calmness, relaxation, and emotional well-being.",
     image: "/images/yoga.png",
-    icon: "🧘",
+    icon: <Flower2 className="w-[18px] h-[18px]" />,
   },
   {
-    title: "Art Therapy",
+    title: "DAILY MEALS",
     description:
-      "Expression through color and form in our bright community atelier.",
-    image: "/images/art-therapy.png",
-    icon: "🎨",
+      "Fresh and hygienic meals prepared daily for patients and attendants staying at Premashraya.",
+    image: "/images/dining.png",
+    icon: <Utensils className="w-[18px] h-[18px]" />,
   },
   {
-    title: "Garden Walks",
-    description: "Gentle strolls through our therapeutic botanical paths.",
-    image: "/images/garden-walk.png",
-    icon: "🌿",
+    title: "HYGIENIC ENVIRONMENT",
+    description: "Rooms, washrooms, and common areas are sanitized regularly to maintain cleanliness and comfort.",
+    image: "/images/room-suite.png",
+    icon: <Sparkles className="w-[18px] h-[18px]" />,
   },
   {
-    title: "Outdoor Connection",
-    description: "Find solitude or community in nature's quiet corners.",
-    image: "/images/nature.png",
-    icon: "🌳",
-  },
-  {
-    title: "Community Circles",
-    description:
-      "Evening gatherings for storytelling, music, and shared experiences.",
+    title: "COMMON SPACES",
+    description: "Shared spaces for rest, conversation, television, and quiet moments with family members.",
     image: "/images/community.png",
-    icon: "🤝",
+    icon: <Users className="w-[18px] h-[18px]" />,
+  },
+  {
+    title: "SAFE & SUPPORTIVE STAY",
+    description:
+      "A respectful environment where families can focus on treatment without worrying about accommodation.",
+    image: "/images/garden-walk.png",
+    icon: <HeartHandshake className="w-[18px] h-[18px]" />,
   },
 ];
 
@@ -72,7 +73,7 @@ function ActivityCard({
         />
         {/* Glass overlay with icon */}
         <div className="absolute bottom-4 left-4 bg-surface/80 backdrop-blur-[12px] px-4 py-2 rounded-full flex items-center gap-2">
-          <span className="text-lg">{activity.icon}</span>
+          <span className="text-secondary flex items-center justify-center">{activity.icon}</span>
           <span className="font-sans text-xs font-bold uppercase tracking-wider text-on-surface">
             {activity.title}
           </span>
@@ -92,8 +93,8 @@ export default function ActivitiesSection() {
   const headerInView = useInView(headerRef, { once: true, margin: "-100px" });
 
   return (
-    <section className="bg-surface py-22 md:py-30">
-      <div className="max-w-[1280px] mx-auto px-6 md:px-10">
+    <section className="bg-surface py-16 md:py-30">
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10">
         {/* Section Header */}
         <motion.div
           ref={headerRef}
@@ -103,10 +104,10 @@ export default function ActivitiesSection() {
           className="text-center mb-16"
         >
           <span className="inline-block font-sans text-xs font-bold uppercase tracking-[0.2em] text-tertiary mb-4">
-            Daily Life
+            DAILY LIFE AT PREMASHRAYA
           </span>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-on-background mb-5">
-            The Rhythm of Daily Care
+            Simple comforts that make difficult journeys easier
           </h2>
         </motion.div>
 

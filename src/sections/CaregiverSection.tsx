@@ -15,20 +15,20 @@ export default function CaregiverSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section className="bg-surface-container-low py-22 md:py-30">
-      <div className="max-w-[1280px] mx-auto px-6 md:px-10">
+    <section className="bg-surface-container-low py-16 md:py-30">
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10">
         <div
           ref={ref}
           className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center"
         >
           {/* Image Side */}
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
             className="relative"
           >
-            <div className="relative h-[500px] md:h-[600px] rounded-sanctuary-lg overflow-hidden shadow-sanctuary-lg">
+            <div className="relative h-[320px] sm:h-[400px] md:h-[600px] rounded-sanctuary-lg overflow-hidden shadow-sanctuary-lg">
               <Image
                 src="/images/caregiver-team.png"
                 alt="Our compassionate caregiver team at Premashraya"
@@ -55,8 +55,8 @@ export default function CaregiverSection() {
 
           {/* Text Side */}
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
           >
             <span className="inline-block font-sans text-xs font-bold uppercase tracking-[0.2em] text-secondary mb-4">
@@ -74,8 +74,8 @@ export default function CaregiverSection() {
               {carePoints.map((point, index) => (
                 <motion.li
                   key={index}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : {}}
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ delay: 0.4 + index * 0.15, duration: 0.5 }}
                   className="flex items-start gap-4"
                 >

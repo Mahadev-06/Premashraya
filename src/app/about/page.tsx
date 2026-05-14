@@ -34,21 +34,21 @@ const teamMembers = [
 
 const facilities = [
   {
-    title: "The Wellness Suite",
+    title: "Clean & Hygienic Rooms",
     description:
-      "A space dedicated to hydrotherapy, soft aromatics, and gentle movement.",
+      "Comfortable accommodation with daily sanitization of rooms, washrooms, and common facilities.",
     image: "/images/wellness.png",
   },
   {
-    title: "Healing Gardens",
+    title: "Peaceful Shared Spaces",
     description:
-      "Accessible trails and private alcoves within three acres of restored botanical grounds.",
+      "Quiet common areas for rest, prayer, light yoga, evening bhajans, and emotional well-being.",
     image: "/images/garden.png",
   },
   {
-    title: "Communal Hearth",
+    title: "Nutritious Meals & Floor Pantries",
     description:
-      "Where family meals are shared in a professional kitchen that smells of home-baked bread.",
+      "Fresh, nourishing food served daily, along with pantry access on every floor for added convenience.",
     image: "/images/hearth.png",
   },
 ];
@@ -71,11 +71,11 @@ export default function AboutPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative bg-surface pt-34 pb-22 md:pt-40 md:pb-30 overflow-hidden">
+      <section className="relative bg-surface pt-28 pb-20 md:pt-40 md:pb-30 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-primary-container/10 to-transparent" />
         <div
           ref={heroRef}
-          className="relative max-w-[1280px] mx-auto px-6 md:px-10"
+          className="relative max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10"
         >
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -83,15 +83,14 @@ export default function AboutPage() {
             transition={{ duration: 0.8 }}
             className="max-w-3xl"
           >
-            <span className="inline-block font-sans text-xs font-bold uppercase tracking-[0.2em] text-secondary mb-6">
+            <span className="inline-block font-sans text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-secondary mb-4 sm:mb-6">
               About Us
             </span>
-            <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-semibold text-on-background leading-[1.1] mb-6">
-              Our journey of dignity and care.
+            <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-semibold text-on-background leading-[1.15] md:leading-[1.1] mb-4 md:mb-6">
+              A place of comfort, care, and dignity during cancer treatment.
             </h1>
-            <p className="font-sans text-lg md:text-xl text-on-surface-variant leading-relaxed max-w-2xl">
-              At Premashraya, we believe every moment is an
-              opportunity for connection, comfort, and profound respect.
+            <p className="font-sans text-base md:text-lg lg:text-xl text-on-surface-variant leading-relaxed max-w-2xl">
+              Premashraya provides free stay for cancer patients during treatment. With clean accommodation, nourishing meals, daily sanitization, and a peaceful environment, we aim to make difficult journeys a little lighter for families away from home.
             </p>
           </motion.div>
         </div>
@@ -101,57 +100,54 @@ export default function AboutPage() {
       <section className="bg-surface-container-low py-22 md:py-30">
         <div
           ref={missionRef}
-          className="max-w-[1280px] mx-auto px-6 md:px-10"
+          className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10"
         >
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <motion.div
-              initial={{ opacity: 0, x: -40 }}
-              animate={missionInView ? { opacity: 1, x: 0 } : {}}
+              initial={{ opacity: 0, y: 30 }}
+              animate={missionInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8 }}
             >
               <span className="inline-block font-sans text-xs font-bold uppercase tracking-[0.2em] text-primary mb-4">
                 Our Mission
               </span>
               <h2 className="font-serif text-3xl md:text-4xl font-semibold text-on-background mb-6 leading-tight">
-                To nurture the spirit through compassionate care.
+                Supporting patients and families with comfort, cleanliness, and care.
               </h2>
               <p className="font-sans text-base md:text-lg text-on-surface-variant leading-relaxed mb-8">
-                We provide a refuge that honors the individual, offering medical
-                excellence wrapped in the warmth of a home. Our focus is not
-                just on the clinical, but on the emotional and spiritual
-                well-being of every resident.
+                Cancer treatment can be physically, emotionally, and financially exhausting.
+                Premashraya was created to offer patients and their attendants a safe, hygienic, and
+                peaceful place to stay during treatment — with nourishing food, clean facilities, and a
+                supportive environment that feels respectful and human.
               </p>
 
               <div className="space-y-6">
                 <div className="bg-surface-container-lowest rounded-sanctuary-md p-6 shadow-sanctuary">
                   <h3 className="font-serif text-lg font-semibold text-on-surface mb-2">
-                    A world where end-of-life care is synonymous with peace.
+                    A Safe and Hygienic Stay
                   </h3>
                   <p className="font-sans text-sm text-on-surface-variant">
-                    Redefining the standard of palliative environments into true
-                    sanctuaries of life.
+                    Daily sanitization of rooms, toilets, and common areas helps maintain a hygienic and comfortable environment for every family staying with us.
                   </p>
                 </div>
                 <div className="bg-surface-container-lowest rounded-sanctuary-md p-6 shadow-sanctuary">
                   <h3 className="font-serif text-lg font-semibold text-on-surface mb-2">
-                    Home-Like Philosophy
+                    Care Beyond Accommodation
                   </h3>
                   <p className="font-sans text-sm text-on-surface-variant">
-                    We strip away the clinical rigidity, replacing it with the
-                    gentle embrace of familiar textures, natural light, and the
-                    freedom to feel at home.
+                    From evening bhajans and light yoga sessions to shared spaces for rest and connection, Premashraya focuses on emotional well-being alongside physical comfort.
                   </p>
                 </div>
               </div>
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: 40 }}
-              animate={missionInView ? { opacity: 1, x: 0 } : {}}
+              initial={{ opacity: 0, y: 30 }}
+              animate={missionInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.2 }}
               className="relative"
             >
-              <div className="relative h-[500px] md:h-[600px] rounded-sanctuary-lg overflow-hidden shadow-sanctuary-lg">
+              <div className="relative h-[320px] sm:h-[400px] md:h-[600px] rounded-sanctuary-lg overflow-hidden shadow-sanctuary-lg">
                 <Image
                   src="/images/hero.png"
                   alt="Premashraya exterior"
@@ -167,12 +163,12 @@ export default function AboutPage() {
 
       {/* Video Section */}
       <section className="bg-surface py-22 md:py-30">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-10 text-center">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10 text-center">
           <span className="inline-block font-sans text-xs font-bold uppercase tracking-[0.2em] text-tertiary mb-4">
             Virtual Tour
           </span>
           <h2 className="font-serif text-3xl md:text-4xl font-semibold text-on-background mb-4">
-            Experience the Sanctuary
+            Explore the Facility
           </h2>
           <p className="font-sans text-base text-on-surface-variant mb-10">
             A 2-minute journey through our care philosophy
@@ -211,7 +207,7 @@ export default function AboutPage() {
       <section className="bg-surface-container-low py-22 md:py-30">
         <div
           ref={facilitiesRef}
-          className="max-w-[1280px] mx-auto px-6 md:px-10"
+          className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10"
         >
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -220,14 +216,13 @@ export default function AboutPage() {
             className="text-center mb-16"
           >
             <span className="inline-block font-sans text-xs font-bold uppercase tracking-[0.2em] text-secondary mb-4">
-              Our Spaces
+              FACILITIES & COMFORTS
             </span>
             <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-on-background mb-5">
-              Designed for Emotional Safeguarding
+              Designed to provide comfort, cleanliness, and peace of mind.
             </h2>
             <p className="font-sans text-base md:text-lg text-on-surface-variant max-w-2xl mx-auto">
-              Every corner of the sanctuary is designed to lower cortisol and
-              invite quiet reflection.
+              Every space at Premashraya is maintained to help patients and families feel safe, supported, and at ease during treatment journeys.
             </p>
           </motion.div>
 
@@ -268,7 +263,7 @@ export default function AboutPage() {
 
       {/* Team Section */}
       <section className="bg-surface py-22 md:py-30">
-        <div ref={teamRef} className="max-w-[1280px] mx-auto px-6 md:px-10">
+        <div ref={teamRef} className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={teamInView ? { opacity: 1, y: 0 } : {}}
