@@ -11,18 +11,21 @@ const rooms = [
     description:
       "Clean and well-maintained accommodation for cancer patients and one attendant.",
     image: "/images/room-suite.png",
+    video: "/videos/Comfortable Rooms.mp4",
   },
   {
     title: "Peaceful Common Areas",
     description:
       "Quiet spaces for rest, evening bhajans, light yoga, and emotional well-being.",
     image: "/images/garden.png",
+    video: "/videos/Common Space.mp4",
   },
   {
     title: "Nutritious Daily Meals",
     description:
       "Fresh, hygienic meals prepared daily to support patients and their families during their stay.",
     image: "/images/dining.png",
+    video: "/videos/Daily Meals.mp4",
   },
 ];
 
@@ -48,14 +51,26 @@ function RoomCard({
       }}
       className="group bg-surface-container-lowest rounded-sanctuary-lg overflow-hidden shadow-sanctuary transition-sanctuary hover:shadow-sanctuary-lg"
     >
-      <div className="relative h-64 md:h-72 overflow-hidden">
-        <Image
-          src={room.image}
-          alt={room.title}
-          fill
-          className="object-cover transition-transform duration-700 group-hover:scale-105"
-          loading="lazy"
-        />
+      <div className="relative h-64 md:h-72 overflow-hidden bg-black">
+        {room.video ? (
+          <video
+            src={room.video}
+            poster={room.image}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+        ) : (
+          <Image
+            src={room.image}
+            alt={room.title}
+            fill
+            className="object-cover transition-transform duration-700 group-hover:scale-105"
+            loading="lazy"
+          />
+        )}
       </div>
       <div className="p-6 sm:p-8">
         <h3 className="font-serif text-xl font-semibold text-on-surface mb-3">

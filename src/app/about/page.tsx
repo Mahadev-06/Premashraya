@@ -38,18 +38,21 @@ const facilities = [
     description:
       "Comfortable accommodation with daily sanitization of rooms, washrooms, and common facilities.",
     image: "/images/wellness.png",
+    video: "/videos/Hygienic.mp4",
   },
   {
     title: "Peaceful Shared Spaces",
     description:
       "Quiet common areas for rest, prayer, light yoga, evening bhajans, and emotional well-being.",
     image: "/images/garden.png",
+    video: "/videos/download.mp4",
   },
   {
     title: "Nutritious Meals & Floor Pantries",
     description:
       "Fresh, nourishing food served daily, along with pantry access on every floor for added convenience.",
     image: "/images/hearth.png",
+    video: "/videos/Daily Meals.mp4",
   },
 ];
 
@@ -149,8 +152,8 @@ export default function AboutPage() {
             >
               <div className="relative h-[320px] sm:h-[400px] md:h-[600px] rounded-sanctuary-lg overflow-hidden shadow-sanctuary-lg">
                 <Image
-                  src="/images/hero.png"
-                  alt="Premashraya exterior"
+                  src="/images/mission.jpg"
+                  alt="Premashraya signboard - A Home for Cancer Patients"
                   fill
                   className="object-cover"
                   loading="lazy"
@@ -195,7 +198,7 @@ export default function AboutPage() {
                   viewBox="0 0 24 24"
                   fill="none"
                 >
-                  <path d="M8 5v14l11-7L8 5z" fill="#556956" />
+                  <path d="M8 5v14l11-7L8 5z" fill="var(--color-primary)" />
                 </svg>
               </button>
             </div>
@@ -238,14 +241,26 @@ export default function AboutPage() {
                 }}
                 className="group bg-surface-container-lowest rounded-sanctuary-lg overflow-hidden shadow-sanctuary transition-sanctuary hover:shadow-sanctuary-lg"
               >
-                <div className="relative h-56 overflow-hidden">
-                  <Image
-                    src={facility.image}
-                    alt={facility.title}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    loading="lazy"
-                  />
+                <div className="relative h-56 overflow-hidden bg-black">
+                  {facility.video ? (
+                    <video
+                      src={facility.video}
+                      poster={facility.image}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  ) : (
+                    <Image
+                      src={facility.image}
+                      alt={facility.title}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  )}
                 </div>
                 <div className="p-8">
                   <h3 className="font-serif text-xl font-semibold text-on-surface mb-3">

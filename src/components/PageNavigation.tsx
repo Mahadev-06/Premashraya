@@ -27,9 +27,9 @@ export default function PageNavigation() {
       const scrollTop = window.scrollY;
       const docHeight = document.documentElement.scrollHeight;
       const winHeight = window.innerHeight;
-      // Show when user is within 200px of the bottom
-      const nearBottom = scrollTop + winHeight >= docHeight - 200;
-      setIsVisible(nearBottom);
+      // Show after user scrolls down (approx. two scrolls / 500px) OR is near the bottom
+      const shouldShow = scrollTop > 500 || (scrollTop + winHeight >= docHeight - 200);
+      setIsVisible(shouldShow);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });

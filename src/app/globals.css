@@ -3,50 +3,50 @@
 @theme {
   /* ===== Stitch Design System: Premashraya ===== */
 
-  /* Primary Palette - Botanical Sage */
-  --color-primary: #556956;
-  --color-primary-container: #d2e9d0;
-  --color-primary-dim: #495d4a;
-  --color-primary-fixed: #d2e9d0;
-  --color-primary-fixed-dim: #c4dac2;
+  /* Primary Palette - Logo Deep Crimson Red */
+  --color-primary: #C51B24;
+  --color-primary-container: #FDF2F2;
+  --color-primary-dim: #A8141C;
+  --color-primary-fixed: #FDF2F2;
+  --color-primary-fixed-dim: #FAD2CD;
   --color-on-primary: #ffffff;
-  --color-on-primary-container: #435744;
+  --color-on-primary-container: #660D12;
 
-  /* Secondary Palette - Ethereal Teal */
-  --color-secondary: #446b6b;
-  --color-secondary-container: #cff9f9;
-  --color-secondary-dim: #385f5f;
-  --color-secondary-fixed: #cff9f9;
+  /* Secondary Palette - Logo Rich Gold */
+  --color-secondary: #D4AF37;
+  --color-secondary-container: #FEF9E7;
+  --color-secondary-dim: #B7950B;
+  --color-secondary-fixed: #FCF3CF;
   --color-on-secondary: #ffffff;
-  --color-on-secondary-container: #3a6161;
+  --color-on-secondary-container: #5F4B1A;
 
-  /* Tertiary Palette - Warm Earth */
-  --color-tertiary: #7e5e41;
-  --color-tertiary-container: #fdd2ae;
-  --color-tertiary-dim: #715236;
+  /* Tertiary Palette - Warm Terracotta/Taupe */
+  --color-tertiary: #7A5B51;
+  --color-tertiary-container: #F5EBE6;
+  --color-tertiary-dim: #6B4D45;
   --color-on-tertiary: #ffffff;
-  --color-on-tertiary-container: #64472b;
+  --color-on-tertiary-container: #4A3525;
 
   /* Surface Palette */
   --color-background: #fffcf7;
   --color-surface: #fffcf7;
   --color-surface-bright: #fffcf7;
-  --color-surface-dim: #e4e3d6;
-  --color-surface-container: #f6f4ec;
-  --color-surface-container-high: #f0eee4;
-  --color-surface-container-highest: #eae9dd;
-  --color-surface-container-low: #fcf9f3;
+  --color-surface-dim: #e8e2d8;
+  --color-surface-container: #f7f4ea;
+  --color-surface-container-high: #f1ede0;
+  --color-surface-container-highest: #ebe6d6;
+  --color-surface-container-low: #fdfaf3;
   --color-surface-container-lowest: #ffffff;
-  --color-surface-variant: #eae9dd;
+  --color-surface-variant: #ebe6d6;
 
   /* Text Colors */
-  --color-on-background: #373831;
-  --color-on-surface: #373831;
-  --color-on-surface-variant: #64655c;
+  --color-on-background: #3c3234;
+  --color-on-surface: #3c3234;
+  --color-on-surface-variant: #6b5c5f;
 
   /* Outline */
-  --color-outline: #818178;
-  --color-outline-variant: #babaaf;
+  --color-outline: #89797c;
+  --color-outline-variant: #c3b5b8;
 
   /* Error */
   --color-error: #b23d21;
@@ -59,8 +59,8 @@
   --color-inverse-primary: #e6fde4;
 
   /* Typography */
-  --font-serif: 'Noto Serif', Georgia, serif;
-  --font-sans: 'Manrope', system-ui, sans-serif;
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
 
   /* Sanctuary Spacing Scale (generous breathing room - mobile first) */
   --spacing-18: 3rem;
@@ -134,13 +134,13 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ===== Gradient Buttons ===== */
 .btn-primary-gradient {
-  background: linear-gradient(135deg, #556956, #d2e9d0);
+  background: linear-gradient(135deg, #C51B24, #E06F6F);
   color: #ffffff;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .btn-primary-gradient:hover {
-  background: linear-gradient(135deg, #495d4a, #c4dac2);
-  box-shadow: 0 12px 40px rgba(85, 105, 86, 0.15);
+  background: linear-gradient(135deg, #A8141C, #D05353);
+  box-shadow: 0 12px 40px rgba(197, 27, 36, 0.15);
   transform: translateY(-1px);
 }
 

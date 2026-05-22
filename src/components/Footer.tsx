@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 const footerLinks = {
   sanctuary: [
@@ -49,21 +50,16 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-9 h-9 rounded-full bg-primary flex items-center justify-center">
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
-                    fill="white"
-                  />
-                </svg>
+              <div className="w-11 h-11 rounded-full bg-white flex items-center justify-center p-1 shadow-sm overflow-hidden">
+                <Image
+                  src="/images/logo.png"
+                  alt="Premashraya Logo"
+                  width={36}
+                  height={36}
+                  className="object-contain"
+                />
               </div>
-              <span className="font-serif text-base font-semibold text-on-surface">
+              <span className="font-serif text-lg md:text-xl font-bold text-on-surface tracking-wide">
                 Premashraya
               </span>
             </div>

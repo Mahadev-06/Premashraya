@@ -5,7 +5,7 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
 const carePoints = [
-  "Hospital procedure and documentation assistance.",
+  "Shelter procedure and documentation assistance.",
   "Department guidance and timely access to treatment.",
   "Connecting patients with our support shelter.",
 ];
@@ -48,7 +48,7 @@ export default function CaregiverSection() {
                 24/7
               </p>
               <p className="font-sans text-xs text-on-surface-variant uppercase tracking-wider">
-                Hospital Guidance
+                Shelter Guidance
               </p>
             </motion.div>
           </motion.div>
@@ -63,7 +63,7 @@ export default function CaregiverSection() {
               Premashrya Counsellors
             </span>
             <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-on-background mb-6 leading-tight">
-              Hospital Guidance & Support
+              Shelter Guidance & Support
             </h2>
             <p className="font-sans text-base md:text-lg text-on-surface-variant leading-relaxed mb-10">
               Premashrya counsellors assist cancer patients in hospitals by helping with procedures, documentation, department guidance, and timely access to treatment. They also help patients connect with the shelter when needed.

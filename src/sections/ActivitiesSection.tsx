@@ -10,33 +10,33 @@ const activities = [
     title: "BHAJANS & LIGHT YOGA",
     description:
       "Gentle evening activities that encourage calmness, relaxation, and emotional well-being.",
-    image: "/images/yoga.png",
+    image: "/images/yoga.jpg",
     icon: <Flower2 className="w-[18px] h-[18px]" />,
   },
   {
     title: "DAILY MEALS",
     description:
       "Fresh and hygienic meals prepared daily for patients and attendants staying at Premashraya.",
-    image: "/images/dining.png",
+    image: "/images/meals.jpg",
     icon: <Utensils className="w-[18px] h-[18px]" />,
   },
   {
     title: "HYGIENIC ENVIRONMENT",
     description: "Rooms, washrooms, and common areas are sanitized regularly to maintain cleanliness and comfort.",
-    image: "/images/room-suite.png",
+    image: "/images/hygiene.jpg",
     icon: <Sparkles className="w-[18px] h-[18px]" />,
   },
   {
     title: "COMMON SPACES",
     description: "Shared spaces for rest, conversation, television, and quiet moments with family members.",
-    image: "/images/community.png",
+    image: "/images/community.jpg",
     icon: <Users className="w-[18px] h-[18px]" />,
   },
   {
     title: "SAFE & SUPPORTIVE STAY",
     description:
       "A respectful environment where families can focus on treatment without worrying about accommodation.",
-    image: "/images/garden-walk.png",
+    image: "/images/support.jpg",
     icon: <HeartHandshake className="w-[18px] h-[18px]" />,
   },
 ];

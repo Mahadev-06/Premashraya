@@ -10,8 +10,8 @@ export default function HeroSection() {
       {/* Background image with overlay */}
       <div className="absolute inset-0">
         <Image
-          src="/images/hero.png"
-          alt="Premashraya - serene care home surrounded by botanical gardens"
+          src="/images/hero.jpg"
+          alt="Premashraya building - free stay and care facility for cancer patients"
           fill
           className="object-cover"
           priority
