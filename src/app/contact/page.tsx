@@ -317,7 +317,7 @@ export default function ContactPage() {
                   style={{ border: 0 }}
                   loading="lazy"
                   allowFullScreen
-                  src="https://www.google.com/maps?q=Premashraya+Charitable+Trust,+Kendriya+Vihar,+Near+Dhananjay+Residency,+Gohiriya,+Bhubaneswar+,+Odisha+751028&output=embed"
+                  src="https://www.google.com/maps?q=Premashraya+Shelter+Home,+Bhubaneswar&output=embed"
                 ></iframe>
               </div>
 
