@@ -56,46 +56,50 @@ export default function PageNavigation() {
           <div className="flex items-stretch gap-2.5 max-w-sm mx-auto">
             {/* Previous Page */}
             {prevPage && (
-              <Link
-                href={prevPage.href}
-                className="flex-1 flex items-center gap-1.5 bg-white/50 backdrop-blur-md border border-outline-variant/20 rounded-full px-3.5 py-2 shadow-sm active:scale-[0.96] transition-transform duration-150"
-              >
-                <ChevronLeft
-                  size={14}
-                  strokeWidth={2.5}
-                  className="text-primary flex-shrink-0"
-                />
-                <div className="min-w-0">
-                  <p className="font-sans text-[9px] uppercase tracking-wider text-on-surface-variant/70 leading-none mb-px">
-                    Previous
-                  </p>
-                  <p className="font-sans text-xs font-semibold text-on-surface truncate">
-                    {prevPage.label}
-                  </p>
-                </div>
-              </Link>
+              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.92 }} className="flex-1">
+                <Link
+                  href={prevPage.href}
+                  className="flex items-center gap-1.5 h-full bg-white/50 backdrop-blur-md border border-outline-variant/20 rounded-full px-3.5 py-2 shadow-sm transition-colors duration-300 hover:bg-white/70"
+                >
+                  <ChevronLeft
+                    size={14}
+                    strokeWidth={2.5}
+                    className="text-primary flex-shrink-0"
+                  />
+                  <div className="min-w-0">
+                    <p className="font-sans text-[9px] uppercase tracking-wider text-on-surface-variant/70 leading-none mb-px">
+                      Previous
+                    </p>
+                    <p className="font-sans text-xs font-semibold text-on-surface truncate">
+                      {prevPage.label}
+                    </p>
+                  </div>
+                </Link>
+              </motion.div>
             )}
 
             {/* Next Page */}
             {nextPage && (
-              <Link
-                href={nextPage.href}
-                className="flex-1 flex items-center justify-end gap-1.5 bg-primary/70 backdrop-blur-md rounded-full px-3.5 py-2 shadow-sm active:scale-[0.96] transition-transform duration-150"
-              >
-                <div className="min-w-0 text-right">
-                  <p className="font-sans text-[9px] uppercase tracking-wider text-on-primary/60 leading-none mb-px">
-                    Next
-                  </p>
-                  <p className="font-sans text-xs font-semibold text-on-primary truncate">
-                    {nextPage.label}
-                  </p>
-                </div>
-                <ChevronRight
-                  size={14}
-                  strokeWidth={2.5}
-                  className="text-on-primary flex-shrink-0"
-                />
-              </Link>
+              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.92 }} className="flex-1">
+                <Link
+                  href={nextPage.href}
+                  className="flex items-center justify-end h-full gap-1.5 bg-primary/80 hover:bg-primary backdrop-blur-md rounded-full px-3.5 py-2 shadow-sm transition-colors duration-300"
+                >
+                  <div className="min-w-0 text-right">
+                    <p className="font-sans text-[9px] uppercase tracking-wider text-on-primary/70 leading-none mb-px">
+                      Next
+                    </p>
+                    <p className="font-sans text-xs font-semibold text-on-primary truncate">
+                      {nextPage.label}
+                    </p>
+                  </div>
+                  <ChevronRight
+                    size={14}
+                    strokeWidth={2.5}
+                    className="text-on-primary flex-shrink-0"
+                  />
+                </Link>
+              </motion.div>
             )}
           </div>
         </motion.div>
