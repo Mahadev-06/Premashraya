@@ -8,66 +8,87 @@ const galleryCategories = ["All", "Rooms & Facilities", "Daily Life"];
 
 const galleryItems = [
   {
-    title: "Morning Mists in the Courtyard",
-    image: "/images/hero.png",
+    title: "Premashraya Gallery 1",
+    image: "/images/Gallery1.jpg",
     category: "Rooms & Facilities",
     span: "col-span-1 md:col-span-2 row-span-2",
     height: "h-80 md:h-[500px]",
   },
   {
-    title: "The Oak Suite",
-    image: "/images/room-suite.png",
+    title: "Premashraya Gallery 2",
+    image: "/images/Gallery2.jpg",
     category: "Rooms & Facilities",
     span: "col-span-1",
     height: "h-60 md:h-60",
   },
   {
-    title: "The Wellness Suite",
-    image: "/images/wellness.png",
-    category: "Rooms & Facilities",
+    title: "Premashraya Gallery 3",
+    image: "/images/Gallery3.jpg",
+    category: "Daily Life",
     span: "col-span-1",
     height: "h-60 md:h-60",
   },
   {
-    title: "Arthur's Journey to Serenity",
-    image: "/images/community.png",
+    title: "Premashraya Gallery 4",
+    image: "/images/Gallery4.jpg",
+    category: "Rooms & Facilities",
+    span: "col-span-1",
+    height: "h-60 md:h-72",
+  },
+  {
+    title: "Premashraya Gallery 5",
+    image: "/images/Gallery5.jpg",
+    category: "Daily Life",
+    span: "col-span-1 md:col-span-2",
+    height: "h-60 md:h-72",
+  },
+  {
+    title: "Premashraya Gallery 6",
+    image: "/images/Gallery6.jpg",
+    category: "Rooms & Facilities",
+    span: "col-span-1",
+    height: "h-60 md:h-72",
+  },
+  {
+    title: "Premashraya Gallery 7",
+    image: "/images/Gallery7.jpg",
     category: "Daily Life",
     span: "col-span-1",
     height: "h-60 md:h-72",
   },
   {
-    title: "The Forest Walkway",
-    image: "/images/garden-walk.png",
+    title: "Premashraya Gallery 8",
+    image: "/images/Gallery8.jpg",
     category: "Rooms & Facilities",
+    span: "col-span-1",
+    height: "h-60 md:h-72",
+  },
+  {
+    title: "Premashraya Gallery 9",
+    image: "/images/Gallery9.jpg",
+    category: "Daily Life",
     span: "col-span-1 md:col-span-2",
     height: "h-60 md:h-72",
   },
   {
-    title: "Healing Gardens",
-    image: "/images/garden.png",
+    title: "Premashraya Gallery 10",
+    image: "/images/Gallery10.jpg",
     category: "Rooms & Facilities",
     span: "col-span-1",
     height: "h-60 md:h-72",
   },
   {
-    title: "Art in the Atelier",
-    image: "/images/art-therapy.png",
-    category: "Daily Life",
-    span: "col-span-1",
-    height: "h-60 md:h-72",
-  },
-  {
-    title: "Community Dining",
-    image: "/images/dining.png",
-    category: "Rooms & Facilities",
-    span: "col-span-1",
-    height: "h-60 md:h-72",
-  },
-  {
-    title: "Morning Yoga",
-    image: "/images/yoga.png",
+    title: "Premashraya Gallery 11",
+    image: "/images/Gallery11.jpg",
     category: "Daily Life",
     span: "col-span-1 md:col-span-2",
+    height: "h-60 md:h-72",
+  },
+  {
+    title: "Premashraya Gallery 12",
+    image: "/images/Gallery12.jpg",
+    category: "Rooms & Facilities",
+    span: "col-span-1",
     height: "h-60 md:h-72",
   },
 ];
@@ -110,27 +131,7 @@ export default function GalleryPage() {
         </div>
       </section>
 
-      {/* Category Filter */}
-      <section className="bg-surface pb-8">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10">
-          <div className="flex flex-wrap justify-center gap-3">
-            {galleryCategories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`font-sans text-sm font-medium px-6 py-2.5 rounded-full transition-all duration-300 ${
-                  activeCategory === cat
-                    ? "bg-primary text-on-primary"
-                    : "bg-surface-container-highest text-on-surface-variant hover:bg-surface-dim"
-                }`}
-                id={`gallery-filter-${cat.toLowerCase().replace(/\s+/g, "-")}`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
+
 
       {/* Gallery Grid */}
       <section className="bg-surface-container-low py-12 md:py-16">
@@ -164,16 +165,7 @@ export default function GalleryPage() {
                       className="object-cover transition-transform duration-700 group-hover:scale-105"
                       loading="lazy"
                     />
-                    {/* Hover overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-inverse-surface/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                      <h3 className="font-serif text-lg font-semibold text-white">
-                        {item.title}
-                      </h3>
-                      <p className="font-sans text-xs text-white/70 uppercase tracking-wider mt-1">
-                        {item.category}
-                      </p>
-                    </div>
+
                   </div>
                 </motion.div>
               ))}

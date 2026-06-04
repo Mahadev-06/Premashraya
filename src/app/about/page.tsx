@@ -7,28 +7,18 @@ import { useRef } from "react";
 
 const teamMembers = [
   {
-    name: "Dr. Elena Thorne",
-    role: "Medical Director",
-    bio: "Pioneering palliative care with a focus on holistic resident autonomy.",
+    name: "Vinod Agarwal",
     image: "/images/dr-elena.png",
+    video: "/videos/Vinod Agarwal.mp4",
   },
   {
-    name: "Sarah Jenkins",
-    role: "Lead Caregiver",
-    bio: "Dedicated to the daily rhythms that make life beautiful and dignified.",
-    image: "/images/sarah.png",
+    name: "Vinod Agarwal and Satyakant Agarwal",
+    image: "/images/_DSC9186.JPG",
   },
   {
-    name: "Marcus Vane",
-    role: "Wellness Specialist",
-    bio: "Specializing in therapeutic movement and mindfulness practices.",
+    name: "Satyakant Agarwal",
     image: "/images/marcus.png",
-  },
-  {
-    name: "Amara Okafor",
-    role: "Resident Advocate",
-    bio: "Ensuring every resident's voice is heard and their wishes honored.",
-    image: "/images/dr-elena.png",
+    video: "/videos/Satyakant Agarwal.mp4",
   },
 ];
 
@@ -297,7 +287,7 @@ export default function AboutPage() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {teamMembers.map((member, index) => (
               <motion.div
                 key={member.name}
@@ -309,25 +299,30 @@ export default function AboutPage() {
                 }}
                 className="bg-surface-container-lowest rounded-sanctuary-lg overflow-hidden shadow-sanctuary text-center"
               >
-                <div className="relative h-64 overflow-hidden">
-                  <Image
-                    src={member.image}
-                    alt={`${member.name} - ${member.role}`}
-                    fill
-                    className="object-cover"
-                    loading="lazy"
-                  />
+                <div className="relative h-64 overflow-hidden bg-black">
+                  {member.video ? (
+                    <video
+                      src={member.video}
+                      controls
+                      controlsList="nodownload"
+                      disablePictureInPicture
+                      playsInline
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <Image
+                      src={member.image}
+                      alt={member.name}
+                      fill
+                      className="object-cover"
+                      loading="lazy"
+                    />
+                  )}
                 </div>
                 <div className="p-6">
-                  <h3 className="font-serif text-lg font-semibold text-on-surface mb-1">
+                  <h3 className="font-serif text-lg font-semibold text-on-surface">
                     {member.name}
                   </h3>
-                  <p className="font-sans text-xs font-bold uppercase tracking-wider text-primary mb-3">
-                    {member.role}
-                  </p>
-                  <p className="font-sans text-sm text-on-surface-variant leading-relaxed">
-                    {member.bio}
-                  </p>
                 </div>
               </motion.div>
             ))}

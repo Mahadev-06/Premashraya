@@ -5,7 +5,7 @@ import FounderSection from "@/sections/FounderSection";
 import RoomsSection from "@/sections/RoomsSection";
 import ActivitiesSection from "@/sections/ActivitiesSection";
 import CaregiverSection from "@/sections/CaregiverSection";
-import StoriesSection from "@/sections/StoriesSection";
+
 
 export const metadata: Metadata = {
   title: 'Premashraya | Free Cancer Patient Shelter in Bhubaneswar & Cuttack',
@@ -30,7 +30,6 @@ export default function Home() {
       <RoomsSection />
       <ActivitiesSection />
       <CaregiverSection />
-      <StoriesSection />
     </>
   );
 }

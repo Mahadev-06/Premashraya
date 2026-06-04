@@ -28,13 +28,15 @@ export default function CaregiverSection() {
             transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
             className="relative"
           >
-            <div className="relative h-[320px] sm:h-[400px] md:h-[600px] rounded-sanctuary-lg overflow-hidden shadow-sanctuary-lg">
-              <Image
-                src="/images/caregiver-team.png"
-                alt="Our compassionate caregiver team at Premashraya"
-                fill
-                className="object-cover"
-                loading="lazy"
+            <div className="relative h-[320px] sm:h-[400px] md:h-[600px] rounded-sanctuary-lg overflow-hidden shadow-sanctuary-lg bg-black">
+              <video
+                src="/videos/Debendra 3.mp4"
+                controls
+                controlsList="nodownload"
+                disablePictureInPicture
+                loop
+                playsInline
+                className="w-full h-full object-cover"
               />
             </div>
             {/* Floating stat card */}
