@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 const carePoints = [
   "Shelter procedure and documentation assistance.",
@@ -13,6 +14,7 @@ const carePoints = [
 export default function CaregiverSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useLanguage();
 
   return (
     <section className="bg-surface-container-low py-16 md:py-30">
@@ -47,10 +49,10 @@ export default function CaregiverSection() {
               className="absolute -bottom-6 -right-4 md:right-8 bg-surface-container-lowest/90 backdrop-blur-[20px] rounded-sanctuary-md p-6 shadow-sanctuary-lg"
             >
               <p className="font-serif text-3xl font-bold text-primary mb-1">
-                24/7
+                {t("caregiver.statNum")}
               </p>
               <p className="font-sans text-xs text-on-surface-variant uppercase tracking-wider">
-                Shelter Guidance
+                {t("caregiver.statLabel")}
               </p>
             </motion.div>
           </motion.div>
@@ -62,18 +64,18 @@ export default function CaregiverSection() {
             transition={{ duration: 0.8, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
           >
             <span className="inline-block font-sans text-xs font-bold uppercase tracking-[0.2em] text-secondary mb-4">
-              Premashrya Counsellors
+              {t("caregiver.label")}
             </span>
             <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-on-background mb-6 leading-tight">
-              Shelter Guidance & Support
+              {t("caregiver.title")}
             </h2>
             <p className="font-sans text-base md:text-lg text-on-surface-variant leading-relaxed mb-10">
-              Premashrya counsellors assist cancer patients in hospitals by helping with procedures, documentation, department guidance, and timely access to treatment. They also help patients connect with the shelter when needed.
+              {t("caregiver.description")}
             </p>
 
             {/* Care Points */}
             <ul className="space-y-5">
-              {carePoints.map((point, index) => (
+              {[0, 1, 2].map((index) => (
                 <motion.li
                   key={index}
                   initial={{ opacity: 0, y: 15 }}
@@ -95,7 +97,7 @@ export default function CaregiverSection() {
                     </svg>
                   </div>
                   <p className="font-sans text-base text-on-surface leading-relaxed">
-                    {point}
+                    {t(`caregiver.points.${index}`)}
                   </p>
                 </motion.li>
               ))}

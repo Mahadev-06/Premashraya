@@ -2,10 +2,11 @@
 
 import { motion } from "framer-motion";
 import { useRef, useEffect, useState, useCallback } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 const highlights = [
   {
-    title: "Clean & Supportive Accommodation",
+    id: "item1",
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary">
         <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
@@ -14,7 +15,7 @@ const highlights = [
     ),
   },
   {
-    title: "28 Comfortable Rooms",
+    id: "item2",
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary">
         <path d="M2 4v16"></path>
@@ -25,7 +26,7 @@ const highlights = [
     ),
   },
   {
-    title: "Free Stay for Patients + 1 Attendant",
+    id: "item3",
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary">
         <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
@@ -36,7 +37,7 @@ const highlights = [
     ),
   },
   {
-    title: "Nutritious & Hygienic Meals",
+    id: "item4",
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary">
         <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path>
@@ -46,7 +47,7 @@ const highlights = [
     ),
   },
   {
-    title: "Bhajans & Light Yoga Sessions",
+    id: "item5",
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary">
         <path d="M9 18V5l12-2v13"></path>
@@ -58,13 +59,15 @@ const highlights = [
 ];
 
 function HighlightPill({ item }: { item: (typeof highlights)[0] }) {
+  const { t } = useLanguage();
+  
   return (
     <div className="flex items-center gap-2.5 sm:gap-3 bg-surface-container-lowest px-4 py-3 sm:px-6 sm:py-4 rounded-full shadow-sm border border-outline-variant/20 flex-shrink-0">
       <span className="flex-shrink-0 bg-primary-container/40 p-2 rounded-full">
         {item.icon}
       </span>
       <span className="font-sans font-medium text-on-surface text-xs sm:text-sm md:text-base whitespace-nowrap">
-        {item.title}
+        {t(`highlights.${item.id}`)}
       </span>
     </div>
   );

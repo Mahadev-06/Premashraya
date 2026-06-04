@@ -4,47 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
-const teamMembers = [
-  {
-    name: "Vinod Agarwal",
-    image: "/images/dr-elena.png",
-    video: "/videos/Vinod Agarwal.mp4",
-  },
-  {
-    name: "Vinod Agarwal and Satyakant Agarwal",
-    image: "/images/_DSC9186.JPG",
-  },
-  {
-    name: "Satyakant Agarwal",
-    image: "/images/marcus.png",
-    video: "/videos/Satyakant Agarwal.mp4",
-  },
-];
+// Team section removed due to dummy names/pics
 
-const facilities = [
-  {
-    title: "Clean & Hygienic Rooms",
-    description:
-      "Comfortable accommodation with daily sanitization of rooms, washrooms, and common facilities.",
-    image: "/images/wellness.png",
-    video: "/videos/Hygienic.mp4",
-  },
-  {
-    title: "Peaceful Shared Spaces",
-    description:
-      "Quiet common areas for rest, prayer, light yoga, evening bhajans, and emotional well-being.",
-    image: "/images/garden.png",
-    video: "/videos/download.mp4",
-  },
-  {
-    title: "Nutritious Meals & Floor Pantries",
-    description:
-      "Fresh, nourishing food served daily, along with pantry access on every floor for added convenience.",
-    image: "/images/hearth.png",
-    video: "/videos/Daily Meals.mp4",
-  },
-];
+// Team section removed due to dummy names/pics
 
 export default function AboutPage() {
   const heroRef = useRef(null);
@@ -60,6 +24,25 @@ export default function AboutPage() {
   const teamInView = useInView(teamRef, { once: true, margin: "-100px" });
   const ctaRef = useRef(null);
   const ctaInView = useInView(ctaRef, { once: true, margin: "-100px" });
+  const { t } = useLanguage();
+
+  const facilities = [
+    {
+      title: t("about.fac1Title"),
+      description: t("about.fac1Desc"),
+      image: "/images/hygiene.jpg",
+    },
+    {
+      title: t("about.fac2Title"),
+      description: t("about.fac2Desc"),
+      image: "/images/community.jpg",
+    },
+    {
+      title: t("about.fac3Title"),
+      description: t("about.fac3Desc"),
+      image: "/images/meals.jpg",
+    },
+  ];
 
   return (
     <>
@@ -77,13 +60,13 @@ export default function AboutPage() {
             className="max-w-3xl"
           >
             <span className="inline-block font-sans text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-secondary mb-4 sm:mb-6">
-              About Us
+              {t("about.label")}
             </span>
             <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-semibold text-on-background leading-[1.15] md:leading-[1.1] mb-4 md:mb-6">
-              A place of comfort, care, and dignity during cancer treatment.
+              {t("about.title")}
             </h1>
             <p className="font-sans text-base md:text-lg lg:text-xl text-on-surface-variant leading-relaxed max-w-2xl">
-              Premashraya provides free stay for cancer patients during treatment. With clean accommodation, nourishing meals, daily sanitization, and a peaceful environment, we aim to make difficult journeys a little lighter for families away from home.
+              {t("about.description")}
             </p>
           </motion.div>
         </div>
@@ -102,33 +85,30 @@ export default function AboutPage() {
               transition={{ duration: 0.8 }}
             >
               <span className="inline-block font-sans text-xs font-bold uppercase tracking-[0.2em] text-primary mb-4">
-                Our Mission
+                {t("about.missionLabel")}
               </span>
               <h2 className="font-serif text-3xl md:text-4xl font-semibold text-on-background mb-6 leading-tight">
-                Supporting patients and families with comfort, cleanliness, and care.
+                {t("about.missionTitle")}
               </h2>
               <p className="font-sans text-base md:text-lg text-on-surface-variant leading-relaxed mb-8">
-                Cancer treatment can be physically, emotionally, and financially exhausting.
-                Premashraya was created to offer patients and their attendants a safe, hygienic, and
-                peaceful place to stay during treatment — with nourishing food, clean facilities, and a
-                supportive environment that feels respectful and human.
+                {t("about.missionDesc")}
               </p>
 
               <div className="space-y-6">
                 <div className="bg-surface-container-lowest rounded-sanctuary-md p-6 shadow-sanctuary">
                   <h3 className="font-serif text-lg font-semibold text-on-surface mb-2">
-                    A Safe and Hygienic Stay
+                    {t("about.safeTitle")}
                   </h3>
                   <p className="font-sans text-sm text-on-surface-variant">
-                    Daily sanitization of rooms, toilets, and common areas helps maintain a hygienic and comfortable environment for every family staying with us.
+                    {t("about.safeDesc")}
                   </p>
                 </div>
                 <div className="bg-surface-container-lowest rounded-sanctuary-md p-6 shadow-sanctuary">
                   <h3 className="font-serif text-lg font-semibold text-on-surface mb-2">
-                    Care Beyond Accommodation
+                    {t("about.careTitle")}
                   </h3>
                   <p className="font-sans text-sm text-on-surface-variant">
-                    From evening bhajans and light yoga sessions to shared spaces for rest and connection, Premashraya focuses on emotional well-being alongside physical comfort.
+                    {t("about.careDesc")}
                   </p>
                 </div>
               </div>
@@ -158,19 +138,19 @@ export default function AboutPage() {
       <section className="bg-surface py-22 md:py-30">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10 text-center">
           <span className="inline-block font-sans text-xs font-bold uppercase tracking-[0.2em] text-tertiary mb-4">
-            Virtual Tour
+            {t("about.tourLabel")}
           </span>
           <h2 className="font-serif text-3xl md:text-4xl font-semibold text-on-background mb-4">
-            Explore the Facility
+            {t("about.tourTitle")}
           </h2>
           <p className="font-sans text-base text-on-surface-variant mb-10">
-            A 2-minute journey through our care philosophy
+            {t("about.tourDesc")}
           </p>
 
           {/* Video Placeholder */}
           <div className="relative max-w-4xl mx-auto rounded-sanctuary-lg overflow-hidden shadow-sanctuary-lg aspect-video bg-surface-container-highest">
             <Image
-              src="/images/hero.png"
+              src="/images/hero.jpg"
               alt="Video thumbnail - tour of Premashraya"
               fill
               className="object-cover opacity-80"
@@ -209,13 +189,13 @@ export default function AboutPage() {
             className="text-center mb-16"
           >
             <span className="inline-block font-sans text-xs font-bold uppercase tracking-[0.2em] text-secondary mb-4">
-              FACILITIES & COMFORTS
+              {t("about.facilitiesLabel")}
             </span>
             <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-on-background mb-5">
-              Designed to provide comfort, cleanliness, and peace of mind.
+              {t("about.facilitiesTitle")}
             </h2>
             <p className="font-sans text-base md:text-lg text-on-surface-variant max-w-2xl mx-auto">
-              Every space at Premashraya is maintained to help patients and families feel safe, supported, and at ease during treatment journeys.
+              {t("about.facilitiesDesc")}
             </p>
           </motion.div>
 
@@ -232,25 +212,13 @@ export default function AboutPage() {
                 className="group bg-surface-container-lowest rounded-sanctuary-lg overflow-hidden shadow-sanctuary transition-sanctuary hover:shadow-sanctuary-lg"
               >
                 <div className="relative h-56 overflow-hidden bg-black">
-                  {facility.video ? (
-                    <video
-                      src={facility.video}
-                      poster={facility.image}
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                  ) : (
-                    <Image
-                      src={facility.image}
-                      alt={facility.title}
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      loading="lazy"
-                    />
-                  )}
+                  <Image
+                    src={facility.image}
+                    alt={facility.title}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    loading="lazy"
+                  />
                 </div>
                 <div className="p-8">
                   <h3 className="font-serif text-xl font-semibold text-on-surface mb-3">
@@ -259,70 +227,6 @@ export default function AboutPage() {
                   <p className="font-sans text-sm text-on-surface-variant leading-relaxed">
                     {facility.description}
                   </p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Team Section */}
-      <section className="bg-surface py-22 md:py-30">
-        <div ref={teamRef} className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={teamInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7 }}
-            className="text-center mb-16"
-          >
-            <span className="inline-block font-sans text-xs font-bold uppercase tracking-[0.2em] text-primary mb-4">
-              Our Team
-            </span>
-            <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-on-background mb-5">
-              The Hearts Behind the Care
-            </h2>
-            <p className="font-sans text-base md:text-lg text-on-surface-variant max-w-2xl mx-auto">
-              Our multidisciplinary team combines clinical excellence with deep
-              personal empathy.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {teamMembers.map((member, index) => (
-              <motion.div
-                key={member.name}
-                initial={{ opacity: 0, y: 40 }}
-                animate={teamInView ? { opacity: 1, y: 0 } : {}}
-                transition={{
-                  duration: 0.7,
-                  delay: index * 0.12,
-                }}
-                className="bg-surface-container-lowest rounded-sanctuary-lg overflow-hidden shadow-sanctuary text-center"
-              >
-                <div className="relative h-64 overflow-hidden bg-black">
-                  {member.video ? (
-                    <video
-                      src={member.video}
-                      controls
-                      controlsList="nodownload"
-                      disablePictureInPicture
-                      playsInline
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <Image
-                      src={member.image}
-                      alt={member.name}
-                      fill
-                      className="object-cover"
-                      loading="lazy"
-                    />
-                  )}
-                </div>
-                <div className="p-6">
-                  <h3 className="font-serif text-lg font-semibold text-on-surface">
-                    {member.name}
-                  </h3>
                 </div>
               </motion.div>
             ))}

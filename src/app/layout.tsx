@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import PageNavigation from "@/components/PageNavigation";
 import StructuredData from "@/components/StructuredData";
+import { LanguageProvider } from "@/context/LanguageContext";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://premashraya.org"),
@@ -79,19 +80,21 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Rozha+One&family=Hind:wght@300;400;500;600;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Rozha+One&family=Hind:wght@300;400;500;600;700&family=Noto+Sans+Oriya:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
       </head>
       <body className="antialiased w-full flex flex-col min-h-screen">
         <StructuredData />
-        <div className="relative w-full overflow-hidden flex flex-col min-h-screen">
-          <Navbar />
-          <main className="flex-grow">{children}</main>
-          <Footer />
-          <ScrollToTop />
-          <PageNavigation />
-        </div>
+        <LanguageProvider>
+          <div className="relative w-full overflow-hidden flex flex-col min-h-screen">
+            <Navbar />
+            <main className="flex-grow">{children}</main>
+            <Footer />
+            <ScrollToTop />
+            <PageNavigation />
+          </div>
+        </LanguageProvider>
       </body>
     </html>
   );

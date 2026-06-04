@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 const galleryCategories = ["All", "Rooms & Facilities", "Daily Life"];
 
@@ -98,6 +99,7 @@ export default function GalleryPage() {
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
   const headerRef = useRef(null);
   const headerInView = useInView(headerRef, { once: true });
+  const { t } = useLanguage();
 
   const filteredItems =
     activeCategory === "All"
@@ -119,13 +121,13 @@ export default function GalleryPage() {
             className="text-center"
           >
             <span className="inline-block font-sans text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-tertiary mb-4 sm:mb-6">
-              Gallery
+              {t("gallery.label")}
             </span>
             <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-semibold text-on-background leading-[1.15] md:leading-[1.1] mb-4 md:mb-6">
-              A Glimpse of Life at Premashraya
+              {t("gallery.title")}
             </h1>
             <p className="font-sans text-base md:text-lg lg:text-xl text-on-surface-variant leading-relaxed max-w-2xl mx-auto">
-              Explore our rooms, facilities, dining spaces, and peaceful environment created to support cancer patients and their families during treatment stays.
+              {t("gallery.description")}
             </p>
           </motion.div>
         </div>

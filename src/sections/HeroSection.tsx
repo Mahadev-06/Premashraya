@@ -3,8 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function HeroSection() {
+  const { t } = useLanguage();
+
   return (
     <section className="relative min-h-screen flex items-center bg-surface bg-motif-pattern overflow-hidden">
       {/* Background image with overlay */}
@@ -30,7 +33,7 @@ export default function HeroSection() {
             transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
           >
             <span className="inline-block font-sans text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-primary mb-6 bg-primary-container/40 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full leading-tight">
-              Cancer Care Support Shelter • Bhubaneswar & Cuttack
+              {t("hero.subtitle")}
             </span>
           </motion.div>
 
@@ -40,8 +43,8 @@ export default function HeroSection() {
             transition={{ duration: 0.9, delay: 0.1, ease: [0.4, 0, 0.2, 1] }}
             className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-on-background leading-[1.15] md:leading-[1.1] mb-4 md:mb-6"
           >
-            A Place of Comfort and Care for{" "}
-            <span className="text-primary">Cancer Patients & Families</span>
+            {t("hero.title")}
+            <span className="text-primary">{t("hero.titleHighlight")}</span>
           </motion.h1>
 
           <motion.p
@@ -50,7 +53,7 @@ export default function HeroSection() {
             transition={{ duration: 0.8, delay: 0.25, ease: [0.4, 0, 0.2, 1] }}
             className="font-sans text-base md:text-lg lg:text-xl text-on-surface-variant leading-relaxed mb-8 md:mb-10 max-w-xl"
           >
-            Premashraya provides free hygienic accommodation for cancer patients and one attendant during treatment. With nutritious meals, clean facilities, and a peaceful environment, we aim to support families with dignity and care during difficult journeys.
+            {t("hero.description")}
           </motion.p>
 
           <motion.div
@@ -65,7 +68,7 @@ export default function HeroSection() {
               className="bg-surface-container-lowest/80 text-on-surface px-8 py-4 rounded-full font-sans font-medium text-base text-center shadow-sanctuary hover:bg-surface-container-highest transition-all duration-300"
               id="hero-learn-more"
             >
-              Get in Touch
+              {t("hero.cta")}
             </Link>
           </motion.div>
         </div>

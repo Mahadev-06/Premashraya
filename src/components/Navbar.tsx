@@ -6,22 +6,39 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/gallery", label: "Gallery" },
-  { href: "/contact", label: "Contact" },
-];
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
   const pathname = usePathname();
+  const { language, setLanguage, t } = useLanguage();
+
+  const navLinks = [
+    { href: "/", label: t("nav.home") },
+    { href: "/about", label: t("nav.about") },
+    { href: "/gallery", label: t("nav.gallery") },
+    { href: "/contact", label: t("nav.contact") },
+  ];
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    // Check if user has seen tooltip
+    const hasSeenTooltip = localStorage.getItem("hasSeenLangTooltip");
+    if (!hasSeenTooltip) {
+      const showTimer = setTimeout(() => setShowTooltip(true), 1500);
+      const hideTimer = setTimeout(() => setShowTooltip(false), 8000);
+      return () => {
+        clearTimeout(showTimer);
+        clearTimeout(hideTimer);
+      };
+    }
   }, []);
 
   useEffect(() => {
@@ -85,7 +102,45 @@ export default function Navbar() {
               )}
             </Link>
           ))}
-
+          
+          {/* Language Switcher Desktop */}
+          <div 
+            className="relative"
+            onMouseEnter={() => setShowTooltip(true)}
+            onMouseLeave={() => setShowTooltip(false)}
+          >
+            <button
+              onClick={() => {
+                setLanguage(language === "en" ? "or" : "en");
+                setShowTooltip(false);
+                localStorage.setItem("hasSeenLangTooltip", "true");
+              }}
+              className="ml-4 px-3 py-1.5 rounded-full border border-outline-variant font-sans text-xs font-semibold hover:bg-surface-container transition-colors flex items-center gap-2"
+            >
+              <span className={language === "en" ? "text-primary" : "text-on-surface-variant"}>EN</span>
+              <span className="text-outline-variant">|</span>
+              <span className={language === "or" ? "text-primary font-oriya" : "text-on-surface-variant font-oriya"}>ଓଡ଼ିଆ</span>
+            </button>
+            <AnimatePresence>
+              {showTooltip && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                  className="absolute top-[120%] right-0 w-48 bg-primary text-white p-3 rounded-xl shadow-xl pointer-events-none z-50 origin-top-right"
+                >
+                  {/* Arrow */}
+                  <div className="absolute -top-1.5 right-6 w-3 h-3 bg-primary transform rotate-45" />
+                  <p className="font-sans text-xs font-medium text-center leading-relaxed">
+                    Click here to change language
+                  </p>
+                  <p className="font-oriya text-xs font-medium text-center leading-relaxed mt-1 border-t border-white/20 pt-1">
+                    ଭାଷା ପରିବର୍ତ୍ତନ କରିବାକୁ ଏଠାରେ କ୍ଲିକ୍ କରନ୍ତୁ
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </nav>
 
         {/* Mobile Toggle */}
@@ -110,6 +165,44 @@ export default function Navbar() {
             className="w-6 h-0.5 bg-on-surface block"
           />
         </button>
+        {/* Language Switcher Mobile (next to hamburger) */}
+        <div 
+          className="md:hidden ml-auto mr-4 relative"
+          onMouseEnter={() => setShowTooltip(true)}
+          onMouseLeave={() => setShowTooltip(false)}
+        >
+          <button
+            onClick={() => {
+              setLanguage(language === "en" ? "or" : "en");
+              setShowTooltip(false);
+              localStorage.setItem("hasSeenLangTooltip", "true");
+            }}
+            className="px-2 py-1 rounded-full border border-outline-variant font-sans text-[10px] font-semibold flex items-center gap-1.5"
+          >
+            <span className={language === "en" ? "text-primary" : "text-on-surface-variant"}>EN</span>
+            <span className="text-outline-variant">|</span>
+            <span className={language === "or" ? "text-primary font-oriya" : "text-on-surface-variant font-oriya"}>ଓଡ଼ିଆ</span>
+          </button>
+          
+          <AnimatePresence>
+            {showTooltip && (
+              <motion.div
+                initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                className="absolute top-[130%] right-0 w-44 bg-primary text-white p-2.5 rounded-lg shadow-xl pointer-events-none z-50 origin-top-right"
+              >
+                <div className="absolute -top-1.5 right-6 w-3 h-3 bg-primary transform rotate-45" />
+                <p className="font-sans text-[10px] font-medium text-center leading-relaxed">
+                  Click here to change language
+                </p>
+                <p className="font-oriya text-[10px] font-medium text-center leading-relaxed mt-1 border-t border-white/20 pt-1">
+                  ଭାଷା ପରିବର୍ତ୍ତନ କରିବାକୁ ଏଠାରେ କ୍ଲିକ୍ କରନ୍ତୁ
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
 
       {/* Mobile Menu */}

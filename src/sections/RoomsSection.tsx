@@ -4,26 +4,21 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 const rooms = [
   {
-    title: "Comfortable Rooms",
-    description:
-      "Clean and well-maintained accommodation for cancer patients and one attendant.",
+    id: "room1",
     image: "/images/Gallery1.jpg",
     video: "/videos/Comfortable Rooms.mp4",
   },
   {
-    title: "Peaceful Common Areas",
-    description:
-      "Quiet spaces for rest, evening bhajans, light yoga, and emotional well-being.",
+    id: "room2",
     image: "/images/Gallery4.jpg",
     video: "/videos/Common Space.mp4",
   },
   {
-    title: "Nutritious Daily Meals",
-    description:
-      "Fresh, hygienic meals prepared daily to support patients and their families during their stay.",
+    id: "room3",
     image: "/images/Gallery7.jpg",
     video: "/videos/Daily Meals.mp4",
   },
@@ -38,6 +33,7 @@ function RoomCard({
 }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useLanguage();
 
   return (
     <motion.div
@@ -65,7 +61,7 @@ function RoomCard({
         ) : (
           <Image
             src={room.image}
-            alt={room.title}
+            alt={t(`rooms.items.${room.id}.title`)}
             fill
             className="object-cover transition-transform duration-700 group-hover:scale-105"
             loading="lazy"
@@ -74,10 +70,10 @@ function RoomCard({
       </div>
       <div className="p-6 sm:p-8">
         <h3 className="font-serif text-xl font-semibold text-on-surface mb-3">
-          {room.title}
+          {t(`rooms.items.${room.id}.title`)}
         </h3>
         <p className="font-sans text-sm text-on-surface-variant leading-relaxed">
-          {room.description}
+          {t(`rooms.items.${room.id}.desc`)}
         </p>
       </div>
     </motion.div>
@@ -87,6 +83,7 @@ function RoomCard({
 export default function RoomsSection() {
   const headerRef = useRef(null);
   const headerInView = useInView(headerRef, { once: true, margin: "-100px" });
+  const { t } = useLanguage();
 
   return (
     <section className="bg-surface-container-low py-16 md:py-30">
@@ -100,20 +97,20 @@ export default function RoomsSection() {
           className="text-center mb-16"
         >
           <span className="inline-block font-sans text-xs font-bold uppercase tracking-[0.2em] text-secondary mb-4">
-            OUR FACILITIES
+            {t("rooms.label")}
           </span>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-on-background mb-5">
-            Clean, Comfortable Spaces for Patients & Families
+            {t("rooms.title")}
           </h2>
           <p className="font-sans text-base md:text-lg text-on-surface-variant max-w-2xl mx-auto">
-            Premashraya is designed to provide a peaceful and hygienic environment where patients and attendants can rest with comfort and dignity during treatment.
+            {t("rooms.description")}
           </p>
         </motion.div>
 
         {/* Room Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {rooms.map((room, index) => (
-            <RoomCard key={room.title} room={room} index={index} />
+            <RoomCard key={room.id} room={room} index={index} />
           ))}
         </div>
       </div>

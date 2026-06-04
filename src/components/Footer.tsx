@@ -3,17 +3,19 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
+import { useLanguage } from "@/context/LanguageContext";
 
 const footerLinks = {
   sanctuary: [
-    { label: "About Premashraya", href: "/about" },
-    { label: "Gallery", href: "/gallery" },
-    { label: "Contact Us", href: "/contact" },
+    { key: "about", href: "/about" },
+    { key: "gallery", href: "/gallery" },
+    { key: "contact", href: "/contact" },
   ],
 };
 
 export default function Footer() {
   const pathname = usePathname();
+  const { t } = useLanguage();
   const hideCTA = pathname === "/gallery" || pathname === "/contact";
 
   return (
@@ -23,10 +25,10 @@ export default function Footer() {
         <section className="bg-primary-container">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10 py-12 md:py-22 text-center">
           <h2 className="font-serif text-3xl md:text-4xl font-semibold text-on-primary-container mb-4">
-            Need a Safe Stay During Treatment?
+            {t("footer.ctaTitle")}
           </h2>
           <p className="font-sans text-base md:text-lg text-on-primary-container/80 max-w-2xl mx-auto mb-8">
-            Premashraya provides free accommodation, hygienic meals, and a peaceful environment for cancer patients and one attendant during treatment journeys.
+            {t("footer.ctaDesc")}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
@@ -34,7 +36,7 @@ export default function Footer() {
               className="btn-primary-gradient px-8 py-3.5 rounded-full font-sans font-medium text-sm inline-block shadow-sanctuary"
               id="footer-contact-us"
             >
-              Get in Touch
+              {t("footer.ctaBtn")}
             </Link>
           </div>
         </div>
@@ -61,23 +63,23 @@ export default function Footer() {
               </span>
             </div>
             <p className="font-sans text-sm text-on-surface-variant leading-relaxed">
-              Providing free, clean, and supportive accommodation for cancer patients and their attendants during treatment.
+              {t("footer.brandDesc")}
             </p>
           </div>
 
           {/* Sanctuary Links */}
-          <div className="md:justify-self-center md:pl-10">
+          <div className="md:justify-self-end md:pr-10 lg:pr-20">
             <h3 className="font-sans text-xs font-bold uppercase tracking-[0.15em] text-on-surface-variant mb-5">
-              Quick Links
+              {t("footer.quickLinks")}
             </h3>
             <ul className="space-y-3">
               {footerLinks.sanctuary.map((link) => (
-                <li key={link.label}>
+                <li key={link.key}>
                   <Link
                     href={link.href}
                     className="font-sans text-sm text-on-surface-variant hover:text-primary transition-colors duration-300"
                   >
-                    {link.label}
+                    {t(`footer.link${link.key.charAt(0).toUpperCase() + link.key.slice(1)}`)}
                   </Link>
                 </li>
               ))}
@@ -92,11 +94,10 @@ export default function Footer() {
           style={{ borderTop: "1px solid rgba(186, 186, 175, 0.15)" }}
         >
           <p className="font-sans text-xs text-on-surface-variant">
-            © {new Date().getFullYear()} Premashraya. A place of dignity and gentle
-            embrace.
+            © {new Date().getFullYear()} {t("footer.copy1")}
           </p>
           <p className="font-sans text-xs text-outline-variant">
-            Serving with care and dignity.
+            {t("footer.copy2")}
           </p>
         </div>
       </div>

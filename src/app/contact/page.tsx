@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
 import { useRef, useState, FormEvent } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 const contactInfo = [
   {
@@ -52,6 +53,7 @@ export default function ContactPage() {
   const formInView = useInView(formRef, { once: true, margin: "-100px" });
   const infoRef = useRef(null);
   const infoInView = useInView(infoRef, { once: true, margin: "-100px" });
+  const { t } = useLanguage();
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -93,15 +95,13 @@ export default function ContactPage() {
             className="max-w-3xl"
           >
             <span className="inline-block font-sans text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-secondary mb-4 sm:mb-6">
-              CONTACT US
+              {t("contact.label")}
             </span>
             <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-semibold text-on-background leading-[1.15] md:leading-[1.1] mb-4 md:mb-6">
-              We’re Here to Support Patients & Families
+              {t("contact.title")}
             </h1>
             <p className="font-sans text-base md:text-lg lg:text-xl text-on-surface-variant leading-relaxed max-w-2xl">
-              For stay inquiries, accommodation availability, or any questions related to Premashraya,
-              please reach out to our team. We are here to help patients and attendants during their
-              treatment journey.
+              {t("contact.description")}
             </p>
           </motion.div>
         </div>
@@ -120,21 +120,21 @@ export default function ContactPage() {
               className="bg-surface-container-lowest rounded-sanctuary-lg p-6 sm:p-8 md:p-10 shadow-sanctuary"
             >
               <h2 className="font-serif text-2xl md:text-3xl font-semibold text-on-surface mb-2">
-                Inquiry Form
+                {t("contact.formTitle")}
               </h2>
               <p className="font-sans text-sm text-on-surface-variant mb-6">
-                Please share your details and our team will get in touch with you.
+                {t("contact.formDesc")}
               </p>
 
               <div className="bg-surface-container-high border-l-4 border-primary p-4 mb-8 rounded-r-sanctuary-sm">
                 <h3 className="font-sans text-xs font-bold uppercase tracking-wider text-on-surface mb-2">
-                  Eligibility / Note
+                  {t("contact.noteLabel")}
                 </h3>
                 <p className="font-sans text-sm leading-relaxed tracking-wide text-on-surface-variant mb-2">
-                  Premashraya provides free accommodation for cancer patients undergoing treatment and one attendant, subject to availability.
+                  {t("contact.note1")}
                 </p>
                 <p className="font-sans text-sm leading-relaxed tracking-wide text-on-surface-variant font-medium">
-                  * Premashraya is not a hospital or medical treatment center.
+                  {t("contact.note2")}
                 </p>
               </div>
 
@@ -158,18 +158,17 @@ export default function ContactPage() {
                     </svg>
                   </div>
                   <h3 className="font-serif text-xl font-semibold text-on-surface mb-2">
-                    Message Sent
+                    {t("contact.successTitle")}
                   </h3>
                   <p className="font-sans text-sm text-on-surface-variant mb-6">
-                    Thank you for reaching out. Our team will respond within 24
-                    hours.
+                    {t("contact.successDesc")}
                   </p>
                   <button
                     onClick={() => setFormState("idle")}
                     className="font-sans text-sm text-primary font-medium hover:underline"
                     id="send-another-message"
                   >
-                    Send another message
+                    {t("contact.sendAnother")}
                   </button>
                 </motion.div>
               ) : (
@@ -180,7 +179,7 @@ export default function ContactPage() {
                         htmlFor="firstName"
                         className="font-sans text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-2 block"
                       >
-                        First Name
+                        {t("contact.firstName")}
                       </label>
                       <input
                         type="text"
@@ -196,7 +195,7 @@ export default function ContactPage() {
                         htmlFor="lastName"
                         className="font-sans text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-2 block"
                       >
-                        Last Name
+                        {t("contact.lastName")}
                       </label>
                       <input
                         type="text"
@@ -214,7 +213,7 @@ export default function ContactPage() {
                       htmlFor="email"
                       className="font-sans text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-2 block"
                     >
-                      Email Address
+                      {t("contact.email")}
                     </label>
                     <input
                       type="email"
@@ -231,14 +230,14 @@ export default function ContactPage() {
                       htmlFor="phone"
                       className="font-sans text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-2 block"
                     >
-                      Phone Number
+                      {t("contact.phone")}
                     </label>
                     <input
                       type="tel"
                       id="phone"
                       name="phone"
                       className="w-full bg-surface-container-high rounded-sanctuary-sm px-5 py-3.5 font-sans text-sm text-on-surface placeholder:text-outline-variant focus:outline-none focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-lowest transition-all duration-300"
-                      placeholder="(555) 000-0000"
+                      placeholder="+91 12345 67890"
                     />
                   </div>
 
@@ -247,7 +246,7 @@ export default function ContactPage() {
                       htmlFor="message"
                       className="font-sans text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-2 block"
                     >
-                      Your Message
+                      {t("contact.message")}
                     </label>
                     <textarea
                       id="message"
@@ -273,8 +272,8 @@ export default function ContactPage() {
                     id="submit-contact-form"
                   >
                     {formState === "loading"
-                      ? "Sending..."
-                      : "Submit"}
+                      ? t("contact.sending")
+                      : t("contact.submit")}
                   </button>
                 </form>
               )}
@@ -288,7 +287,7 @@ export default function ContactPage() {
               transition={{ duration: 0.8, delay: 0.2 }}
             >
               <h2 className="font-serif text-2xl md:text-3xl font-semibold text-on-surface mb-8">
-                Contact Information
+                {t("contact.infoTitle")}
               </h2>
 
               <div className="space-y-8">
