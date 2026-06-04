@@ -19,6 +19,7 @@ export default function HeroSection() {
           className="object-cover"
           priority
           quality={90}
+          fetchPriority="high"
         />
         <div className="absolute inset-0 bg-gradient-to-b md:bg-gradient-to-r from-surface/95 via-surface/80 to-surface/20 md:to-surface/40" />
         <div className="absolute inset-0 bg-gradient-to-t from-surface/60 via-transparent to-transparent" />

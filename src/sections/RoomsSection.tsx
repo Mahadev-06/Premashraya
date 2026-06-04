@@ -52,6 +52,7 @@ function RoomCard({
           <video
             src={room.video}
             poster={room.image}
+            preload="auto"
             autoPlay
             loop
             muted

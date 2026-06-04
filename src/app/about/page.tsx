@@ -3,12 +3,49 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 
-// Team section removed due to dummy names/pics
+const TeamVideo = ({ src, alt }: { src: string; alt: string }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const isVideoInView = useInView(videoRef, { margin: "-50px" });
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
-// Team section removed due to dummy names/pics
+  useEffect(() => {
+    if (videoRef.current) {
+      if (!isVideoInView) {
+        // Only auto-pause when scrolled out of view.
+        // We do NOT auto-play because there are multiple videos side-by-side.
+        videoRef.current.pause();
+      }
+    }
+  }, [isVideoInView]);
+
+  return (
+    <>
+      {!isVideoLoaded && (
+        <div className="absolute inset-0 flex items-center justify-center z-10 bg-surface-container-lowest">
+          <div className="w-10 h-10 border-4 border-surface-container-highest border-t-primary rounded-full animate-spin"></div>
+        </div>
+      )}
+      <video
+        ref={videoRef}
+        src={src}
+        preload="auto"
+        controls
+        controlsList="nodownload"
+        disablePictureInPicture
+        loop
+        playsInline
+        onCanPlay={() => setIsVideoLoaded(true)}
+        className={`w-full h-full object-cover relative z-0 transition-opacity duration-700 ${
+          isVideoLoaded ? "opacity-100" : "opacity-0"
+        }`}
+      />
+    </>
+  );
+};
+
 
 export default function AboutPage() {
   const heroRef = useRef(null);
@@ -26,21 +63,41 @@ export default function AboutPage() {
   const ctaInView = useInView(ctaRef, { once: true, margin: "-100px" });
   const { t } = useLanguage();
 
+  const teamMembers = [
+    {
+      name: "Vinod Agarwal",
+      image: "/images/dr-elena.png",
+      video: "/videos/Vinod Agarwal.mp4",
+    },
+    {
+      name: "Vinod Agarwal and Satyakant Agarwal",
+      image: "/images/_DSC9186.JPG",
+    },
+    {
+      name: "Satyakant Agarwal",
+      image: "/images/marcus.png",
+      video: "/videos/Satyakant Agarwal.mp4",
+    },
+  ];
+
   const facilities = [
     {
       title: t("about.fac1Title"),
       description: t("about.fac1Desc"),
       image: "/images/hygiene.jpg",
+      video: "/videos/Hygienic.mp4",
     },
     {
       title: t("about.fac2Title"),
       description: t("about.fac2Desc"),
       image: "/images/community.jpg",
+      video: "/videos/download.mp4",
     },
     {
       title: t("about.fac3Title"),
       description: t("about.fac3Desc"),
       image: "/images/meals.jpg",
+      video: "/videos/Daily Meals.mp4",
     },
   ];
 
@@ -212,13 +269,26 @@ export default function AboutPage() {
                 className="group bg-surface-container-lowest rounded-sanctuary-lg overflow-hidden shadow-sanctuary transition-sanctuary hover:shadow-sanctuary-lg"
               >
                 <div className="relative h-56 overflow-hidden bg-black">
-                  <Image
-                    src={facility.image}
-                    alt={facility.title}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    loading="lazy"
-                  />
+                  {facility.video ? (
+                    <video
+                      src={facility.video}
+                      poster={facility.image}
+                      preload="auto"
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  ) : (
+                    <Image
+                      src={facility.image}
+                      alt={facility.title}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  )}
                 </div>
                 <div className="p-8">
                   <h3 className="font-serif text-xl font-semibold text-on-surface mb-3">
@@ -234,6 +304,62 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Team Section */}
+      <section className="bg-surface py-22 md:py-30">
+        <div ref={teamRef} className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={teamInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7 }}
+            className="text-center mb-16"
+          >
+            <span className="inline-block font-sans text-xs font-bold uppercase tracking-[0.2em] text-primary mb-4">
+              Our Team
+            </span>
+            <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-on-background mb-5">
+              The Hearts Behind the Care
+            </h2>
+            <p className="font-sans text-base md:text-lg text-on-surface-variant max-w-2xl mx-auto">
+              Our multidisciplinary team combines clinical excellence with deep
+              personal empathy.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {teamMembers.map((member, index) => (
+              <motion.div
+                key={member.name}
+                initial={{ opacity: 0, y: 40 }}
+                animate={teamInView ? { opacity: 1, y: 0 } : {}}
+                transition={{
+                  duration: 0.7,
+                  delay: index * 0.12,
+                }}
+                className="bg-surface-container-lowest rounded-sanctuary-lg overflow-hidden shadow-sanctuary text-center"
+              >
+                <div className="relative h-64 overflow-hidden bg-black flex items-center justify-center">
+                  {member.video ? (
+                    <TeamVideo src={member.video} alt={member.name} />
+                  ) : (
+                    <Image
+                      src={member.image}
+                      alt={member.name}
+                      fill
+                      className="object-cover"
+                      loading="lazy"
+                    />
+                  )}
+                </div>
+                <div className="p-6">
+                  <h3 className="font-serif text-lg font-semibold text-on-surface">
+                    {member.name}
+                  </h3>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
 
     </>
   );

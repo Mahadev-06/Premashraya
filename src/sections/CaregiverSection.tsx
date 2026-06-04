@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 
 const carePoints = [
@@ -13,8 +13,23 @@ const carePoints = [
 
 export default function CaregiverSection() {
   const ref = useRef(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isVideoInView = useInView(videoRef, { margin: "-50px" });
   const { t } = useLanguage();
+
+  useEffect(() => {
+    if (videoRef.current) {
+      if (isVideoInView) {
+        // Attempt to auto-play when scrolled into view
+        // Browsers may block this if not muted and no user interaction, so we catch the error silently
+        videoRef.current.play().catch((e) => console.log("Autoplay prevented by browser", e));
+      } else {
+        videoRef.current.pause();
+      }
+    }
+  }, [isVideoInView]);
 
   return (
     <section className="bg-surface-container-low py-16 md:py-30">
@@ -30,15 +45,25 @@ export default function CaregiverSection() {
             transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
             className="relative"
           >
-            <div className="relative h-[320px] sm:h-[400px] md:h-[600px] rounded-sanctuary-lg overflow-hidden shadow-sanctuary-lg bg-black">
+            <div className="relative h-[320px] sm:h-[400px] md:h-[600px] rounded-sanctuary-lg overflow-hidden shadow-sanctuary-lg bg-black flex items-center justify-center">
+              {/* Loading Spinner */}
+              {!isVideoLoaded && (
+                <div className="absolute inset-0 flex items-center justify-center z-10 bg-surface-container-lowest">
+                  <div className="w-10 h-10 border-4 border-surface-container-highest border-t-primary rounded-full animate-spin"></div>
+                </div>
+              )}
+              
               <video
+                ref={videoRef}
                 src="/videos/Debendra 3.mp4"
+                preload="auto"
                 controls
                 controlsList="nodownload"
                 disablePictureInPicture
                 loop
                 playsInline
-                className="w-full h-full object-cover"
+                onCanPlay={() => setIsVideoLoaded(true)}
+                className={`w-full h-full object-cover relative z-0 transition-opacity duration-700 ${isVideoLoaded ? 'opacity-100' : 'opacity-0'}`}
               />
             </div>
             {/* Floating stat card */}
