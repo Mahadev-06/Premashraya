@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center bg-surface overflow-hidden">
+    <section className="relative min-h-screen flex items-center bg-surface bg-motif-pattern overflow-hidden">
       {/* Background image with overlay */}
       <div className="absolute inset-0">
         <Image

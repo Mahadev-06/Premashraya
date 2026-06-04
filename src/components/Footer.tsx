@@ -10,9 +10,6 @@ const footerLinks = {
     { label: "Gallery", href: "/gallery" },
     { label: "Contact Us", href: "/contact" },
   ],
-  support: [
-    { label: "Privacy Policy", href: "#" },
-  ],
 };
 
 export default function Footer() {
@@ -46,7 +43,7 @@ export default function Footer() {
 
       {/* Footer Content */}
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10 py-10 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3 mb-4">
@@ -69,7 +66,7 @@ export default function Footer() {
           </div>
 
           {/* Sanctuary Links */}
-          <div>
+          <div className="md:justify-self-center md:pl-10">
             <h3 className="font-sans text-xs font-bold uppercase tracking-[0.15em] text-on-surface-variant mb-5">
               Quick Links
             </h3>
@@ -87,24 +84,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Support Links */}
-          <div>
-            <h3 className="font-sans text-xs font-bold uppercase tracking-[0.15em] text-on-surface-variant mb-5">
-              Support
-            </h3>
-            <ul className="space-y-3">
-              {footerLinks.support.map((link) => (
-                <li key={link.label}>
-                  <Link
-                    href={link.href}
-                    className="font-sans text-sm text-on-surface-variant hover:text-primary transition-colors duration-300"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+
         </div>
 
         {/* Bottom Bar */}

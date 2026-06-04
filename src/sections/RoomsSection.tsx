@@ -10,21 +10,21 @@ const rooms = [
     title: "Comfortable Rooms",
     description:
       "Clean and well-maintained accommodation for cancer patients and one attendant.",
-    image: "/images/room-suite.png",
+    image: "/images/Gallery1.jpg",
     video: "/videos/Comfortable Rooms.mp4",
   },
   {
     title: "Peaceful Common Areas",
     description:
       "Quiet spaces for rest, evening bhajans, light yoga, and emotional well-being.",
-    image: "/images/garden.png",
+    image: "/images/Gallery4.jpg",
     video: "/videos/Common Space.mp4",
   },
   {
     title: "Nutritious Daily Meals",
     description:
       "Fresh, hygienic meals prepared daily to support patients and their families during their stay.",
-    image: "/images/dining.png",
+    image: "/images/Gallery7.jpg",
     video: "/videos/Daily Meals.mp4",
   },
 ];
@@ -49,7 +49,7 @@ function RoomCard({
         delay: index * 0.15,
         ease: [0.4, 0, 0.2, 1],
       }}
-      className="group bg-surface-container-lowest rounded-sanctuary-lg overflow-hidden shadow-sanctuary transition-sanctuary hover:shadow-sanctuary-lg"
+      className="group bg-surface-container-lowest rounded-t-[120px] rounded-b-2xl overflow-hidden shadow-sanctuary transition-sanctuary hover:shadow-sanctuary-lg"
     >
       <div className="relative h-64 md:h-72 overflow-hidden bg-black">
         {room.video ? (

@@ -12,13 +12,13 @@
   --color-on-primary: #ffffff;
   --color-on-primary-container: #660D12;
 
-  /* Secondary Palette - Logo Rich Gold */
-  --color-secondary: #D4AF37;
-  --color-secondary-container: #FEF9E7;
-  --color-secondary-dim: #B7950B;
-  --color-secondary-fixed: #FCF3CF;
+  /* Secondary Palette - Marigold / Saffron */
+  --color-secondary: #F39C12;
+  --color-secondary-container: #FEF5E7;
+  --color-secondary-dim: #D68910;
+  --color-secondary-fixed: #FDEBD0;
   --color-on-secondary: #ffffff;
-  --color-on-secondary-container: #5F4B1A;
+  --color-on-secondary-container: #7E5109;
 
   /* Tertiary Palette - Warm Terracotta/Taupe */
   --color-tertiary: #7A5B51;
@@ -59,8 +59,8 @@
   --color-inverse-primary: #e6fde4;
 
   /* Typography */
-  --font-serif: 'Cormorant Garamond', Georgia, serif;
-  --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-serif: 'Rozha One', serif;
+  --font-sans: 'Hind', system-ui, sans-serif;
 
   /* Sanctuary Spacing Scale (generous breathing room - mobile first) */
   --spacing-18: 3rem;
@@ -201,4 +201,9 @@ h1, h2, h3, h4, h5, h6 {
   button, a {
     touch-action: manipulation;
   }
+}
+
+/* ===== Subtle Motif Pattern ===== */
+.bg-motif-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 0l2.5 7.5L20 10l-7.5 2.5L10 20l-2.5-7.5L0 10l7.5-2.5z' fill='%23C51B24' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
 }

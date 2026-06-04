@@ -10,33 +10,33 @@ const activities = [
     title: "BHAJANS & LIGHT YOGA",
     description:
       "Gentle evening activities that encourage calmness, relaxation, and emotional well-being.",
-    image: "/images/yoga.jpg",
+    image: "/images/Gallery8.jpg",
     icon: <Flower2 className="w-[18px] h-[18px]" />,
   },
   {
     title: "DAILY MEALS",
     description:
       "Fresh and hygienic meals prepared daily for patients and attendants staying at Premashraya.",
-    image: "/images/meals.jpg",
+    image: "/images/Gallery9.jpg",
     icon: <Utensils className="w-[18px] h-[18px]" />,
   },
   {
     title: "HYGIENIC ENVIRONMENT",
     description: "Rooms, washrooms, and common areas are sanitized regularly to maintain cleanliness and comfort.",
-    image: "/images/hygiene.jpg",
+    image: "/images/Gallery10.jpg",
     icon: <Sparkles className="w-[18px] h-[18px]" />,
   },
   {
     title: "COMMON SPACES",
     description: "Shared spaces for rest, conversation, television, and quiet moments with family members.",
-    image: "/images/community.jpg",
+    image: "/images/Gallery11.jpg",
     icon: <Users className="w-[18px] h-[18px]" />,
   },
   {
     title: "SAFE & SUPPORTIVE STAY",
     description:
       "A respectful environment where families can focus on treatment without worrying about accommodation.",
-    image: "/images/support.jpg",
+    image: "/images/Gallery12.jpg",
     icon: <HeartHandshake className="w-[18px] h-[18px]" />,
   },
 ];
@@ -61,7 +61,7 @@ function ActivityCard({
         delay: index * 0.1,
         ease: [0.4, 0, 0.2, 1],
       }}
-      className="group relative bg-surface-container-lowest rounded-sanctuary-lg overflow-hidden shadow-sanctuary transition-sanctuary hover:shadow-sanctuary-md"
+      className="group relative bg-surface-container-lowest rounded-t-[120px] rounded-b-2xl overflow-hidden shadow-sanctuary transition-sanctuary hover:shadow-sanctuary-md"
     >
       <div className="relative h-52 overflow-hidden">
         <Image
@@ -93,7 +93,7 @@ export default function ActivitiesSection() {
   const headerInView = useInView(headerRef, { once: true, margin: "-100px" });
 
   return (
-    <section className="bg-surface py-16 md:py-30">
+    <section className="bg-surface bg-motif-pattern py-16 md:py-30">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10">
         {/* Section Header */}
         <motion.div
