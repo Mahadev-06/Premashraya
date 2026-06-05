@@ -19,7 +19,7 @@ const activities = [
   },
   {
     id: "act3",
-    image: "/images/Gallery10.jpg",
+    image: "/images/hygiene.jpg",
     icon: <Sparkles className="w-[18px] h-[18px]" />,
   },
   {
@@ -29,7 +29,7 @@ const activities = [
   },
   {
     id: "act5",
-    image: "/images/Gallery8.jpg",
+    image: "/images/support.jpg",
     icon: <HeartHandshake className="w-[18px] h-[18px]" />,
   },
 ];

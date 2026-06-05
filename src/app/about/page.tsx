@@ -204,31 +204,18 @@ export default function AboutPage() {
             {t("about.tourDesc")}
           </p>
 
-          {/* Video Placeholder */}
+          {/* Video Auto-play */}
           <div className="relative max-w-4xl mx-auto rounded-sanctuary-lg overflow-hidden shadow-sanctuary-lg aspect-video bg-surface-container-highest">
-            <Image
-              src="/images/hero.jpg"
-              alt="Video thumbnail - tour of Premashraya"
-              fill
-              className="object-cover opacity-80"
-              loading="lazy"
+            <video
+              src="/videos/Premashraya.mp4"
+              poster="/images/hero.jpg"
+              preload="auto"
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <button
-                className="w-20 h-20 rounded-full bg-surface/90 backdrop-blur-[12px] flex items-center justify-center shadow-sanctuary-lg hover:scale-110 transition-transform duration-300"
-                aria-label="Play video tour"
-                id="play-video-tour"
-              >
-                <svg
-                  width="28"
-                  height="28"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                >
-                  <path d="M8 5v14l11-7L8 5z" fill="var(--color-primary)" />
-                </svg>
-              </button>
-            </div>
           </div>
         </div>
       </section>

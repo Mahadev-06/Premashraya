@@ -59,8 +59,8 @@
   --color-inverse-primary: #e6fde4;
 
   /* Typography */
-  --font-serif: 'Rozha One', serif;
-  --font-sans: 'Hind', system-ui, sans-serif;
+  --font-serif: 'Lora', serif;
+  --font-sans: 'Nunito', system-ui, sans-serif;
 
   /* Sanctuary Spacing Scale (generous breathing room - mobile first) */
   --spacing-18: 3rem;

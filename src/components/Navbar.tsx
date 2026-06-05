@@ -63,9 +63,9 @@ export default function Navbar() {
               window.scrollTo({ top: 0, behavior: "smooth" });
             }
           }}
-          className="flex items-center gap-3 group"
+          className="flex items-center gap-2 md:gap-3 group shrink-0"
         >
-          <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center p-1 shadow-sm overflow-hidden transition-transform duration-300 group-hover:scale-105">
+          <div className="w-10 h-10 md:w-12 md:h-12 shrink-0 rounded-full bg-white flex items-center justify-center p-1 shadow-sm overflow-hidden transition-transform duration-300 group-hover:scale-105">
             <Image
               src="/images/logo.png"
               alt="Premashraya Logo"
@@ -75,7 +75,7 @@ export default function Navbar() {
               priority
             />
           </div>
-          <span className="font-serif text-xl md:text-2xl font-bold text-on-surface tracking-wide group-hover:text-primary transition-colors duration-300">
+          <span className="font-serif text-lg sm:text-xl md:text-2xl font-bold text-on-surface tracking-wide group-hover:text-primary transition-colors duration-300 truncate">
             Premashraya
           </span>
         </Link>
@@ -143,65 +143,69 @@ export default function Navbar() {
           </div>
         </nav>
 
-        {/* Mobile Toggle */}
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden flex flex-col gap-1.5 p-2"
-          aria-label="Toggle menu"
-          id="mobile-menu-toggle"
-        >
-          <motion.span
-            animate={mobileOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-            className="w-6 h-0.5 bg-on-surface block"
-          />
-          <motion.span
-            animate={mobileOpen ? { opacity: 0 } : { opacity: 1 }}
-            className="w-6 h-0.5 bg-on-surface block"
-          />
-          <motion.span
-            animate={
-              mobileOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }
-            }
-            className="w-6 h-0.5 bg-on-surface block"
-          />
-        </button>
-        {/* Language Switcher Mobile (next to hamburger) */}
-        <div 
-          className="md:hidden ml-auto mr-4 relative"
-          onMouseEnter={() => setShowTooltip(true)}
-          onMouseLeave={() => setShowTooltip(false)}
-        >
-          <button
-            onClick={() => {
-              setLanguage(language === "en" ? "or" : "en");
-              setShowTooltip(false);
-              localStorage.setItem("hasSeenLangTooltip", "true");
-            }}
-            className="px-2 py-1 rounded-full border border-outline-variant font-sans text-[10px] font-semibold flex items-center gap-1.5"
+        {/* Mobile Controls */}
+        <div className="flex md:hidden items-center gap-1.5 sm:gap-3 shrink-0">
+          {/* Language Switcher Mobile */}
+          <div 
+            className="relative"
+            onMouseEnter={() => setShowTooltip(true)}
+            onMouseLeave={() => setShowTooltip(false)}
           >
-            <span className={language === "en" ? "text-primary" : "text-on-surface-variant"}>EN</span>
-            <span className="text-outline-variant">|</span>
-            <span className={language === "or" ? "text-primary font-oriya" : "text-on-surface-variant font-oriya"}>ଓଡ଼ିଆ</span>
+            <button
+              onClick={() => {
+                setLanguage(language === "en" ? "or" : "en");
+                setShowTooltip(false);
+                localStorage.setItem("hasSeenLangTooltip", "true");
+              }}
+              className="px-2 py-1 sm:px-2.5 sm:py-1.5 rounded-full border border-outline-variant font-sans text-[10px] sm:text-xs font-semibold flex items-center gap-1 sm:gap-1.5 hover:bg-surface-container transition-colors"
+            >
+              <span className={language === "en" ? "text-primary" : "text-on-surface-variant"}>EN</span>
+              <span className="text-outline-variant">|</span>
+              <span className={language === "or" ? "text-primary font-oriya" : "text-on-surface-variant font-oriya"}>ଓଡ଼ିଆ</span>
+            </button>
+            
+            <AnimatePresence>
+              {showTooltip && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                  className="absolute top-[130%] right-0 w-44 bg-primary text-white p-2.5 rounded-lg shadow-xl pointer-events-none z-50 origin-top-right"
+                >
+                  <div className="absolute -top-1.5 right-6 w-3 h-3 bg-primary transform rotate-45" />
+                  <p className="font-sans text-[10px] font-medium text-center leading-relaxed">
+                    Click here to change language
+                  </p>
+                  <p className="font-oriya text-[10px] font-medium text-center leading-relaxed mt-1 border-t border-white/20 pt-1">
+                    ଭାଷା ପରିବର୍ତ୍ତନ କରିବାକୁ ଏଠାରେ କ୍ଲିକ୍ କରନ୍ତୁ
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          {/* Mobile Toggle */}
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="flex flex-col gap-1 sm:gap-1.5 p-1.5 sm:p-2 focus:outline-none"
+            aria-label="Toggle menu"
+            id="mobile-menu-toggle"
+          >
+            <motion.span
+              animate={mobileOpen ? { rotate: 45, y: 5 } : { rotate: 0, y: 0 }}
+              className="w-5 sm:w-6 h-0.5 bg-on-surface block"
+            />
+            <motion.span
+              animate={mobileOpen ? { opacity: 0 } : { opacity: 1 }}
+              className="w-5 sm:w-6 h-0.5 bg-on-surface block"
+            />
+            <motion.span
+              animate={
+                mobileOpen ? { rotate: -45, y: -5 } : { rotate: 0, y: 0 }
+              }
+              className="w-5 sm:w-6 h-0.5 bg-on-surface block"
+            />
           </button>
-          
-          <AnimatePresence>
-            {showTooltip && (
-              <motion.div
-                initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                className="absolute top-[130%] right-0 w-44 bg-primary text-white p-2.5 rounded-lg shadow-xl pointer-events-none z-50 origin-top-right"
-              >
-                <div className="absolute -top-1.5 right-6 w-3 h-3 bg-primary transform rotate-45" />
-                <p className="font-sans text-[10px] font-medium text-center leading-relaxed">
-                  Click here to change language
-                </p>
-                <p className="font-oriya text-[10px] font-medium text-center leading-relaxed mt-1 border-t border-white/20 pt-1">
-                  ଭାଷା ପରିବର୍ତ୍ତନ କରିବାକୁ ଏଠାରେ କ୍ଲିକ୍ କରନ୍ତୁ
-                </p>
-              </motion.div>
-            )}
-          </AnimatePresence>
         </div>
       </div>
 
