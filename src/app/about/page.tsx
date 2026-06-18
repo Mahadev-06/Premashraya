@@ -3,13 +3,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 
 const TeamVideo = ({ src, alt }: { src: string; alt: string }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const isVideoInView = useInView(videoRef, { margin: "-50px" });
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
   useEffect(() => {
     if (videoRef.current) {
@@ -22,27 +21,48 @@ const TeamVideo = ({ src, alt }: { src: string; alt: string }) => {
   }, [isVideoInView]);
 
   return (
-    <>
-      {!isVideoLoaded && (
-        <div className="absolute inset-0 flex items-center justify-center z-10 bg-surface-container-lowest">
-          <div className="w-10 h-10 border-4 border-surface-container-highest border-t-primary rounded-full animate-spin"></div>
-        </div>
-      )}
-      <video
-        ref={videoRef}
-        src={src}
-        preload="auto"
-        controls
-        controlsList="nodownload"
-        disablePictureInPicture
-        loop
-        playsInline
-        onCanPlay={() => setIsVideoLoaded(true)}
-        className={`w-full h-full object-cover relative z-0 transition-opacity duration-700 ${
-          isVideoLoaded ? "opacity-100" : "opacity-0"
-        }`}
-      />
-    </>
+    <video
+      ref={videoRef}
+      src={src}
+      preload="auto"
+      controls
+      controlsList="nodownload"
+      disablePictureInPicture
+      loop
+      playsInline
+      className="w-full h-full object-cover relative z-0"
+    />
+  );
+};
+
+
+const FacilityVideo = ({ src, poster }: { src: string; poster: string }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const isInView = useInView(videoRef, { margin: "-50px" });
+
+  useEffect(() => {
+    if (videoRef.current) {
+      if (isInView) {
+        videoRef.current.play().catch(() => {});
+      } else {
+        videoRef.current.pause();
+      }
+    }
+  }, [isInView]);
+
+  return (
+    <video
+      ref={videoRef}
+      src={src}
+      poster={poster}
+      preload="auto"
+      loop
+      muted
+      controlsList="nodownload"
+      disablePictureInPicture
+      playsInline
+      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+    />
   );
 };
 
@@ -62,6 +82,17 @@ export default function AboutPage() {
   const ctaRef = useRef(null);
   const ctaInView = useInView(ctaRef, { once: true, margin: "-100px" });
   const { t } = useLanguage();
+
+  const tourVideoRef = useRef<HTMLVideoElement>(null);
+  const isTourVideoInView = useInView(tourVideoRef, { margin: "-50px" });
+
+  useEffect(() => {
+    if (tourVideoRef.current) {
+      if (!isTourVideoInView) {
+        tourVideoRef.current.pause();
+      }
+    }
+  }, [isTourVideoInView]);
 
   const teamMembers = [
     {
@@ -102,96 +133,81 @@ export default function AboutPage() {
   ];
 
   return (
-    <>
+    <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="relative bg-surface pt-28 pb-20 md:pt-40 md:pb-30 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-primary-container/10 to-transparent" />
-        <div
-          ref={heroRef}
-          className="relative max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10"
-        >
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
+      <section
+        ref={heroRef}
+        className="relative h-[60vh] sm:h-[70vh] flex items-center justify-center overflow-hidden bg-black"
+      >
+        <Image
+          src="/images/hero.jpg"
+          alt="Comfort Care Sanctuary"
+          fill
+          priority
+          className="object-cover opacity-60"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+        <div className="relative z-10 text-center px-4 max-w-4xl">
+          <motion.span
+            initial={{ opacity: 0, y: 20 }}
             animate={heroInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8 }}
-            className="max-w-3xl"
+            transition={{ duration: 0.6 }}
+            className="inline-block font-sans text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-primary mb-4"
           >
-            <span className="inline-block font-sans text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-secondary mb-4 sm:mb-6">
-              {t("about.label")}
-            </span>
-            <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-semibold text-on-background leading-[1.15] md:leading-[1.1] mb-4 md:mb-6">
-              {t("about.title")}
-            </h1>
-            <p className="font-sans text-base md:text-lg lg:text-xl text-on-surface-variant leading-relaxed max-w-2xl">
-              {t("about.description")}
-            </p>
-          </motion.div>
+            {t("about.label")}
+          </motion.span>
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={heroInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.1 }}
+            className="font-serif text-4xl sm:text-5xl md:text-6xl font-semibold text-white mb-6 leading-tight"
+          >
+            {t("about.title")}
+          </motion.h1>
         </div>
       </section>
 
       {/* Mission Section */}
-      <section className="bg-surface-container-low py-22 md:py-30">
+      <section className="bg-surface py-22 md:py-30">
         <div
           ref={missionRef}
           className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10"
         >
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={missionInView ? { opacity: 1, y: 0 } : {}}
+              initial={{ opacity: 0, x: -30 }}
+              animate={missionInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.8 }}
             >
-              <span className="inline-block font-sans text-xs font-bold uppercase tracking-[0.2em] text-primary mb-4">
+              <span className="inline-block font-sans text-xs font-bold uppercase tracking-[0.2em] text-tertiary mb-4">
                 {t("about.missionLabel")}
-              </span>
-              <h2 className="font-serif text-3xl md:text-4xl font-semibold text-on-background mb-6 leading-tight">
+              </span >
+              <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-on-background mb-6 leading-tight">
                 {t("about.missionTitle")}
               </h2>
-              <p className="font-sans text-base md:text-lg text-on-surface-variant leading-relaxed mb-8">
+              <p className="font-sans text-base text-on-surface-variant leading-relaxed mb-6">
                 {t("about.missionDesc")}
               </p>
-
-              <div className="space-y-6">
-                <div className="bg-surface-container-lowest rounded-sanctuary-md p-6 shadow-sanctuary">
-                  <h3 className="font-serif text-lg font-semibold text-on-surface mb-2">
-                    {t("about.safeTitle")}
-                  </h3>
-                  <p className="font-sans text-sm text-on-surface-variant">
-                    {t("about.safeDesc")}
-                  </p>
-                </div>
-                <div className="bg-surface-container-lowest rounded-sanctuary-md p-6 shadow-sanctuary">
-                  <h3 className="font-serif text-lg font-semibold text-on-surface mb-2">
-                    {t("about.careTitle")}
-                  </h3>
-                  <p className="font-sans text-sm text-on-surface-variant">
-                    {t("about.careDesc")}
-                  </p>
-                </div>
-              </div>
             </motion.div>
-
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={missionInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative"
+              initial={{ opacity: 0, x: 30 }}
+              animate={missionInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.8 }}
+              className="relative h-[300px] sm:h-[400px] rounded-sanctuary-lg overflow-hidden shadow-sanctuary-lg bg-surface-container-highest"
             >
-              <div className="relative h-[320px] sm:h-[400px] md:h-[600px] rounded-sanctuary-lg overflow-hidden shadow-sanctuary-lg">
-                <Image
-                  src="/images/mission.jpg"
-                  alt="Premashraya signboard - A Home for Cancer Patients"
-                  fill
-                  className="object-cover"
-                  loading="lazy"
-                />
-              </div>
+              <Image
+                src="/images/Gallery12.jpg"
+                alt="Care facility"
+                fill
+                className="object-cover"
+                loading="lazy"
+              />
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Video Section */}
+      {/* Virtual Tour Section */}
       <section className="bg-surface py-22 md:py-30">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10 text-center">
           <span className="inline-block font-sans text-xs font-bold uppercase tracking-[0.2em] text-tertiary mb-4">
@@ -207,10 +223,10 @@ export default function AboutPage() {
           {/* Video Auto-play */}
           <div className="relative max-w-4xl mx-auto rounded-sanctuary-lg overflow-hidden shadow-sanctuary-lg aspect-video bg-surface-container-highest">
             <video
+              ref={tourVideoRef}
               src="/videos/Premashraya 2.mp4"
               poster="/images/hero.jpg"
               preload="auto"
-              autoPlay
               loop
               controls
               controlsList="nodownload"
@@ -234,15 +250,12 @@ export default function AboutPage() {
             transition={{ duration: 0.7 }}
             className="text-center mb-16"
           >
-            <span className="inline-block font-sans text-xs font-bold uppercase tracking-[0.2em] text-secondary mb-4">
+            <span className="inline-block font-sans text-xs font-bold uppercase tracking-[0.2em] text-tertiary mb-4">
               {t("about.facilitiesLabel")}
             </span>
-            <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-on-background mb-5">
+            <h2 className="font-serif text-3xl md:text-4xl font-semibold text-on-background">
               {t("about.facilitiesTitle")}
             </h2>
-            <p className="font-sans text-base md:text-lg text-on-surface-variant max-w-2xl mx-auto">
-              {t("about.facilitiesDesc")}
-            </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -259,17 +272,9 @@ export default function AboutPage() {
               >
                 <div className="relative h-56 overflow-hidden bg-black">
                   {facility.video ? (
-                    <video
+                    <FacilityVideo
                       src={facility.video}
                       poster={facility.image}
-                      preload="auto"
-                      autoPlay
-                      loop
-                      muted
-                      controlsList="nodownload"
-                      disablePictureInPicture
-                      playsInline
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                   ) : (
                     <Image
@@ -352,6 +357,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-    </>
+    </div>
   );
 }

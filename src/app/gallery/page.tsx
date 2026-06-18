@@ -2,8 +2,34 @@
 
 import Image from "next/image";
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useLanguage } from "@/context/LanguageContext";
+
+const TestimonialVideo = ({ num }: { num: number }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const isVideoInView = useInView(videoRef, { margin: "-50px" });
+
+  useEffect(() => {
+    if (videoRef.current) {
+      if (!isVideoInView) {
+        videoRef.current.pause();
+      }
+    }
+  }, [isVideoInView]);
+
+  return (
+    <video
+      ref={videoRef}
+      src={`/videos/testimonial ${num}.mp4`}
+      controls
+      preload="auto"
+      controlsList="nodownload"
+      disablePictureInPicture
+      playsInline
+      className="w-full h-full object-cover relative z-0"
+    />
+  );
+};
 
 const galleryCategories = ["All", "Rooms & Facilities", "Daily Life"];
 
@@ -225,14 +251,7 @@ export default function GalleryPage() {
                 className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] p-2 sm:p-3 relative rounded-[2rem] shadow-sanctuary bg-white/60 backdrop-blur-sm aspect-[4/5] sm:aspect-video"
               >
                 <div className="w-full h-full rounded-[1.5rem] overflow-hidden shadow-inner bg-black/5">
-                  <video
-                    src={`/videos/testimonial ${num}.mp4`}
-                    controls
-                    preload="metadata"
-                    controlsList="nodownload"
-                    disablePictureInPicture
-                    className="w-full h-full object-cover"
-                  />
+                  <TestimonialVideo num={num} />
                 </div>
               </motion.div>
             ))}

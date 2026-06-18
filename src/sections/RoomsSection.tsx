@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 
 const rooms = [
@@ -33,7 +33,19 @@ function RoomCard({
 }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const isVideoInView = useInView(videoRef, { margin: "-50px" });
   const { t } = useLanguage();
+
+  useEffect(() => {
+    if (videoRef.current) {
+      if (isVideoInView) {
+        videoRef.current.play().catch(() => {});
+      } else {
+        videoRef.current.pause();
+      }
+    }
+  }, [isVideoInView]);
 
   return (
     <motion.div
@@ -50,10 +62,10 @@ function RoomCard({
       <div className="relative h-64 md:h-72 overflow-hidden bg-black">
         {room.video ? (
           <video
+            ref={videoRef}
             src={room.video}
             poster={room.image}
             preload="auto"
-            autoPlay
             loop
             muted
             controlsList="nodownload"
