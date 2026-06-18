@@ -23,7 +23,7 @@ export const en = {
     label: "A MESSAGE FROM THE FOUNDER",
     quote: "“No family should struggle for dignity, rest, and care while fighting cancer.”",
     description: "Premashraya was created to provide patients and their loved ones with a safe, clean, and compassionate place to stay during treatment journeys.",
-    name: "Mr. Vinod Agarwal",
+    name: "Mr. Binod Agarwal",
   },
   rooms: {
     label: "OUR FACILITIES",

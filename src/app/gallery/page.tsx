@@ -92,6 +92,27 @@ const galleryItems = [
     span: "col-span-1",
     height: "h-60 md:h-72",
   },
+  {
+    title: "Premashraya Gallery 13",
+    image: "/images/gallery13.jpg.jpeg",
+    category: "Rooms & Facilities",
+    span: "col-span-1",
+    height: "h-60 md:h-72",
+  },
+  {
+    title: "Premashraya Gallery 14",
+    image: "/images/gallery14.jpg.jpeg",
+    category: "Daily Life",
+    span: "col-span-1",
+    height: "h-60 md:h-72",
+  },
+  {
+    title: "Premashraya Gallery 15",
+    image: "/images/gallery15.jpg.jpeg",
+    category: "Rooms & Facilities",
+    span: "col-span-1 md:col-span-2",
+    height: "h-60 md:h-72",
+  },
 ];
 
 export default function GalleryPage() {
@@ -173,6 +194,49 @@ export default function GalleryPage() {
               ))}
             </AnimatePresence>
           </motion.div>
+        </div>
+      </section>
+      {/* Testimonials Section */}
+      <section className="bg-surface py-12 md:py-20">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7 }}
+            className="text-center mb-12 md:mb-16"
+          >
+            <span className="inline-block font-sans text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-tertiary mb-4">
+              Testimonials
+            </span>
+            <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-on-background">
+              Hear From Our Guests
+            </h2>
+          </motion.div>
+
+          <div className="flex flex-wrap justify-center gap-6">
+            {[1, 2, 3, 4, 5, 6].map((num, index) => (
+              <motion.div
+                key={`testimonial-${num}`}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] p-2 sm:p-3 relative rounded-[2rem] shadow-sanctuary bg-white/60 backdrop-blur-sm aspect-[4/5] sm:aspect-video"
+              >
+                <div className="w-full h-full rounded-[1.5rem] overflow-hidden shadow-inner bg-black/5">
+                  <video
+                    src={`/videos/testimonial ${num}.mp4`}
+                    controls
+                    preload="metadata"
+                    controlsList="nodownload"
+                    disablePictureInPicture
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 

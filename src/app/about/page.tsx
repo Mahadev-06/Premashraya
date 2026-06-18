@@ -65,16 +65,16 @@ export default function AboutPage() {
 
   const teamMembers = [
     {
-      name: "Vinod Agarwal",
+      name: "Binod Agarwal",
       image: "/images/dr-elena.png",
       video: "/videos/Vinod Agarwal.mp4",
     },
     {
-      name: "Vinod Agarwal and Satyakant Agarwal",
+      name: "Binod Agarwal and Satyanarayan Agarwal",
       image: "/images/_DSC9186.JPG",
     },
     {
-      name: "Satyakant Agarwal",
+      name: "Satyanarayan Agarwal",
       image: "/images/marcus.png",
       video: "/videos/Satyakant Agarwal.mp4",
     },
@@ -207,12 +207,14 @@ export default function AboutPage() {
           {/* Video Auto-play */}
           <div className="relative max-w-4xl mx-auto rounded-sanctuary-lg overflow-hidden shadow-sanctuary-lg aspect-video bg-surface-container-highest">
             <video
-              src="/videos/Premashraya.mp4"
+              src="/videos/Premashraya 2.mp4"
               poster="/images/hero.jpg"
               preload="auto"
               autoPlay
               loop
-              muted
+              controls
+              controlsList="nodownload"
+              disablePictureInPicture
               playsInline
               className="w-full h-full object-cover"
             />
@@ -264,6 +266,8 @@ export default function AboutPage() {
                       autoPlay
                       loop
                       muted
+                      controlsList="nodownload"
+                      disablePictureInPicture
                       playsInline
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
