@@ -61,6 +61,17 @@ export default function AboutPage() {
   const teamInView = useInView(teamRef, { once: true, margin: "-100px" });
   const ctaRef = useRef(null);
   const ctaInView = useInView(ctaRef, { once: true, margin: "-100px" });
+  const tourVideoRef = useRef<HTMLVideoElement>(null);
+  const isTourVideoInView = useInView(tourVideoRef, { margin: "-50px" });
+
+  useEffect(() => {
+    if (tourVideoRef.current) {
+      if (!isTourVideoInView) {
+        tourVideoRef.current.pause();
+      }
+    }
+  }, [isTourVideoInView]);
+
   const { t } = useLanguage();
 
   const teamMembers = [
@@ -207,13 +218,13 @@ export default function AboutPage() {
           {/* Video Auto-play */}
           <div className="relative max-w-4xl mx-auto rounded-sanctuary-lg overflow-hidden shadow-sanctuary-lg aspect-video bg-surface-container-highest">
             <video
+              ref={tourVideoRef}
               src="/videos/Premashraya 2.mp4"
               poster="/images/hero.jpg"
               preload="auto"
-              autoPlay
               loop
               controls
-              controlsList="nodownload"
+              controlsList="nodownload nofullscreen noplaybackrate"
               disablePictureInPicture
               playsInline
               className="w-full h-full object-cover"

@@ -9,6 +9,7 @@ const footerLinks = {
   sanctuary: [
     { key: "about", href: "/about" },
     { key: "gallery", href: "/gallery" },
+    { key: "donate", href: "/donate" },
     { key: "contact", href: "/contact" },
   ],
 };
