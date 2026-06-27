@@ -73,6 +73,14 @@ export default function AboutPage() {
   }, [isTourVideoInView]);
 
   const { t } = useLanguage();
+  const [videoLang, setVideoLang] = useState<"en" | "or" | "hi">("or");
+
+  const videoSrc =
+    videoLang === "or"
+      ? "/videos/Premashraya odia.mp4"
+      : videoLang === "hi"
+      ? "/videos/Premashraya hindi.mp4"
+      : "/videos/Premashraya 2.mp4";
 
   const teamMembers = [
     {
@@ -216,19 +224,59 @@ export default function AboutPage() {
           </p>
 
           {/* Video Auto-play */}
-          <div className="relative max-w-4xl mx-auto rounded-sanctuary-lg overflow-hidden shadow-sanctuary-lg aspect-video bg-surface-container-highest">
-            <video
-              ref={tourVideoRef}
-              src="/videos/Premashraya 2.mp4"
-              poster="/images/hero.jpg"
-              preload="auto"
-              loop
-              controls
-              controlsList="nodownload nofullscreen noplaybackrate"
-              disablePictureInPicture
-              playsInline
-              className="w-full h-full object-cover"
-            />
+          <div className="relative max-w-4xl mx-auto p-2 sm:p-3 rounded-[2rem] shadow-sanctuary bg-white/60 backdrop-blur-sm group">
+            <div className="relative w-full h-full rounded-[1.5rem] overflow-hidden shadow-inner bg-black/5 aspect-video">
+              {/* Language Switcher Overlay */}
+              <div 
+                className="absolute z-20 bg-black/60 backdrop-blur-md p-1 rounded-full flex gap-1 border border-white/10 shadow-lg"
+                style={{ top: '20px', right: '20px', left: 'auto' }}
+              >
+                <button
+                  onClick={() => setVideoLang("en")}
+                  className={`px-3 py-1 rounded-full text-[10px] sm:text-xs font-semibold transition-all duration-200 ${
+                    videoLang === "en"
+                      ? "bg-white text-neutral-900 shadow-sm"
+                      : "text-white/85 hover:text-white hover:bg-white/10"
+                  }`}
+                >
+                  English
+                </button>
+                <button
+                  onClick={() => setVideoLang("hi")}
+                  className={`px-3 py-1 rounded-full text-[10px] sm:text-xs font-semibold transition-all duration-200 ${
+                    videoLang === "hi"
+                      ? "bg-white text-neutral-900 shadow-sm"
+                      : "text-white/85 hover:text-white hover:bg-white/10"
+                  }`}
+                >
+                  हिन्दी
+                </button>
+                <button
+                  onClick={() => setVideoLang("or")}
+                  className={`px-3 py-1 rounded-full text-[10px] sm:text-xs font-semibold transition-all duration-200 ${
+                    videoLang === "or"
+                      ? "bg-white text-neutral-900 shadow-sm"
+                      : "text-white/85 hover:text-white hover:bg-white/10"
+                  }`}
+                >
+                  ଓଡ଼ିଆ
+                </button>
+              </div>
+
+              <video
+                key={videoSrc}
+                ref={tourVideoRef}
+                src={videoSrc}
+                poster="/images/hero.jpg"
+                preload="auto"
+                loop
+                controls
+                controlsList="nodownload nofullscreen noplaybackrate"
+                disablePictureInPicture
+                playsInline
+                className="w-full h-full object-cover"
+              />
+            </div>
           </div>
         </div>
       </section>
