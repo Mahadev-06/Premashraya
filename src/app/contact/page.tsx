@@ -9,7 +9,7 @@ import { useLanguage } from "@/context/LanguageContext";
 const contactInfo = [
   {
     label: "Phone",
-    value: "(555) 234-8900",
+    value: "+91 674 291 5788",
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
         <path
@@ -21,7 +21,7 @@ const contactInfo = [
   },
   {
     label: "Email",
-    value: "care@healingsanctuary.org",
+    value: "premashrayabbsr@gmail.com",
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
         <path

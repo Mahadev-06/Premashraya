@@ -4,457 +4,601 @@ import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { useLanguage } from "@/context/LanguageContext";
-import { 
-  Soup, 
-  Bed, 
-  HeartHandshake, 
-  Heart, 
-  ShieldCheck, 
-  Copy, 
-  Check, 
-  QrCode, 
+import {
+  Heart,
+  ShieldCheck,
+  Copy,
+  Check,
+  QrCode,
+  Lock,
+  Soup,
+  Bed,
+  HeartHandshake,
+  Landmark,
   CreditCard,
-  Lock
 } from "lucide-react";
 
+/* ─────────────────────────────────────────────
+   Page
+───────────────────────────────────────────── */
 export default function DonatePage() {
   const { language, t } = useLanguage();
-  const [selectedAmount, setSelectedAmount] = useState<number | string>(1000);
-  const [customAmount, setCustomAmount] = useState<string>("");
-  const [copied, setCopied] = useState(false);
-  const [showDemoFeedback, setShowDemoFeedback] = useState(false);
 
-  const heroRef = useRef(null);
-  const heroInView = useInView(heroRef, { once: true });
-  const whyRef = useRef(null);
-  const whyInView = useInView(whyRef, { once: true, margin: "-100px" });
-  const paymentRef = useRef(null);
-  const paymentInView = useInView(paymentRef, { once: true, margin: "-100px" });
-  const trustRef = useRef(null);
-  const trustInView = useInView(trustRef, { once: true, margin: "-100px" });
-  const transparencyRef = useRef(null);
-  const transparencyInView = useInView(transparencyRef, { once: true, margin: "-100px" });
+  /* ── State ── */
+  const [selectedAmount, setSelectedAmount] = useState<number | "custom">(1000);
+  const [customAmount, setCustomAmount] = useState("");
+  const [activeMethod, setActiveMethod] = useState<"upi" | "bank">("upi");
+  const [copiedField, setCopiedField] = useState<string | null>(null);
+  const [showThankYou, setShowThankYou] = useState(false);
 
+  /* ── Refs / InView ── */
+  const heroRef   = useRef(null);
+  const impactRef = useRef(null);
+  const formRef   = useRef(null);
+  const trustRef  = useRef(null);
+
+  const heroInView   = useInView(heroRef,   { once: true });
+  const impactInView = useInView(impactRef, { once: true, margin: "-60px" });
+  const formInView   = useInView(formRef,   { once: true, margin: "-60px" });
+  const trustInView  = useInView(trustRef,  { once: true, margin: "-60px" });
+
+  /* ── Helpers ── */
   const upiId = "premashrayatrust@sbi";
 
-  const copyUPI = () => {
-    navigator.clipboard.writeText(upiId);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const copyField = (val: string, id: string) => {
+    navigator.clipboard.writeText(val);
+    setCopiedField(id);
+    setTimeout(() => setCopiedField(null), 2000);
   };
 
-  const handlePredefinedAmountClick = (amount: number) => {
-    setSelectedAmount(amount);
-    setCustomAmount("");
-  };
+  const displayAmount =
+    selectedAmount === "custom" ? Number(customAmount || 0) : selectedAmount;
 
-  const handleCustomAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    if (value === "" || /^\d+$/.test(value)) {
-      setCustomAmount(value);
-      setSelectedAmount("custom");
-    }
-  };
-
-  const handleDonateSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setShowDemoFeedback(true);
+    setShowThankYou(true);
   };
 
-  const scrollToDonation = () => {
-    document.getElementById("donation-methods")?.scrollIntoView({ behavior: "smooth" });
-  };
+  /* ── Data ── */
+  const amountOptions = [500, 1000, 2500, 5000];
 
-  const impactCards = [
-    {
-      title: t("donate.nutritionTitle"),
-      desc: t("donate.nutritionDesc"),
-      icon: <Soup className="text-primary w-6 h-6" />,
-      colorClass: "bg-primary-container/20 border-primary/10"
-    },
-    {
-      title: t("donate.accommodationTitle"),
-      desc: t("donate.accommodationDesc"),
-      icon: <Bed className="text-secondary w-6 h-6" />,
-      colorClass: "bg-secondary-container/20 border-secondary/10"
-    },
-    {
-      title: t("donate.counsellingTitle"),
-      desc: t("donate.counsellingDesc"),
-      icon: <HeartHandshake className="text-tertiary w-6 h-6" />,
-      colorClass: "bg-tertiary-container/20 border-tertiary/10"
-    },
-    {
-      title: t("donate.careTitle"),
-      desc: t("donate.careDesc"),
-      icon: <Heart className="text-primary w-6 h-6" />,
-      colorClass: "bg-primary-container/20 border-primary/10"
-    }
+  const impactItems = [
+    { icon: <Soup            className="w-6 h-6" />, color: "text-orange-500", bg: "bg-orange-50",  num: "₹500",   label: language === "en" ? "Feeds a patient for a week"    : "ଏକ ସପ୍ତାହ ଭୋଜନ ଦିଏ" },
+    { icon: <Bed             className="w-6 h-6" />, color: "text-sky-500",    bg: "bg-sky-50",     num: "₹1,000", label: language === "en" ? "Covers one night's shelter"      : "ଏକ ରାତ ଆଶ୍ରୟ ଦିଏ" },
+    { icon: <HeartHandshake  className="w-6 h-6" />, color: "text-violet-500", bg: "bg-violet-50",  num: "₹2,500", label: language === "en" ? "Provides counselling support"    : "କାଉନ୍ସେଲିଂ ସହାୟତା" },
+    { icon: <Heart           className="w-6 h-6" />, color: "text-rose-500",   bg: "bg-rose-50",    num: "₹5,000", label: language === "en" ? "Supports a full week of care"   : "ସମ୍ପୂର୍ଣ୍ଣ ଏକ ସପ୍ତାହ ଯତ୍ନ" },
   ];
 
-  const feedbackMsg = language === "en"
-    ? "Thank you for your generous support! Premashraya's payment gateway is currently in demonstration mode. To complete your donation, you can use the UPI QR code or contact us."
-    : "ଆପଣଙ୍କର ଉଦାର ସହାୟତା ପାଇଁ ଧନ୍ୟବାଦ! ପ୍ରେମାଶ୍ରୟର ପେମେଣ୍ଟ ଗେଟୱେ ବର୍ତ୍ତମାନ ପ୍ରଦର୍ଶନ ମୋଡ୍‌ରେ ଅଛି। ଆପଣଙ୍କର ଦାନ ସମ୍ପୂର୍ଣ୍ଣ କରିବାକୁ ଆପଣ UPI QR କୋଡ୍ ବ୍ୟବହାର କରିପାରିବେ କିମ୍ବା ଆମ ସହ ଯୋଗାଯୋଗ କରିପାରିବେ।";
+  const bankFields = [
+    { id: "accName", label: language === "en" ? "Account Name"   : "ଖାତା ନାମ",   value: "Premashraya Charitable Trust", copy: false },
+    { id: "bank",    label: language === "en" ? "Bank"           : "ବ୍ୟାଙ୍କ",    value: "Axis Bank Ltd",               copy: false },
+    { id: "accNo",   label: language === "en" ? "Account Number" : "ଖାତା ନମ୍ବର", value: "922020055038264",             copy: true  },
+    { id: "ifsc",    label: language === "en" ? "IFSC Code"      : "IFSC କୋଡ",   value: "UTIB0000024",                copy: true  },
+  ];
 
+  /* ──────────────────────────────────────────
+     RENDER
+  ──────────────────────────────────────────── */
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative bg-surface pt-28 pb-20 md:pt-40 md:pb-30 overflow-hidden min-h-[85vh] flex flex-col justify-center">
-        <div className="absolute inset-0 bg-gradient-to-b from-primary-container/10 to-transparent" />
+      {/* ═══════════════════════════════════
+          HERO
+      ═══════════════════════════════════════ */}
+      <section className="relative bg-surface overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary-container/20 via-transparent to-secondary-container/10 pointer-events-none" />
+
         <div
           ref={heroRef}
-          className="relative w-full max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10"
+          className="relative z-10 w-full max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10 pt-24 pb-10 md:pt-36 md:pb-20"
         >
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={heroInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8 }}
-            className="max-w-4xl mx-auto text-center flex flex-col items-center"
-          >
-            <span className="inline-block font-sans text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-secondary mb-4 sm:mb-6">
-              {t("donate.label")}
-            </span>
-            <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-semibold text-on-background leading-[1.15] md:leading-[1.1] mb-6 md:mb-8">
-              {t("donate.heroHeadline")}
-            </h1>
-            <p className="font-sans text-base md:text-lg lg:text-xl text-on-surface-variant leading-relaxed max-w-2xl mx-auto mb-10">
-              {t("donate.heroSupporting")}
-            </p>
-            <button
-              onClick={scrollToDonation}
-              className="btn-primary-gradient px-8 py-4 rounded-full font-sans font-medium text-base inline-block shadow-sanctuary transition-transform active:scale-95 cursor-pointer"
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 items-center">
+
+            {/* ── Copy ── */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={heroInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.75 }}
             >
-              {t("donate.heroCTA")}
-            </button>
-          </motion.div>
+              <span className="inline-flex items-center gap-2 font-sans text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-secondary mb-4">
+                <Heart className="w-3 h-3 fill-secondary" />
+                {t("donate.label")}
+              </span>
+
+              <h1 className="font-serif text-3xl sm:text-4xl lg:text-[3.5rem] xl:text-6xl font-semibold text-on-background leading-[1.12] mb-4 md:mb-6">
+                {t("donate.heroHeadline")}
+              </h1>
+
+              <p className="font-sans text-sm md:text-lg text-on-surface-variant leading-relaxed mb-6 md:mb-8 max-w-lg">
+                {t("donate.heroSupporting")}
+              </p>
+
+              <a
+                href="#donate-form"
+                className="btn-primary-gradient inline-flex items-center gap-2 px-6 py-3.5 md:px-8 md:py-4 rounded-full font-sans font-semibold text-sm md:text-base shadow-sanctuary transition-transform active:scale-95"
+              >
+                <Heart className="w-4 h-4" />
+                {t("donate.heroCTA")}
+              </a>
+            </motion.div>
+
+            {/* ── Hero image — desktop only ── */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={heroInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.9, delay: 0.2 }}
+              className="relative hidden lg:block"
+            >
+              <div className="relative rounded-[2.5rem] overflow-hidden shadow-sanctuary-lg aspect-[4/5]">
+                <Image
+                  src="/images/hero.jpg"
+                  alt="Premashraya cancer care shelter"
+                  fill
+                  sizes="(max-width: 1024px) 0vw, 50vw"
+                  className="object-cover"
+                  priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                <div className="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur-md rounded-2xl p-4 shadow-lg">
+                  <p className="font-serif text-sm text-on-surface leading-snug mb-1.5">
+                    "No family should struggle for dignity while fighting cancer."
+                  </p>
+                  <p className="font-sans text-xs text-on-surface-variant font-semibold">
+                    — Mr. Binod Agarwal, Founder
+                  </p>
+                </div>
+              </div>
+              <div className="absolute -z-10 -top-10 -right-10 w-72 h-72 bg-primary-container/30 rounded-full blur-3xl" />
+              <div className="absolute -z-10 -bottom-10 -left-10 w-52 h-52 bg-secondary-container/30 rounded-full blur-3xl" />
+            </motion.div>
+
+          </div>
         </div>
       </section>
 
-      {/* Why Donate Section */}
-      <section className="bg-surface-container-low py-16 md:py-24">
+      {/* ═══════════════════════════════════
+          IMPACT MAPPING
+      ═══════════════════════════════════════ */}
+      <section className="bg-surface-container-low py-10 md:py-20">
         <div
-          ref={whyRef}
+          ref={impactRef}
           className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10"
         >
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={whyInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7 }}
-            className="text-center mb-16"
+            initial={{ opacity: 0, y: 20 }}
+            animate={impactInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-8 md:mb-12"
           >
-            <span className="inline-block font-sans text-xs font-bold uppercase tracking-[0.2em] text-primary mb-4">
+            <span className="inline-block font-sans text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-primary mb-2 md:mb-3">
               {t("donate.whyTitle")}
             </span>
-            <h2 className="font-serif text-3xl md:text-4xl font-semibold text-on-background mb-4">
-              {t("donate.title")}
+            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-semibold text-on-background mb-3">
+              {language === "en" ? "See Your Donation in Action" : "ଆପଣଙ୍କ ଦାନ ସଂଖ୍ୟକ ଦେଖନ୍ତୁ"}
             </h2>
-            <p className="font-sans text-base text-on-surface-variant max-w-2xl mx-auto">
+            <p className="font-sans text-sm md:text-base text-on-surface-variant max-w-xl mx-auto">
               {t("donate.whyDesc")}
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {impactCards.map((card, index) => (
+          {/* 2-col on mobile, 4-col on desktop */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5">
+            {impactItems.map((item, i) => (
               <motion.div
-                key={card.title}
-                initial={{ opacity: 0, y: 40 }}
-                animate={whyInView ? { opacity: 1, y: 0 } : {}}
-                transition={{
-                  duration: 0.7,
-                  delay: index * 0.12,
-                }}
-                className={`bg-surface-container-lowest rounded-sanctuary-lg p-6 sm:p-8 shadow-sanctuary hover:shadow-sanctuary-lg transition-sanctuary border ${card.colorClass}`}
+                key={item.num}
+                initial={{ opacity: 0, y: 24 }}
+                animate={impactInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.55, delay: i * 0.08 }}
+                className="bg-surface-container-lowest rounded-2xl p-4 md:p-6 border border-outline-variant/20 shadow-sanctuary cursor-default"
               >
-                <div className="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center mb-5">
-                  {card.icon}
+                <div className={`w-10 h-10 md:w-14 md:h-14 ${item.bg} rounded-xl md:rounded-2xl flex items-center justify-center mb-3 md:mb-5 ${item.color}`}>
+                  {item.icon}
                 </div>
-                <h3 className="font-serif text-lg font-semibold text-on-surface mb-3">
-                  {card.title}
-                </h3>
-                <p className="font-sans text-sm text-on-surface-variant leading-relaxed">
-                  {card.desc}
-                </p>
+                <p className="font-serif text-xl md:text-2xl font-bold text-on-surface mb-0.5">{item.num}</p>
+                <p className="font-sans text-xs md:text-sm text-on-surface-variant leading-snug">{item.label}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Donation Methods Section */}
-      <section id="donation-methods" className="bg-surface py-16 md:py-24">
+      {/* ═══════════════════════════════════
+          DONATION FORM
+      ═══════════════════════════════════════ */}
+      <section id="donate-form" className="bg-surface py-10 md:py-20">
         <div
-          ref={paymentRef}
+          ref={formRef}
           className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10"
         >
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-            {/* Razorpay Donation Form Mockup */}
+          {/* Section header */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={formInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-8 md:mb-12"
+          >
+            <span className="inline-block font-sans text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-secondary mb-2 md:mb-3">
+              {language === "en" ? "Make a Donation" : "ଦାନ କରନ୍ତୁ"}
+            </span>
+            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-semibold text-on-background">
+              {language === "en" ? "Choose How You Want to Give" : "ଆପଣ କିପରି ଦେବାକୁ ଚାହୁଁଛନ୍ତି ବଛନ୍ତୁ"}
+            </h2>
+          </motion.div>
+
+          {/* On mobile: stacked (amount → payment). On desktop: side-by-side */}
+          <div className="flex flex-col lg:grid lg:grid-cols-12 gap-6 lg:gap-12 items-start">
+
+            {/* ── Amount Picker ── */}
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={paymentInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.8 }}
-              className="lg:col-span-7 bg-surface-container-low rounded-sanctuary-lg p-6 sm:p-8 md:p-10 shadow-sanctuary border border-outline-variant/15"
+              initial={{ opacity: 0, y: 20 }}
+              animate={formInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7 }}
+              className="w-full lg:col-span-5 space-y-4 md:space-y-6"
             >
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center">
-                  <CreditCard className="text-primary w-5 h-5" />
-                </div>
-                <div>
-                  <h3 className="font-serif text-xl sm:text-2xl font-semibold text-on-surface">
-                    {t("donate.razorpayTitle")}
-                  </h3>
-                  <p className="font-sans text-xs text-on-surface-variant">
-                    {t("donate.razorpayDesc")}
-                  </p>
+              {/* Amount Grid — 2×2 on mobile */}
+              <div>
+                <p className="font-sans text-[10px] sm:text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-2 md:mb-3">
+                  {language === "en" ? "Select Amount" : "ରାଶି ବଛନ୍ତୁ"}
+                </p>
+                <div className="grid grid-cols-2 gap-2.5 md:gap-3">
+                  {amountOptions.map((amt) => (
+                    <button
+                      key={amt}
+                      onClick={() => { setSelectedAmount(amt); setCustomAmount(""); }}
+                      className={`py-4 px-3 rounded-xl font-sans font-semibold text-sm transition-all duration-200 border text-left active:scale-[0.97] ${
+                        selectedAmount === amt
+                          ? "bg-primary text-on-primary border-primary shadow-md"
+                          : "bg-surface-container-lowest text-on-surface border-outline-variant/30 hover:border-primary/40"
+                      }`}
+                    >
+                      <span className="text-base md:text-lg font-bold block">₹{amt.toLocaleString("en-IN")}</span>
+                      <span className={`text-xs mt-0.5 block ${selectedAmount === amt ? "text-on-primary/80" : "text-on-surface-variant"}`}>
+                        {amt === 500  && (language === "en" ? "1 week meals"        : "1 ସପ୍ତାହ ଭୋଜନ")}
+                        {amt === 1000 && (language === "en" ? "1 night's shelter"   : "1 ରାତ ଆଶ୍ରୟ")}
+                        {amt === 2500 && (language === "en" ? "Counselling session" : "କାଉନ୍ସେଲିଂ")}
+                        {amt === 5000 && (language === "en" ? "Full week of care"   : "ସମ୍ପୂର୍ଣ ଯତ୍ନ")}
+                      </span>
+                    </button>
+                  ))}
                 </div>
               </div>
 
-              {showDemoFeedback ? (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="bg-surface-container-lowest border border-outline-variant/30 rounded-sanctuary-md p-6 text-center py-10 md:py-16 shadow-inner"
-                >
-                  <div className="w-16 h-16 rounded-full bg-primary-container flex items-center justify-center mx-auto mb-5">
-                    <Heart className="text-primary w-8 h-8 fill-primary/10" />
-                  </div>
-                  <p className="font-sans text-sm md:text-base leading-relaxed text-on-surface mb-6 max-w-md mx-auto">
-                    {feedbackMsg}
-                  </p>
-                  <button
-                    onClick={() => {
-                      setShowDemoFeedback(false);
-                      setCustomAmount("");
-                      setSelectedAmount(1000);
+              {/* Custom Amount */}
+              <div>
+                <label className="font-sans text-[10px] sm:text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-2 block">
+                  {language === "en" ? "Or Enter Custom Amount (₹)" : "ଅନ୍ୟ ରାଶି ଲେଖନ୍ତୁ (₹)"}
+                </label>
+                <div className="flex items-center px-4 bg-surface-container-lowest rounded-xl focus-within:ring-2 focus-within:ring-primary/30 transition-all border border-outline-variant/20">
+                  <span className="font-sans font-semibold text-on-surface-variant text-xl mr-2">₹</span>
+                  <input
+                    type="number"
+                    inputMode="numeric"
+                    value={customAmount}
+                    onChange={(e) => {
+                      const v = e.target.value;
+                      if (v === "" || /^\d+$/.test(v)) {
+                        setCustomAmount(v);
+                        setSelectedAmount("custom");
+                      }
                     }}
-                    className="font-sans text-sm text-primary font-semibold hover:underline"
+                    className="w-full bg-transparent py-4 font-sans text-base font-semibold text-on-surface placeholder:text-outline-variant focus:outline-none"
+                    placeholder={language === "en" ? "Enter amount" : "ରାଶି ଲେଖନ୍ତୁ"}
+                  />
+                </div>
+              </div>
+
+              {/* Summary card */}
+              <div className="bg-primary-container/20 border border-primary/15 rounded-2xl p-4 flex items-center gap-3">
+                <div className="w-10 h-10 md:w-12 md:h-12 bg-primary-container rounded-xl flex items-center justify-center flex-shrink-0">
+                  <Heart className="w-5 h-5 md:w-6 md:h-6 text-primary" />
+                </div>
+                <div>
+                  <p className="font-sans text-xs text-on-surface-variant">
+                    {language === "en" ? "Your contribution" : "ଆପଣଙ୍କ ଦାନ"}
+                  </p>
+                  <p className="font-serif text-xl md:text-2xl font-bold text-primary">
+                    ₹{displayAmount.toLocaleString("en-IN")}
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* ── Payment Methods ── */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={formInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className="w-full lg:col-span-7 bg-surface-container-lowest rounded-2xl md:rounded-[1.75rem] border border-outline-variant/20 shadow-sanctuary overflow-hidden"
+            >
+              {/* Accent top bar */}
+              <div className="h-1 bg-gradient-to-r from-primary via-secondary to-tertiary" />
+
+              <div className="p-4 sm:p-6 md:p-8">
+                {showThankYou ? (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="text-center py-12 px-4"
                   >
-                    {language === "en" ? "Go Back" : "ପଛକୁ ଯାଆନ୍ତୁ"}
-                  </button>
-                </motion.div>
-              ) : (
-                <form onSubmit={handleDonateSubmit} className="space-y-6 mt-6">
-                  {/* Amount Grid */}
-                  <div>
-                    <span className="font-sans text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-3 block">
-                      {language === "en" ? "Select Contribution Amount" : "ଯୋଗଦାନ ରାଶି ଚୟନ କରନ୍ତୁ"}
-                    </span>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                      {[500, 1000, 2500, 5000].map((amt) => (
+                    <div className="w-16 h-16 md:w-20 md:h-20 bg-primary-container rounded-full flex items-center justify-center mx-auto mb-5">
+                      <Heart className="w-8 h-8 md:w-10 md:h-10 text-primary fill-primary/20" />
+                    </div>
+                    <h3 className="font-serif text-xl md:text-2xl font-semibold text-on-surface mb-3">
+                      {language === "en" ? "Thank You!" : "ଧନ୍ୟବାଦ!"}
+                    </h3>
+                    <p className="font-sans text-sm text-on-surface-variant max-w-xs mx-auto mb-6 leading-relaxed">
+                      {t("donate.thankYou")}
+                    </p>
+                    <button
+                      onClick={() => { setShowThankYou(false); setSelectedAmount(1000); setCustomAmount(""); }}
+                      className="font-sans text-sm text-primary font-semibold"
+                    >
+                      {language === "en" ? "Make another donation" : "ଆଉ ଥରେ ଦାନ କରନ୍ତୁ"}
+                    </button>
+                  </motion.div>
+                ) : (
+                  <>
+                    {/* Method Tabs */}
+                    <div className="flex border-b border-outline-variant/20 mb-5 gap-0.5">
+                      {([
+                        { id: "upi",  icon: <QrCode  className="w-4 h-4" />, label: language === "en" ? "UPI / QR Code"  : "UPI / QR କୋଡ" },
+                        { id: "bank", icon: <Landmark className="w-4 h-4" />, label: language === "en" ? "Bank Transfer"  : "ବ୍ୟାଙ୍କ ହସ୍ତାନ୍ତର" },
+                      ] as { id: "upi" | "bank"; icon: React.ReactNode; label: string }[]).map((tab) => (
                         <button
-                          key={amt}
-                          type="button"
-                          onClick={() => handlePredefinedAmountClick(amt)}
-                          className={`py-3.5 px-4 rounded-xl font-sans font-semibold text-sm transition-all duration-300 border ${
-                            selectedAmount === amt
-                              ? "bg-primary text-on-primary border-primary shadow-sm"
-                              : "bg-surface-container-lowest text-on-surface border-outline-variant/40 hover:bg-surface-container-high"
+                          key={tab.id}
+                          onClick={() => setActiveMethod(tab.id)}
+                          className={`flex items-center gap-1.5 px-3 sm:px-4 py-2.5 text-xs sm:text-sm font-semibold font-sans border-b-2 transition-all duration-200 -mb-px ${
+                            activeMethod === tab.id
+                              ? "border-primary text-primary"
+                              : "border-transparent text-on-surface-variant hover:text-on-surface"
                           }`}
                         >
-                          ₹{amt.toLocaleString("en-IN")}
+                          {tab.icon}
+                          <span>{tab.label}</span>
                         </button>
                       ))}
                     </div>
-                  </div>
 
-                  {/* Custom Amount Input */}
-                  <div>
-                    <label
-                      htmlFor="customAmount"
-                      className="font-sans text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-2 block"
-                    >
-                      {language === "en" ? "Or Enter Custom Amount (₹)" : "କିମ୍ବା ଅନ୍ୟ ରାଶି ପ୍ରବେଶ କରନ୍ତୁ (₹)"}
-                    </label>
-                    <div className="flex items-center px-5 bg-surface-container-lowest rounded-sanctuary-sm focus-within:ring-2 focus-within:ring-primary/20 transition-all border border-outline-variant/10 overflow-hidden">
-                      <span className="font-sans font-medium text-on-surface-variant/80 text-lg mr-2">
-                        ₹
-                      </span>
-                      <input
-                        type="text"
-                        id="customAmount"
-                        value={customAmount}
-                        onChange={handleCustomAmountChange}
-                        className="w-full bg-transparent py-4 font-sans text-base font-semibold text-on-surface placeholder:text-outline-variant focus:outline-none"
-                        placeholder={language === "en" ? "Enter amount" : "ରାଶି ପ୍ରବେଶ କରନ୍ତୁ"}
-                      />
-                    </div>
-                  </div>
+                    {/* ── UPI Tab ── */}
+                    {activeMethod === "upi" && (
+                      <motion.div
+                        key="upi"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.25 }}
+                      >
+                        {/* Mobile: QR centred on top, text below. Desktop: side-by-side */}
+                        <div className="flex flex-col sm:flex-row gap-5 sm:gap-6 items-center sm:items-start">
+                          {/* QR code */}
+                          <div className="w-40 h-40 sm:w-44 sm:h-44 flex-shrink-0 bg-white rounded-2xl shadow-md border border-outline-variant/10 p-2.5 flex items-center justify-center">
+                            <Image
+                              src="/images/qr_placeholder.png"
+                              alt="UPI QR Code"
+                              width={160}
+                              height={160}
+                              className="object-contain"
+                            />
+                          </div>
 
-                  {/* Security Badge */}
-                  <div className="flex items-center gap-2 text-outline-variant border-t border-outline-variant/15 pt-4">
-                    <Lock size={14} className="text-primary/70" />
-                    <span className="font-sans text-xs text-on-surface-variant/80">
-                      {language === "en"
-                        ? "Secure 256-bit SSL connection. Payments processed via Razorpay."
-                        : "ସୁରକ୍ଷିତ 256-ବିଟ୍ SSL ସଂଯୋଗ। Razorpay ମାଧ୍ୟମରେ ଦେୟ ପ୍ରକ୍ରିୟାକରଣ।"}
-                    </span>
-                  </div>
+                          <div className="flex-1 w-full text-center sm:text-left">
+                            <h3 className="font-serif text-lg md:text-xl font-semibold text-on-surface mb-1">
+                              {t("donate.upiTitle")}
+                            </h3>
+                            <p className="font-sans text-xs md:text-sm text-on-surface-variant mb-4 leading-relaxed">
+                              {t("donate.upiDesc")}
+                            </p>
 
-                  {/* Submit Button */}
-                  <button
-                    type="submit"
-                    className="btn-primary-gradient w-full px-8 py-4 rounded-full font-sans font-semibold text-base transition-transform active:scale-[0.98] shadow-sanctuary flex items-center justify-center gap-2"
-                  >
-                    <span>
-                      {selectedAmount === "custom"
-                        ? `${t("donate.razorpayBtn")} (₹${Number(customAmount || 0).toLocaleString("en-IN")})`
-                        : `${t("donate.razorpayBtn")} (₹${Number(selectedAmount).toLocaleString("en-IN")})`}
-                    </span>
-                  </button>
-                </form>
-              )}
-            </motion.div>
+                            {/* UPI ID chip */}
+                            <div className="flex items-center gap-2 bg-surface-container rounded-xl p-3 border border-outline-variant/25 w-full">
+                              <div className="flex-1 overflow-hidden text-left">
+                                <p className="font-sans text-[10px] uppercase font-bold text-on-surface-variant tracking-wider mb-0.5">UPI ID</p>
+                                <p className="font-mono text-xs sm:text-sm font-bold text-on-surface truncate">{upiId}</p>
+                              </div>
+                              <button
+                                onClick={() => copyField(upiId, "upi")}
+                                className="p-2.5 bg-surface-container-lowest rounded-lg border border-outline-variant/30 hover:bg-primary-container/30 transition-colors flex-shrink-0"
+                                aria-label="Copy UPI ID"
+                              >
+                                {copiedField === "upi" ? <Check size={15} className="text-primary" /> : <Copy size={15} className="text-on-surface-variant" />}
+                              </button>
+                            </div>
 
-            {/* UPI QR Code Block */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              animate={paymentInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.1 }}
-              className="lg:col-span-5 bg-surface-container-low rounded-sanctuary-lg p-8 lg:p-10 shadow-sanctuary border border-outline-variant/15 text-center flex flex-col items-center justify-center h-full"
-            >
-              <div className="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center mb-5">
-                <QrCode className="text-secondary w-6 h-6" />
-              </div>
-              <h3 className="font-serif text-2xl sm:text-3xl font-semibold text-on-surface mb-3">
-                {t("donate.upiTitle")}
-              </h3>
-              <p className="font-sans text-sm text-on-surface-variant max-w-sm mb-8 leading-relaxed">
-                {t("donate.upiDesc")}
-              </p>
+                            {copiedField === "upi" && (
+                              <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="font-sans text-xs text-primary mt-2 text-left">
+                                {language === "en" ? "Copied!" : "କପି ହୋଇଗଲା!"}
+                              </motion.p>
+                            )}
 
-              {/* QR Code Container */}
-              <div className="relative w-52 h-52 sm:w-60 sm:h-60 shrink-0 bg-white p-4 rounded-3xl shadow-md border border-outline-variant/10 overflow-hidden flex items-center justify-center mx-auto mb-8">
-                <Image
-                  src="/images/qr_placeholder.png"
-                  alt="UPI QR Code Placeholder"
-                  width={200}
-                  height={200}
-                  className="object-contain"
-                  priority
-                />
-              </div>
-
-              {/* UPI ID Info with Copy Button */}
-              <div className="shrink-0 flex justify-center w-full max-w-full mt-4">
-                <div className="bg-surface-container-lowest rounded-2xl p-2 pl-4 sm:pl-5 border border-outline-variant/20 flex items-center justify-between gap-6 shadow-inner w-auto max-w-full">
-                  <div className="text-left overflow-hidden">
-                    <span className="font-sans text-[10px] sm:text-xs uppercase font-bold text-on-surface-variant block tracking-wider leading-none mb-1">
-                      {t("donate.upiIdLabel")}
-                    </span>
-                    <span className="font-sans text-sm sm:text-base font-semibold text-on-surface block truncate">
-                      {upiId}
-                    </span>
-                  </div>
-                  <button
-                    onClick={copyUPI}
-                    className="p-3 bg-surface-container hover:bg-surface-container-high active:bg-surface-container rounded-xl transition-colors border border-outline-variant/30 flex-shrink-0"
-                    title={language === "en" ? "Copy UPI ID" : "UPI ID କପି କରନ୍ତୁ"}
-                  >
-                    {copied ? (
-                      <Check size={18} className="text-primary" />
-                    ) : (
-                      <Copy size={18} className="text-on-surface-variant" />
+                            <p className="font-sans text-xs text-on-surface-variant mt-3 opacity-70 text-left">
+                              {language === "en" ? "Works with GPay, PhonePe, Paytm & all UPI apps" : "GPay, PhonePe, Paytm ଓ ସବୁ UPI ଆପ ସହ କାମ କରେ"}
+                            </p>
+                          </div>
+                        </div>
+                      </motion.div>
                     )}
-                  </button>
-                </div>
+
+                    {/* ── Bank Transfer Tab ── */}
+                    {activeMethod === "bank" && (
+                      <motion.div
+                        key="bank"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.25 }}
+                      >
+                        {/* Bank header */}
+                        <div className="flex items-center gap-3 mb-4 pb-4 border-b border-outline-variant/15">
+                          <div className="w-9 h-9 md:w-10 md:h-10 rounded-xl bg-[#97144D]/10 flex items-center justify-center flex-shrink-0">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                              <rect width="24" height="24" rx="5" fill="#97144D" />
+                              <path d="M4 8h16M4 12h10M4 16h7" stroke="white" strokeWidth="1.8" strokeLinecap="round" />
+                            </svg>
+                          </div>
+                          <div>
+                            <p className="font-sans text-[10px] uppercase font-bold text-on-surface-variant tracking-wider">Beneficiary Bank</p>
+                            <p className="font-serif text-sm md:text-base font-semibold text-on-surface">Axis Bank Ltd</p>
+                          </div>
+                          <div className="ml-auto flex items-center gap-1 bg-primary-container/25 px-2 py-1 rounded-full">
+                            <ShieldCheck size={11} className="text-primary" />
+                            <span className="font-sans text-[10px] font-bold text-primary">Verified</span>
+                          </div>
+                        </div>
+
+                        {/* Fields — stacked on mobile */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 md:gap-3">
+                          {bankFields.map((f) => (
+                            <div
+                              key={f.id}
+                              className="bg-surface-container rounded-xl px-3 md:px-4 py-3 border border-outline-variant/20 flex items-center justify-between gap-2"
+                            >
+                              <div className="overflow-hidden">
+                                <p className="font-sans text-[10px] uppercase font-bold text-on-surface-variant tracking-wider mb-0.5">{f.label}</p>
+                                <p className="font-mono text-sm font-bold text-on-surface truncate">{f.value}</p>
+                              </div>
+                              {f.copy && (
+                                <button
+                                  onClick={() => copyField(f.value, f.id)}
+                                  className="p-2.5 rounded-lg bg-surface-container-lowest border border-outline-variant/30 hover:bg-primary-container/30 transition-colors flex-shrink-0"
+                                  aria-label={`Copy ${f.label}`}
+                                >
+                                  {copiedField === f.id ? <Check size={14} className="text-primary" /> : <Copy size={14} className="text-on-surface-variant" />}
+                                </button>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+
+                        <div className="mt-4 flex items-start gap-2.5 bg-secondary-container/20 border border-secondary/15 rounded-xl p-3.5">
+                          <Heart size={13} className="text-secondary flex-shrink-0 mt-0.5" />
+                          <p className="font-sans text-xs text-on-surface-variant leading-relaxed">
+                            {language === "en"
+                              ? "After transferring, share the transaction screenshot via WhatsApp or email so we can acknowledge your donation and issue your 80G receipt."
+                              : "ହସ୍ତାନ୍ତର ପରେ WhatsApp ବା ଇମେଲ ଦ୍ୱାରା ସ୍କ୍ରିନଶଟ ପଠାନ୍ତୁ — ଆମେ 80G ରସିଦ ପଠାଇ ଦେବୁ।"}
+                          </p>
+                        </div>
+                      </motion.div>
+                    )}
+
+                    {/* ── Razorpay CTA ── */}
+                    <div className="mt-5 pt-4 border-t border-outline-variant/15">
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-primary-container flex items-center justify-center flex-shrink-0">
+                          <CreditCard className="w-3.5 h-3.5 md:w-4 md:h-4 text-primary" />
+                        </div>
+                        <div>
+                          <p className="font-sans text-xs md:text-sm font-semibold text-on-surface">{t("donate.razorpayTitle")}</p>
+                          <p className="font-sans text-[10px] md:text-xs text-on-surface-variant">{t("donate.razorpayDesc")}</p>
+                        </div>
+                      </div>
+
+                      <form onSubmit={handleSubmit}>
+                        <button
+                          type="submit"
+                          className="btn-primary-gradient w-full py-4 rounded-xl font-sans font-semibold text-base shadow-sanctuary transition-transform active:scale-[0.98] flex items-center justify-center gap-2"
+                        >
+                          <Heart className="w-4 h-4" />
+                          {`${t("donate.razorpayBtn")} — ₹${displayAmount.toLocaleString("en-IN")}`}
+                        </button>
+                      </form>
+
+                      <div className="flex items-center gap-1.5 mt-3 justify-center">
+                        <Lock size={11} className="text-on-surface-variant/60" />
+                        <span className="font-sans text-[10px] md:text-xs text-on-surface-variant/60">
+                          {language === "en" ? "Secured by 256-bit SSL · Powered by Razorpay" : "256-bit SSL ଦ୍ୱାରା ସୁରକ୍ଷିତ · Razorpay"}
+                        </span>
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
-              {copied && (
-                <motion.span
-                  initial={{ opacity: 0, y: -5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="font-sans text-xs text-primary font-medium mt-3 block"
-                >
-                  {language === "en" ? "Copied to clipboard!" : "କ୍ଲିପବୋର୍ଡରେ କପି ହୋଇଗଲା!"}
-                </motion.span>
-              )}
             </motion.div>
+
           </div>
         </div>
       </section>
 
-      {/* Trust & Exemptions Card Section */}
-      <section className="bg-surface-container-low py-16">
+      {/* ═══════════════════════════════════
+          TRUST & REGISTRATION
+      ═══════════════════════════════════════ */}
+      <section className="bg-surface-container-low py-10 md:py-20">
         <div
           ref={trustRef}
-          className="max-w-[900px] mx-auto px-4 sm:px-6 md:px-10"
+          className="max-w-[1100px] mx-auto px-4 sm:px-6 md:px-10"
         >
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={trustInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8 }}
-            className="bg-surface-container-lowest border-2 border-primary/30 rounded-sanctuary-lg p-6 sm:p-8 md:p-10 shadow-sanctuary-lg relative overflow-hidden"
+            transition={{ duration: 0.7 }}
+            className="bg-surface-container-lowest rounded-2xl md:rounded-[2rem] border border-outline-variant/20 shadow-sanctuary-lg overflow-hidden"
           >
-            {/* Top decorative accent */}
-            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-primary via-secondary to-tertiary" />
+            <div className="h-1.5 bg-gradient-to-r from-primary via-secondary to-tertiary" />
 
-            <div className="flex flex-col items-center text-center gap-8">
-              <div className="w-16 h-16 rounded-full bg-primary-container flex items-center justify-center flex-shrink-0 text-primary">
-                <ShieldCheck className="w-8 h-8" />
-              </div>
-              <div className="w-full max-w-3xl space-y-6">
-                <div className="space-y-3">
-                  <h3 className="font-serif text-2xl md:text-3xl font-bold text-on-surface">
+            <div className="p-5 sm:p-8 md:p-12">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-start">
+
+                {/* Left */}
+                <div>
+                  <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-primary-container flex items-center justify-center mb-4 md:mb-5">
+                    <ShieldCheck className="w-6 h-6 md:w-7 md:h-7 text-primary" />
+                  </div>
+                  <h3 className="font-serif text-xl md:text-3xl font-bold text-on-surface mb-2 md:mb-3">
                     {t("donate.trustTitle")}
                   </h3>
-                  <p className="font-sans text-sm md:text-base font-semibold text-primary">
+                  <p className="font-sans text-sm font-semibold text-primary mb-2 md:mb-3">
                     {t("donate.taxBenefit")}
+                  </p>
+                  <p className="font-sans text-sm text-on-surface-variant leading-relaxed">
+                    {language === "en"
+                      ? "Premashraya is operated by the Premashraya Charitable Trust, a registered non-profit in India. All donations are tax-exempt under Section 80G and CSR-eligible."
+                      : "ପ୍ରେମାଶ୍ରୟ ଚାରିଟେବୁଲ ଟ୍ରଷ୍ଟ ଦ୍ୱାରା ପରିଚାଳିତ। ସମସ୍ତ ଦାନ 80G ଅନ୍ତର୍ଗତ ଟ୍ୟାକ୍ସ-ମୁକ୍ତ ଏବଂ CSR ଯୋଗ୍ୟ।"}
                   </p>
                 </div>
 
-                <p className="font-sans text-base md:text-lg leading-relaxed text-on-surface-variant max-w-2xl mx-auto">
-                  {language === "en"
-                    ? "Premashraya is run by the Premashrya Charitable Trust, a registered non-profit organization in India. All donations are tax-exempt under Section 80G and compliant with CSR regulations."
-                    : "ପ୍ରେମାଶ୍ରୟ ଚାରିଟେବୁଲ୍ ଟ୍ରଷ୍ଟ ଦ୍ୱାରା ପରିଚାଳିତ, ଯାହା ଭାରତରେ ଏକ ପଞ୍ଜୀକୃତ ଅଣ-ଲାଭକାରୀ ସଂଗଠନ। ସମସ୍ତ ଦାନ ଆୟକର ଅଧିନିୟମର ଧାରା 80G ଅନ୍ତର୍ଗତ କରମୁକ୍ତ ଏବଂ CSR ନିୟମ ଅନୁଯାୟୀ ଯୋଗ୍ୟ।"}
-                </p>
-
-                {/* Registration Numbers */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 pt-6">
-                  <div className="bg-surface-container p-5 rounded-xl border border-outline-variant/35 shadow-inner">
-                    <span className="font-sans text-[10px] uppercase font-bold text-on-surface-variant block tracking-wider mb-2">
+                {/* Right: registration numbers + badges */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
+                  <div className="bg-surface-container p-4 md:p-5 rounded-2xl border border-outline-variant/25">
+                    <p className="font-sans text-[10px] uppercase font-bold text-on-surface-variant tracking-wider mb-1">
                       {t("donate.reg80g")}
-                    </span>
-                    <span className="font-mono text-sm md:text-base font-bold text-on-surface">
-                      AAFTP0666A25HY02
-                    </span>
+                    </p>
+                    <p className="font-mono text-xs md:text-sm font-bold text-on-surface break-all">AAFTP0666A25HY02</p>
                   </div>
-                  <div className="bg-surface-container p-5 rounded-xl border border-outline-variant/35 shadow-inner">
-                    <span className="font-sans text-[10px] uppercase font-bold text-on-surface-variant block tracking-wider mb-2">
+                  <div className="bg-surface-container p-4 md:p-5 rounded-2xl border border-outline-variant/25">
+                    <p className="font-sans text-[10px] uppercase font-bold text-on-surface-variant tracking-wider mb-1">
                       {t("donate.regCsr")}
-                    </span>
-                    <span className="font-mono text-sm md:text-base font-bold text-on-surface">
-                      CSR00088849
-                    </span>
+                    </p>
+                    <p className="font-mono text-xs md:text-sm font-bold text-on-surface break-all">CSR00088849</p>
+                  </div>
+
+                  {/* Trust badges */}
+                  <div className="sm:col-span-2 flex flex-wrap gap-2 md:gap-3">
+                    {[
+                      { icon: <Lock size={13} />,        label: "SSL Secured" },
+                      { icon: <ShieldCheck size={13} />, label: "80G Registered" },
+                      { icon: <Heart size={13} />,       label: "100% to Patients" },
+                    ].map((badge) => (
+                      <div
+                        key={badge.label}
+                        className="flex items-center gap-1.5 bg-primary-container/20 border border-primary/15 rounded-full px-3 py-1.5 text-primary"
+                      >
+                        {badge.icon}
+                        <span className="font-sans text-xs font-semibold">{badge.label}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
+
               </div>
             </div>
           </motion.div>
-        </div>
-      </section>
 
-      {/* Transparency Section */}
-      <section className="bg-surface py-16">
-        <div
-          ref={transparencyRef}
-          className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10 text-center"
-        >
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={transparencyInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8 }}
-            className="max-w-2xl mx-auto space-y-6"
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={trustInView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="font-sans text-center text-[10px] md:text-xs text-on-surface-variant/60 mt-5 md:mt-6 px-2"
           >
-            <h2 className="font-serif text-2xl md:text-3xl font-semibold text-on-background">
-              {t("donate.transparencyTitle")}
-            </h2>
-            <p className="font-sans text-base text-on-surface-variant leading-relaxed">
-              {t("donate.transparencyDesc")}
-            </p>
-            <p className="font-sans text-xs text-outline-variant font-medium">
-              {language === "en"
-                ? "* We strictly audit our funds and guarantee that 100% of public donations directly finance facilities and resources for cancer patients."
-                : "* ଆମେ ଆମର ପାଣ୍ଠିକୁ କଡାକଡି ଭାବରେ ଅଡିଟ୍ କରୁ ଏବଂ ନିଶ୍ଚିତ କରୁ ଯେ ସମସ୍ତ ସାଧାରଣ ଦାନ ସିଧାସଳଖ କର୍କଟ ରୋଗୀଙ୍କ ସୁବିଧା ଏବଂ ସମ୍ବଳ ପାଇଁ ବ୍ୟବହୃତ ହୁଏ।"}
-            </p>
-          </motion.div>
+            {language === "en"
+              ? "* 100% of public donations are directly used to finance accommodation, nutrition, and support services for cancer patients."
+              : "* ସମସ୍ତ ସାଧାରଣ ଦାନ ସିଧାସଳଖ ରୋଗୀଙ୍କ ଆଶ୍ରୟ, ଭୋଜନ ଓ ସହାୟତା ସେବା ପାଇଁ ବ୍ୟବହୃତ ହୁଏ।"}
+          </motion.p>
         </div>
       </section>
 

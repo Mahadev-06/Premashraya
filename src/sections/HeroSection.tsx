@@ -16,6 +16,7 @@ export default function HeroSection() {
           src="/images/hero.jpg"
           alt="Premashraya building - free stay and care facility for cancer patients"
           fill
+          sizes="100vw"
           className="object-cover"
           priority
           quality={90}

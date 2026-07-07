@@ -31,7 +31,7 @@ const TeamVideo = ({ src, alt }: { src: string; alt: string }) => {
       <video
         ref={videoRef}
         src={src}
-        preload="auto"
+        preload="metadata"
         controls
         controlsList="nodownload"
         disablePictureInPicture
@@ -62,15 +62,6 @@ export default function AboutPage() {
   const ctaRef = useRef(null);
   const ctaInView = useInView(ctaRef, { once: true, margin: "-100px" });
   const tourVideoRef = useRef<HTMLVideoElement>(null);
-  const isTourVideoInView = useInView(tourVideoRef, { margin: "-50px" });
-
-  useEffect(() => {
-    if (tourVideoRef.current) {
-      if (!isTourVideoInView) {
-        tourVideoRef.current.pause();
-      }
-    }
-  }, [isTourVideoInView]);
 
   const { t } = useLanguage();
   const [videoLang, setVideoLang] = useState<"en" | "or" | "hi">("or");
@@ -201,6 +192,7 @@ export default function AboutPage() {
                   src="/images/mission.jpg"
                   alt="Premashraya signboard - A Home for Cancer Patients"
                   fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover"
                   loading="lazy"
                 />
@@ -225,15 +217,15 @@ export default function AboutPage() {
 
           {/* Video Auto-play */}
           <div className="relative max-w-4xl mx-auto p-2 sm:p-3 rounded-[2rem] shadow-sanctuary bg-white/60 backdrop-blur-sm group">
-            <div className="relative w-full h-full rounded-[1.5rem] overflow-hidden shadow-inner bg-black/5 aspect-video">
-              {/* Language Switcher Overlay */}
+            <div className="relative w-full aspect-video rounded-[1.5rem] overflow-hidden shadow-inner bg-black/5">
+              {/* Language Switcher Overlay — pointer-events-none on wrapper so video surface clicks pass through */}
               <div 
-                className="absolute z-20 bg-black/60 backdrop-blur-md p-1 rounded-full flex gap-1 border border-white/10 shadow-lg"
+                className="absolute z-20 bg-black/60 backdrop-blur-md p-1 rounded-full flex gap-1 border border-white/10 shadow-lg pointer-events-none"
                 style={{ top: '20px', right: '20px', left: 'auto' }}
               >
                 <button
                   onClick={() => setVideoLang("en")}
-                  className={`px-3 py-1 rounded-full text-[10px] sm:text-xs font-semibold transition-all duration-200 ${
+                  className={`pointer-events-auto px-3 py-1 rounded-full text-[10px] sm:text-xs font-semibold transition-all duration-200 ${
                     videoLang === "en"
                       ? "bg-white text-neutral-900 shadow-sm"
                       : "text-white/85 hover:text-white hover:bg-white/10"
@@ -243,7 +235,7 @@ export default function AboutPage() {
                 </button>
                 <button
                   onClick={() => setVideoLang("hi")}
-                  className={`px-3 py-1 rounded-full text-[10px] sm:text-xs font-semibold transition-all duration-200 ${
+                  className={`pointer-events-auto px-3 py-1 rounded-full text-[10px] sm:text-xs font-semibold transition-all duration-200 ${
                     videoLang === "hi"
                       ? "bg-white text-neutral-900 shadow-sm"
                       : "text-white/85 hover:text-white hover:bg-white/10"
@@ -253,7 +245,7 @@ export default function AboutPage() {
                 </button>
                 <button
                   onClick={() => setVideoLang("or")}
-                  className={`px-3 py-1 rounded-full text-[10px] sm:text-xs font-semibold transition-all duration-200 ${
+                  className={`pointer-events-auto px-3 py-1 rounded-full text-[10px] sm:text-xs font-semibold transition-all duration-200 ${
                     videoLang === "or"
                       ? "bg-white text-neutral-900 shadow-sm"
                       : "text-white/85 hover:text-white hover:bg-white/10"
@@ -271,10 +263,8 @@ export default function AboutPage() {
                 preload="auto"
                 loop
                 controls
-                controlsList="nodownload nofullscreen noplaybackrate"
-                disablePictureInPicture
                 playsInline
-                className="w-full h-full object-cover"
+                className="relative z-10 w-full h-full object-contain bg-black"
               />
             </div>
           </div>
@@ -388,13 +378,14 @@ export default function AboutPage() {
                 className="bg-surface-container-lowest rounded-sanctuary-lg overflow-hidden shadow-sanctuary text-center"
               >
                 <div className="relative h-64 overflow-hidden bg-black flex items-center justify-center">
-                  {member.video ? (
+                  {member.video && teamInView ? (
                     <TeamVideo src={member.video} alt={member.name} />
                   ) : (
                     <Image
                       src={member.image}
                       alt={member.name}
                       fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       className="object-cover"
                       loading="lazy"
                     />

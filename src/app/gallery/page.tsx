@@ -22,11 +22,11 @@ const TestimonialVideo = ({ num }: { num: number }) => {
       ref={videoRef}
       src={`/videos/testimonial ${num}.mp4`}
       controls
-      preload="auto"
+      preload="metadata"
       controlsList="nodownload"
       disablePictureInPicture
       playsInline
-      className="w-full h-full object-cover relative z-0"
+      className="w-full h-full object-contain bg-black relative z-0"
     />
   );
 };
@@ -221,13 +221,14 @@ export default function GalleryPage() {
                   <div
                     className={`relative ${item.height} rounded-sanctuary-lg overflow-hidden shadow-sanctuary transition-sanctuary hover:shadow-sanctuary-lg`}
                   >
-                    <Image
-                      src={item.image}
-                      alt={item.title}
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      loading="lazy"
-                    />
+                      <Image
+                        src={item.image}
+                        alt={item.title}
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                        loading="lazy"
+                      />
 
                   </div>
                 </motion.div>
@@ -295,6 +296,7 @@ export default function GalleryPage() {
                 src={lightboxImage}
                 alt="Gallery image fullscreen view"
                 fill
+                sizes="(max-width: 1024px) 100vw, 1024px"
                 className="object-contain"
               />
             </motion.div>

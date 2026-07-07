@@ -44,13 +44,13 @@ export default function CaregiverSection() {
               <video
                 ref={videoRef}
                 src="/videos/Debendra 3.mp4"
-                preload="auto"
+                preload="metadata"
                 controls
                 controlsList="nodownload"
                 disablePictureInPicture
                 loop
                 playsInline
-                className="w-full h-full object-cover relative z-0"
+                className="w-full h-full object-contain bg-black relative z-0"
               />
             </div>
             {/* Floating stat card */}
