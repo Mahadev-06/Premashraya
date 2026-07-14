@@ -69,6 +69,8 @@ export const metadata: Metadata = {
   },
 };
 
+import SmoothScroll from "@/components/SmoothScroll";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -86,6 +88,7 @@ export default function RootLayout({
       </head>
       <body className="antialiased w-full flex flex-col min-h-screen">
         <StructuredData />
+        <SmoothScroll />
         <LanguageProvider>
           <div className="relative w-full overflow-hidden flex flex-col min-h-screen">
             <Navbar />
