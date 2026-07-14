@@ -502,7 +502,7 @@ export default function DonatePage() {
                       <div className="flex items-center gap-1.5 mt-3 justify-center">
                         <Lock size={11} className="text-on-surface-variant/60" />
                         <span className="font-sans text-[10px] md:text-xs text-on-surface-variant/60">
-                          {language === "en" ? "Secured by 256-bit SSL · Powered by Razorpay" : "256-bit SSL ଦ୍ୱାରା ସୁରକ୍ଷିତ · Razorpay"}
+                          {language === "en" ? "Payments are processed securely through Razorpay" : "ଦେୟ ସୁରକ୍ଷିତ ଭାବରେ Razorpay ମାଧ୍ୟମରେ ପ୍ରକ୍ରିୟାକରଣ କରାଯାଏ"}
                         </span>
                       </div>
                     </div>
