@@ -190,6 +190,8 @@ export default function ContactPage() {
                         id="firstName"
                         name="firstName"
                         required
+                        pattern="^[a-zA-Z\s]{2,50}$"
+                        title="First name must contain only letters and be at least 2 characters long"
                         className="w-full bg-surface-container-high rounded-sanctuary-sm px-5 py-3.5 font-sans text-sm text-on-surface placeholder:text-outline-variant focus:outline-none focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-lowest transition-all duration-300"
                         placeholder="Your first name"
                       />
@@ -206,6 +208,8 @@ export default function ContactPage() {
                         id="lastName"
                         name="lastName"
                         required
+                        pattern="^[a-zA-Z\s]{1,50}$"
+                        title="Last name must contain only letters"
                         className="w-full bg-surface-container-high rounded-sanctuary-sm px-5 py-3.5 font-sans text-sm text-on-surface placeholder:text-outline-variant focus:outline-none focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-lowest transition-all duration-300"
                         placeholder="Your last name"
                       />
@@ -225,7 +229,7 @@ export default function ContactPage() {
                       name="email"
                       required
                       className="w-full bg-surface-container-high rounded-sanctuary-sm px-5 py-3.5 font-sans text-sm text-on-surface placeholder:text-outline-variant focus:outline-none focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-lowest transition-all duration-300"
-                      placeholder="your@email.com"
+                      placeholder="username@domain.com"
                     />
                   </div>
 
@@ -240,6 +244,9 @@ export default function ContactPage() {
                       type="tel"
                       id="phone"
                       name="phone"
+                      required
+                      pattern="^[+]?[0-9\s\-()]{10,20}$"
+                      title="Please enter a valid phone number (at least 10 digits)"
                       className="w-full bg-surface-container-high rounded-sanctuary-sm px-5 py-3.5 font-sans text-sm text-on-surface placeholder:text-outline-variant focus:outline-none focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-lowest transition-all duration-300"
                       placeholder="+91 12345 67890"
                     />
@@ -257,6 +264,7 @@ export default function ContactPage() {
                       name="message"
                       rows={5}
                       required
+                      minLength={10}
                       className="w-full bg-surface-container-high rounded-sanctuary-sm px-5 py-3.5 font-sans text-sm text-on-surface placeholder:text-outline-variant focus:outline-none focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-lowest transition-all duration-300 resize-none"
                       placeholder="Share your thoughts or questions with us..."
                     />
