@@ -52,6 +52,97 @@ export default function HeroSection() {
     return () => clearInterval(timer);
   }, [isPaused, next]);
 
+  const slideshowJSX = (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.8, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
+      className="w-full"
+    >
+      <div
+        className="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl group aspect-[4/3] bg-surface-container"
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+      >
+        {/* ── Slides ── */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={current}
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.98 }}
+            transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+            className="absolute inset-0"
+          >
+            <Image
+              src={slides[current].src}
+              alt={slides[current].alt}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 52vw"
+              priority={current === 0}
+            />
+            {/* Gradient overlay for readability */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+          </motion.div>
+        </AnimatePresence>
+
+        {/* ── Navigation arrows ── */}
+        <div className="absolute inset-y-0 left-0 right-0 flex items-center justify-between px-2 md:px-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <button
+            onClick={prev}
+            className="w-10 h-10 rounded-full backdrop-blur-md bg-white/70 flex items-center justify-center text-on-background hover:bg-white/90 transition-all shadow-md active:scale-90"
+            aria-label="Previous slide"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+          <button
+            onClick={next}
+            className="w-10 h-10 rounded-full backdrop-blur-md bg-white/70 flex items-center justify-center text-on-background hover:bg-white/90 transition-all shadow-md active:scale-90"
+            aria-label="Next slide"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
+        </div>
+
+        {/* ── Pause/Play button ── */}
+        <button
+          onClick={() => setIsPaused(!isPaused)}
+          className="absolute top-4 left-4 md:top-6 md:left-6 z-20 w-8 h-8 rounded-full backdrop-blur-md bg-white/70 flex items-center justify-center text-on-background hover:bg-white/90 transition-all shadow-md opacity-0 group-hover:opacity-100 active:scale-90"
+          aria-label={isPaused ? "Play slideshow" : "Pause slideshow"}
+        >
+          {isPaused ? <Play className="w-3.5 h-3.5" /> : <Pause className="w-3.5 h-3.5" />}
+        </button>
+
+        {/* ── Slide dots ── */}
+        <div className="absolute bottom-0 left-0 right-0 z-20 px-4 md:px-6 pb-4">
+          <div className="flex justify-center gap-1.5">
+            {slides.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => {
+                  setCurrent(i);
+                  setProgress(0);
+                }}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  i === current
+                    ? "w-6 bg-white"
+                    : "w-1.5 bg-white/50 hover:bg-white/70"
+                }`}
+                aria-label={`Go to slide ${i + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── Slideshow caption below image ── */}
+      <p className="text-center font-sans text-xs text-on-surface-variant mt-3 opacity-70">
+        A glimpse of life at Premashraya — shelter, meals, and care for cancer patients
+      </p>
+    </motion.div>
+  );
+
   return (
     <section className="relative min-h-[90vh] md:min-h-[92vh] flex items-center bg-surface overflow-hidden">
       {/* ── Background ambient blobs ── */}
@@ -64,8 +155,8 @@ export default function HeroSection() {
       <div className="relative z-10 w-full max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 pt-28 pb-12 md:pt-32 md:pb-20">
         <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
 
-          {/* ═══════ LEFT — Text & CTA ═══════ */}
-          <div className="w-full lg:w-[48%] text-left">
+          {/* ═══════ LEFT — Text, Mobile Slideshow & CTA ═══════ */}
+          <div className="w-full lg:w-[48%] text-left flex flex-col">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -109,6 +200,12 @@ export default function HeroSection() {
               ))}
             </motion.div>
 
+            {/* ── Slideshow ON MOBILE (placed BEFORE CTA Buttons) ── */}
+            <div className="block lg:hidden w-full mb-8">
+              {slideshowJSX}
+            </div>
+
+            {/* ── CTA Buttons ── */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -117,14 +214,14 @@ export default function HeroSection() {
             >
               <Link
                 href="/contact"
-                className="btn-primary-gradient inline-flex items-center justify-center px-8 py-4 rounded-full font-sans font-semibold text-base shadow-sanctuary transition-transform active:scale-95"
+                className="btn-primary-gradient inline-flex items-center justify-center px-8 py-4 rounded-full font-sans font-semibold text-base shadow-sanctuary transition-transform active:scale-95 text-center"
                 id="hero-learn-more"
               >
                 {t("hero.cta")}
               </Link>
               <Link
                 href="/donate"
-                className="inline-flex items-center justify-center px-8 py-4 rounded-full font-sans font-semibold text-base border-2 border-primary/30 text-primary hover:bg-primary-container/40 transition-all active:scale-95"
+                className="inline-flex items-center justify-center px-8 py-4 rounded-full font-sans font-semibold text-base border-2 border-primary/30 text-primary hover:bg-primary-container/40 transition-all active:scale-95 text-center"
                 id="hero-donate"
               >
                 <Heart className="w-4 h-4 mr-2" />
@@ -133,105 +230,10 @@ export default function HeroSection() {
             </motion.div>
           </div>
 
-          {/* ═══════ RIGHT — Image Slideshow ═══════ */}
-          <motion.div
-            initial={{ opacity: 0, x: 60, scale: 0.95 }}
-            animate={{ opacity: 1, x: 0, scale: 1 }}
-            transition={{ duration: 1, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
-            className="w-full lg:w-[52%]"
-          >
-            <div
-              className="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl group aspect-[4/3] bg-surface-container"
-              onMouseEnter={() => setIsPaused(true)}
-              onMouseLeave={() => setIsPaused(false)}
-            >
-              {/* ── Slides ── */}
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={current}
-                  initial={{ opacity: 0, scale: 1.05 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.98 }}
-                  transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
-                  className="absolute inset-0"
-                >
-                  <Image
-                    src={slides[current].src}
-                    alt={slides[current].alt}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 52vw"
-                    priority={current === 0}
-                  />
-                  {/* Gradient overlay for readability */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-                </motion.div>
-              </AnimatePresence>
-
-
-
-
-              {/* ── Navigation arrows ── */}
-              <div className="absolute inset-y-0 left-0 right-0 flex items-center justify-between px-2 md:px-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <button
-                  onClick={prev}
-                  className="w-10 h-10 rounded-full backdrop-blur-md bg-white/70 flex items-center justify-center text-on-background hover:bg-white/90 transition-all shadow-md active:scale-90"
-                  aria-label="Previous slide"
-                >
-                  <ChevronLeft className="w-5 h-5" />
-                </button>
-                <button
-                  onClick={next}
-                  className="w-10 h-10 rounded-full backdrop-blur-md bg-white/70 flex items-center justify-center text-on-background hover:bg-white/90 transition-all shadow-md active:scale-90"
-                  aria-label="Next slide"
-                >
-                  <ChevronRight className="w-5 h-5" />
-                </button>
-              </div>
-
-              {/* ── Pause/Play button ── */}
-              <button
-                onClick={() => setIsPaused(!isPaused)}
-                className="absolute top-4 left-4 md:top-6 md:left-6 z-20 w-8 h-8 rounded-full backdrop-blur-md bg-white/70 flex items-center justify-center text-on-background hover:bg-white/90 transition-all shadow-md opacity-0 group-hover:opacity-100 active:scale-90"
-                aria-label={isPaused ? "Play slideshow" : "Pause slideshow"}
-              >
-                {isPaused ? <Play className="w-3.5 h-3.5" /> : <Pause className="w-3.5 h-3.5" />}
-              </button>
-
-              {/* ── Slide dots ── */}
-              <div className="absolute bottom-0 left-0 right-0 z-20 px-4 md:px-6 pb-4">
-
-                {/* Slide dots */}
-                <div className="flex justify-center gap-1.5">
-                  {slides.map((_, i) => (
-                    <button
-                      key={i}
-                      onClick={() => {
-                        setCurrent(i);
-                        setProgress(0);
-                      }}
-                      className={`h-1.5 rounded-full transition-all duration-300 ${
-                        i === current
-                          ? "w-6 bg-white"
-                          : "w-1.5 bg-white/50 hover:bg-white/70"
-                      }`}
-                      aria-label={`Go to slide ${i + 1}`}
-                    />
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* ── Slideshow caption below image ── */}
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.8 }}
-              className="text-center font-sans text-xs text-on-surface-variant mt-3 opacity-70"
-            >
-              A glimpse of life at Premashraya — shelter, meals, and care for cancer patients
-            </motion.p>
-          </motion.div>
+          {/* ═══════ RIGHT — Image Slideshow ON DESKTOP ═══════ */}
+          <div className="hidden lg:block w-full lg:w-[52%]">
+            {slideshowJSX}
+          </div>
         </div>
       </div>
     </section>
