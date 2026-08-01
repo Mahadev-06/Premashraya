@@ -114,6 +114,11 @@ export const en = {
     successDesc: "Thank you for reaching out. Our team will respond within 24 hours.",
     sendAnother: "Send another message",
     infoTitle: "Contact Information",
+    phoneLabel: "Phone",
+    emailLabel: "Email",
+    addressLabel: "Address",
+    addressVal: "Premashraya Charitable Trust, Kendriya Vihar, Near Dhananjay Residency, Gohiriya, Bhubaneswar – 751028, Odisha, India",
+    directions: "Location: Near Dhananjay Residency, Gohiriya, Bhubaneswar",
   },
   footer: {
     ctaTitle: "Need a Safe Stay During Treatment?",
