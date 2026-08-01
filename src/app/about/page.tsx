@@ -85,6 +85,26 @@ export default function AboutPage() {
     },
   ];
 
+  const missionImageJSX = (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={missionInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.8, delay: 0.2 }}
+      className="relative w-full"
+    >
+      <div className="relative h-[300px] sm:h-[400px] md:h-[600px] rounded-sanctuary-lg overflow-hidden shadow-sanctuary-lg">
+        <Image
+          src="/images/mission.webp"
+          alt="Premashraya signboard - A Home for Cancer Patients"
+          fill
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className="object-cover"
+          loading="lazy"
+        />
+      </div>
+    </motion.div>
+  );
+
   return (
     <>
       {/* Hero Section */}
@@ -120,6 +140,7 @@ export default function AboutPage() {
           className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10"
         >
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            {/* Text & Mobile Layout */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={missionInView ? { opacity: 1, y: 0 } : {}}
@@ -131,6 +152,12 @@ export default function AboutPage() {
               <h2 className="font-serif text-3xl md:text-4xl font-semibold text-on-background mb-6 leading-tight">
                 {t("about.missionTitle")}
               </h2>
+
+              {/* Mobile Mission Image (rendered right AFTER heading on phone view) */}
+              <div className="block lg:hidden my-8">
+                {missionImageJSX}
+              </div>
+
               <p className="font-sans text-base md:text-lg text-on-surface-variant leading-relaxed mb-8">
                 {t("about.missionDesc")}
               </p>
@@ -155,23 +182,10 @@ export default function AboutPage() {
               </div>
             </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={missionInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative"
-            >
-              <div className="relative h-[320px] sm:h-[400px] md:h-[600px] rounded-sanctuary-lg overflow-hidden shadow-sanctuary-lg">
-                <Image
-                  src="/images/mission.webp"
-                  alt="Premashraya signboard - A Home for Cancer Patients"
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover"
-                  loading="lazy"
-                />
-              </div>
-            </motion.div>
+            {/* Desktop Mission Image (Right column on lg screens) */}
+            <div className="hidden lg:block">
+              {missionImageJSX}
+            </div>
           </div>
         </div>
       </section>
