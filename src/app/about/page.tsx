@@ -52,11 +52,6 @@ export default function AboutPage() {
   const heroInView = useInView(heroRef, { once: true });
   const missionRef = useRef(null);
   const missionInView = useInView(missionRef, { once: true, margin: "-100px" });
-  const facilitiesRef = useRef(null);
-  const facilitiesInView = useInView(facilitiesRef, {
-    once: true,
-    margin: "-100px",
-  });
   const teamRef = useRef(null);
   const teamInView = useInView(teamRef, { once: true, margin: "-100px" });
   const ctaRef = useRef(null);
@@ -87,27 +82,6 @@ export default function AboutPage() {
       name: "Satyanarayan Agarwal",
       image: "/images/marcus.png",
       video: "/videos/Satyakant Agarwal.mp4",
-    },
-  ];
-
-  const facilities = [
-    {
-      title: t("about.fac1Title"),
-      description: t("about.fac1Desc"),
-      image: "/images/hygiene.webp",
-      video: "/videos/Hygienic.mp4",
-    },
-    {
-      title: t("about.fac2Title"),
-      description: t("about.fac2Desc"),
-      image: "/images/community.webp",
-      video: "/videos/download.mp4",
-    },
-    {
-      title: t("about.fac3Title"),
-      description: t("about.fac3Desc"),
-      image: "/images/meals.webp",
-      video: "/videos/Daily Meals.mp4",
     },
   ];
 
@@ -271,81 +245,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Facilities Section */}
-      <section className="bg-surface-container-low py-22 md:py-30">
-        <div
-          ref={facilitiesRef}
-          className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10"
-        >
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={facilitiesInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7 }}
-            className="text-center mb-16"
-          >
-            <span className="inline-block font-sans text-xs font-bold uppercase tracking-[0.2em] text-secondary mb-4">
-              {t("about.facilitiesLabel")}
-            </span>
-            <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-on-background mb-5">
-              {t("about.facilitiesTitle")}
-            </h2>
-            <p className="font-sans text-base md:text-lg text-on-surface-variant max-w-2xl mx-auto">
-              {t("about.facilitiesDesc")}
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {facilities.map((facility, index) => (
-              <motion.div
-                key={facility.title}
-                initial={{ opacity: 0, y: 40 }}
-                animate={facilitiesInView ? { opacity: 1, y: 0 } : {}}
-                transition={{
-                  duration: 0.7,
-                  delay: index * 0.15,
-                }}
-                className="group bg-surface-container-lowest rounded-sanctuary-lg overflow-hidden shadow-sanctuary transition-sanctuary hover:shadow-sanctuary-lg"
-              >
-                <div className="relative h-56 overflow-hidden bg-black">
-                  {facility.video ? (
-                    <video
-                      src={facility.video}
-                      poster={facility.image}
-                      preload="auto"
-                      autoPlay
-                      loop
-                      muted
-                      controlsList="nodownload"
-                      disablePictureInPicture
-                      playsInline
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                  ) : (
-                    <Image
-                      src={facility.image}
-                      alt={facility.title}
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      loading="lazy"
-                    />
-                  )}
-                </div>
-                <div className="p-8">
-                  <h3 className="font-serif text-xl font-semibold text-on-surface mb-3">
-                    {facility.title}
-                  </h3>
-                  <p className="font-sans text-sm text-on-surface-variant leading-relaxed">
-                    {facility.description}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Team Section */}
-      <section className="bg-surface py-22 md:py-30">
+      <section className="bg-surface-container-low py-20 md:py-28 border-t border-outline-variant/20">
         <div ref={teamRef} className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
