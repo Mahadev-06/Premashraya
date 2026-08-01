@@ -166,7 +166,7 @@ export default function DonatePage() {
       {/* ═══════════════════════════════════
           WHY DONATE / IMPACT
       ═══════════════════════════════════════ */}
-      <section className="bg-surface-container-low py-14 md:py-24">
+      <section id="impact-section" className="bg-surface-container-low py-14 md:py-24">
         <div
           ref={impactRef}
           className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10"
@@ -269,32 +269,29 @@ export default function DonatePage() {
               transition={{ duration: 0.7 }}
               className="w-full lg:col-span-5 space-y-4 md:space-y-6"
             >
-              {/* Amount Grid — 2×2 on mobile */}
-              <div>
-                <p className="font-sans text-[10px] sm:text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-2 md:mb-3">
-                  {language === "en" ? "Select Amount" : "ରାଶି ବଛନ୍ତୁ"}
-                </p>
-                <div className="grid grid-cols-2 gap-2.5 md:gap-3">
-                  {amountOptions.map((amt) => (
-                    <button
-                      key={amt}
-                      onClick={() => { setSelectedAmount(amt); setCustomAmount(""); }}
-                      className={`py-4 px-3 rounded-xl font-sans font-semibold text-sm transition-all duration-200 border text-left active:scale-[0.97] ${
-                        selectedAmount === amt
-                          ? "bg-primary text-on-primary border-primary shadow-md"
-                          : "bg-surface-container-lowest text-on-surface border-outline-variant/30 hover:border-primary/40"
-                      }`}
-                    >
-                      <span className="text-base md:text-lg font-bold block">₹{amt.toLocaleString("en-IN")}</span>
-                      <span className={`text-xs mt-0.5 block ${selectedAmount === amt ? "text-on-primary/80" : "text-on-surface-variant"}`}>
-                        {amt === 500  && (language === "en" ? "1 week meals"        : "1 ସପ୍ତାହ ଭୋଜନ")}
-                        {amt === 1000 && (language === "en" ? "1 night's shelter"   : "1 ରାତ ଆଶ୍ରୟ")}
-                        {amt === 2500 && (language === "en" ? "Counselling session" : "କାଉନ୍ସେଲିଂ")}
-                        {amt === 5000 && (language === "en" ? "Full week of care"   : "ସମ୍ପୂର୍ଣ ଯତ୍ନ")}
-                      </span>
-                    </button>
-                  ))}
+              {/* Selected Amount Summary */}
+              <div className="bg-primary-container/20 border border-primary/20 rounded-2xl p-5 flex items-center justify-between gap-4 shadow-sanctuary">
+                <div className="flex items-center gap-3.5">
+                  <div className="w-12 h-12 bg-primary text-on-primary rounded-2xl flex items-center justify-center flex-shrink-0 shadow-md">
+                    <Heart className="w-6 h-6 fill-on-primary" />
+                  </div>
+                  <div>
+                    <p className="font-sans text-xs uppercase tracking-wider font-bold text-on-surface-variant">
+                      {language === "en" ? "Selected Contribution" : "ଆପଣଙ୍କ ମନୋନୀତ ଦାନ"}
+                    </p>
+                    <p className="font-serif text-2xl md:text-3xl font-bold text-primary">
+                      ₹{displayAmount.toLocaleString("en-IN")}
+                    </p>
+                  </div>
                 </div>
+                {selectedAmount !== "custom" && (
+                  <a
+                    href="#impact-section"
+                    className="text-xs font-semibold text-primary hover:underline flex items-center gap-1"
+                  >
+                    {language === "en" ? "Change Tier ↑" : "ବଦଳାନ୍ତୁ ↑"}
+                  </a>
+                )}
               </div>
 
               {/* Custom Amount */}
@@ -316,23 +313,8 @@ export default function DonatePage() {
                       }
                     }}
                     className="w-full bg-transparent py-4 font-sans text-base font-semibold text-on-surface placeholder:text-outline-variant focus:outline-none"
-                    placeholder={language === "en" ? "Enter amount" : "ରାଶି ଲେଖନ୍ତୁ"}
+                    placeholder={language === "en" ? "Enter custom amount" : "ରାଶି ଲେଖନ୍ତୁ"}
                   />
-                </div>
-              </div>
-
-              {/* Summary card */}
-              <div className="bg-primary-container/20 border border-primary/15 rounded-2xl p-4 flex items-center gap-3">
-                <div className="w-10 h-10 md:w-12 md:h-12 bg-primary-container rounded-xl flex items-center justify-center flex-shrink-0">
-                  <Heart className="w-5 h-5 md:w-6 md:h-6 text-primary" />
-                </div>
-                <div>
-                  <p className="font-sans text-xs text-on-surface-variant">
-                    {language === "en" ? "Your contribution" : "ଆପଣଙ୍କ ଦାନ"}
-                  </p>
-                  <p className="font-serif text-xl md:text-2xl font-bold text-primary">
-                    ₹{displayAmount.toLocaleString("en-IN")}
-                  </p>
                 </div>
               </div>
             </motion.div>
