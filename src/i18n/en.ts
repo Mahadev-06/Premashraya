@@ -21,6 +21,11 @@ export const en = {
     item4: "Nutritious & Hygienic Meals",
     item5: "Bhajans & Light Yoga Sessions",
   },
+  overview: {
+    label: "PURPOSE & MISSION",
+    text: "Premashraya is a registered charitable trust providing FREE hygienic accommodation, nutritious meals, counselling, and compassionate support for cancer patients and one attendant during treatment in Bhubaneswar and Cuttack.",
+    notice: "We are a shelter, not a hospital.",
+  },
   founder: {
     label: "A MESSAGE FROM THE FOUNDER",
     quote: "“No family should struggle for dignity, rest, and care while fighting cancer.”",

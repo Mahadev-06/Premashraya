@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import HeroSection from "@/sections/HeroSection";
 import QuickHighlightsSection from "@/sections/QuickHighlightsSection";
+import OverviewSection from "@/sections/OverviewSection";
 import FounderSection from "@/sections/FounderSection";
 import RoomsSection from "@/sections/RoomsSection";
 import ActivitiesSection from "@/sections/ActivitiesSection";
@@ -26,6 +27,7 @@ export default function Home() {
     <>
       <HeroSection />
       <QuickHighlightsSection />
+      <OverviewSection />
       <FounderSection />
       <RoomsSection />
       <ActivitiesSection />
