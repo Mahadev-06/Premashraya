@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
@@ -9,32 +8,21 @@ export default function HeroSection() {
   const { t } = useLanguage();
 
   return (
-    <section className="relative min-h-screen flex items-center bg-surface bg-motif-pattern overflow-hidden">
-      {/* Background image with overlay */}
-      <div className="absolute inset-0">
-        <Image
-          src="/images/hero.jpg"
-          alt="Premashraya building - free stay and care facility for cancer patients"
-          fill
-          sizes="100vw"
-          className="object-cover"
-          priority
-          quality={90}
-          fetchPriority="high"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b md:bg-gradient-to-r from-surface/95 via-surface/80 to-surface/20 md:to-surface/40" />
-        <div className="absolute inset-0 bg-gradient-to-t from-surface/60 via-transparent to-transparent" />
-      </div>
+    <section className="relative min-h-[85vh] md:min-h-[90vh] flex items-end bg-surface bg-motif-pattern overflow-hidden">
+      {/* Decorative ambient background accents */}
+      <div className="absolute inset-0 bg-gradient-to-br from-surface via-surface-container-low/60 to-primary-container/20 pointer-events-none" />
+      <div className="absolute top-1/4 -right-20 w-96 h-96 bg-secondary-container/20 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-10 left-10 w-80 h-80 bg-primary-container/30 rounded-full blur-3xl pointer-events-none" />
 
-      {/* Content */}
-      <div className="relative z-10 max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10 pt-28 pb-20 md:py-40">
-        <div className="max-w-2xl">
+      {/* Content positioned bottom-left */}
+      <div className="relative z-10 w-full max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10 pt-28 pb-16 md:pb-24">
+        <div className="max-w-3xl text-left">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
           >
-            <span className="inline-block font-sans text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-primary mb-6 bg-primary-container/40 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full leading-tight">
+            <span className="inline-block font-sans text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-primary mb-5 bg-primary-container/50 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full leading-tight border border-primary/10">
               {t("hero.subtitle")}
             </span>
           </motion.div>
@@ -43,31 +31,21 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.1, ease: [0.4, 0, 0.2, 1] }}
-            className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-on-background leading-[1.15] md:leading-[1.1] mb-4 md:mb-6"
+            className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-on-background leading-[1.15] md:leading-[1.1] mb-8"
           >
             {t("hero.title")}
             <span className="text-primary">{t("hero.titleHighlight")}</span>
           </motion.h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.25, ease: [0.4, 0, 0.2, 1] }}
-            className="font-sans text-base md:text-lg lg:text-xl text-on-surface-variant leading-relaxed mb-8 md:mb-10 max-w-xl"
-          >
-            {t("hero.description")}
-          </motion.p>
-
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.4, ease: [0.4, 0, 0.2, 1] }}
+            transition={{ duration: 0.7, delay: 0.3, ease: [0.4, 0, 0.2, 1] }}
             className="flex flex-col sm:flex-row gap-4"
           >
-
             <Link
               href="/contact"
-              className="bg-surface-container-lowest/80 text-on-surface px-8 py-4 rounded-full font-sans font-medium text-base text-center shadow-sanctuary hover:bg-surface-container-highest transition-all duration-300"
+              className="btn-primary-gradient inline-flex items-center justify-center px-8 py-4 rounded-full font-sans font-semibold text-base shadow-sanctuary transition-transform active:scale-95"
               id="hero-learn-more"
             >
               {t("hero.cta")}
@@ -80,8 +58,8 @@ export default function HeroSection() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.2 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
+        transition={{ delay: 1.0 }}
+        className="absolute bottom-6 right-6 sm:right-10 z-10 hidden sm:block"
       >
         <motion.div
           animate={{ y: [0, 8, 0] }}
@@ -94,3 +72,4 @@ export default function HeroSection() {
     </section>
   );
 }
+
