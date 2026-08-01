@@ -115,6 +115,7 @@ export const en = {
     sendAnother: "Send another message",
     infoTitle: "Contact Information",
     phoneLabel: "Phone",
+    phoneVal: "+91 674 291 5788",
     emailLabel: "Email",
     addressLabel: "Address",
     addressVal: "Premashraya Charitable Trust, Kendriya Vihar, Near Dhananjay Residency, Gohiriya, Bhubaneswar – 751028, Odisha, India",

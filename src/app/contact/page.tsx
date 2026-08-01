@@ -19,7 +19,7 @@ export default function ContactPage() {
   const contactInfo = [
     {
       label: t("contact.phoneLabel"),
-      value: "+91 674 291 5788",
+      value: t("contact.phoneVal"),
       icon: (
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
           <path
