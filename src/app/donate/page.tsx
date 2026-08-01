@@ -63,10 +63,10 @@ export default function DonatePage() {
   const amountOptions = [500, 1000, 2500, 5000];
 
   const impactItems = [
-    { icon: <Soup            className="w-6 h-6" />, color: "text-orange-500", bg: "bg-orange-50",  num: "₹500",   label: language === "en" ? "Feeds a patient for a week"    : "ଏକ ସପ୍ତାହ ଭୋଜନ ଦିଏ" },
-    { icon: <Bed             className="w-6 h-6" />, color: "text-sky-500",    bg: "bg-sky-50",     num: "₹1,000", label: language === "en" ? "Covers one night's shelter"      : "ଏକ ରାତ ଆଶ୍ରୟ ଦିଏ" },
-    { icon: <HeartHandshake  className="w-6 h-6" />, color: "text-violet-500", bg: "bg-violet-50",  num: "₹2,500", label: language === "en" ? "Provides counselling support"    : "କାଉନ୍ସେଲିଂ ସହାୟତା" },
-    { icon: <Heart           className="w-6 h-6" />, color: "text-rose-500",   bg: "bg-rose-50",    num: "₹5,000", label: language === "en" ? "Supports a full week of care"   : "ସମ୍ପୂର୍ଣ୍ଣ ଏକ ସପ୍ତାହ ଯତ୍ନ" },
+    { icon: <Soup            className="w-6 h-6" />, color: "text-orange-500", bg: "bg-orange-50",  num: "₹500",   label: language === "en" ? "Feeds a patient & attendant for a day" : "ରୋଗୀ ଓ ସମ୍ପର୍କୀୟଙ୍କ ଦିନକର ଭୋଜନ" },
+    { icon: <Bed             className="w-6 h-6" />, color: "text-sky-500",    bg: "bg-sky-50",     num: "₹1,000", label: language === "en" ? "Covers 2 days of shelter & meals"        : "୨ ଦିନର ସ୍ୱଚ୍ଛ ରହଣି ଓ ଭୋଜନ" },
+    { icon: <HeartHandshake  className="w-6 h-6" />, color: "text-violet-500", bg: "bg-violet-50",  num: "₹2,500", label: language === "en" ? "Supports 5 days of accommodation & care" : "୫ ଦିନର ଆଶ୍ରୟ, ଭୋଜନ ଓ ସହାୟତା" },
+    { icon: <Heart           className="w-6 h-6" />, color: "text-rose-500",   bg: "bg-rose-50",    num: "₹5,000", label: language === "en" ? "Sponsors 1 full week of complete stay"   : "ସମ୍ପୂର୍ଣ୍ଣ ଏକ ସପ୍ତାହର ମାଗଣା ସେବା" },
   ];
 
   const bankFields = [
