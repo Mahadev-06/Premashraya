@@ -183,16 +183,16 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.25, ease: [0.4, 0, 0.2, 1] }}
-              className="flex flex-wrap gap-2.5 mb-8"
+              className="flex items-center gap-1.5 sm:gap-2.5 mb-8 flex-nowrap overflow-x-auto scrollbar-none pb-1"
             >
               {[
-                { icon: <Bed className="w-3.5 h-3.5" />, text: "Free Shelter" },
-                { icon: <Utensils className="w-3.5 h-3.5" />, text: "Free Meals" },
-                { icon: <Heart className="w-3.5 h-3.5" />, text: "Free Care" },
+                { icon: <Bed className="w-3.5 h-3.5 flex-shrink-0" />, text: "Free Shelter" },
+                { icon: <Utensils className="w-3.5 h-3.5 flex-shrink-0" />, text: "Free Meals" },
+                { icon: <Heart className="w-3.5 h-3.5 flex-shrink-0" />, text: "Free Care" },
               ].map((pill) => (
                 <span
                   key={pill.text}
-                  className="inline-flex items-center gap-1.5 font-sans text-xs font-semibold text-on-primary-container bg-primary-container/60 px-3 py-1.5 rounded-full border border-primary/8"
+                  className="inline-flex items-center gap-1 sm:gap-1.5 font-sans text-[11px] sm:text-xs font-semibold text-on-primary-container bg-primary-container/60 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full border border-primary/8 whitespace-nowrap flex-shrink-0"
                 >
                   {pill.icon}
                   {pill.text}
