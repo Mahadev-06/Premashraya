@@ -130,8 +130,8 @@ export const en = {
   },
   about: {
     label: "About Us",
-    title: "A place of comfort, care, and dignity during cancer treatment.",
-    description: "Premashraya provides free stay for cancer patients during treatment. With clean accommodation, nourishing meals, daily sanitization, and a peaceful environment, we aim to make difficult journeys a little lighter for families away from home.",
+    title: "Premashraya — A Free Cancer Patient Shelter Built on Care, Compassion & Dignity",
+    description: "Premashraya is a registered charitable trust providing completely FREE accommodation, nutritious meals, counselling, hospital guidance, and compassionate support for cancer patients and one attendant during treatment in Bhubaneswar and Cuttack. We are a shelter not a hospital dedicated to ensuring every patient experiences comfort, dignity, and hope throughout their treatment journey.",
     missionLabel: "Our Mission",
     missionTitle: "Supporting patients and families with comfort, cleanliness, and care.",
     missionDesc: "Cancer treatment can be physically, emotionally, and financially exhausting. Premashraya was created to offer patients and their attendants a safe, hygienic, and peaceful place to stay during treatment — with nourishing food, clean facilities, and a supportive environment that feels respectful and human.",
