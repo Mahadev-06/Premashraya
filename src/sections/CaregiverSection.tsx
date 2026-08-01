@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { useRef, useEffect } from "react";
 import { useLanguage } from "@/context/LanguageContext";
+import FloatingGraphics from "@/components/FloatingGraphics";
 
 const carePoints = [
   "Shelter procedure and documentation assistance.",
@@ -27,7 +28,8 @@ export default function CaregiverSection() {
   }, [isVideoInView]);
 
   return (
-    <section className="bg-surface-container-low py-16 md:py-30">
+    <section className="relative bg-surface-container-low py-16 md:py-30 overflow-hidden">
+      <FloatingGraphics theme="caregiver" />
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10">
         <div
           ref={ref}

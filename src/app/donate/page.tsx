@@ -130,7 +130,7 @@ export default function DonatePage() {
             >
               <div className="relative rounded-[2.5rem] overflow-hidden shadow-sanctuary-lg aspect-[4/5]">
                 <Image
-                  src="/images/hero.jpg"
+                  src="/images/hero.webp"
                   alt="Premashraya cancer care shelter"
                   fill
                   sizes="(max-width: 1024px) 0vw, 50vw"
@@ -371,7 +371,7 @@ export default function DonatePage() {
                           {/* QR code */}
                           <div className="w-40 h-40 sm:w-44 sm:h-44 flex-shrink-0 bg-white rounded-2xl shadow-md border border-outline-variant/10 p-2.5 flex items-center justify-center">
                             <Image
-                              src="/images/qr_placeholder.png"
+                              src="/images/qr_placeholder.webp"
                               alt="UPI QR Code"
                               width={160}
                               height={160}

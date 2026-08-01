@@ -81,7 +81,7 @@ export default function AboutPage() {
     },
     {
       name: "Binod Agarwal and Satyanarayan Agarwal",
-      image: "/images/_DSC9186.JPG",
+      image: "/images/_DSC9186.webp",
     },
     {
       name: "Satyanarayan Agarwal",
@@ -94,19 +94,19 @@ export default function AboutPage() {
     {
       title: t("about.fac1Title"),
       description: t("about.fac1Desc"),
-      image: "/images/hygiene.jpg",
+      image: "/images/hygiene.webp",
       video: "/videos/Hygienic.mp4",
     },
     {
       title: t("about.fac2Title"),
       description: t("about.fac2Desc"),
-      image: "/images/community.jpg",
+      image: "/images/community.webp",
       video: "/videos/download.mp4",
     },
     {
       title: t("about.fac3Title"),
       description: t("about.fac3Desc"),
-      image: "/images/meals.jpg",
+      image: "/images/meals.webp",
       video: "/videos/Daily Meals.mp4",
     },
   ];
@@ -189,7 +189,7 @@ export default function AboutPage() {
             >
               <div className="relative h-[320px] sm:h-[400px] md:h-[600px] rounded-sanctuary-lg overflow-hidden shadow-sanctuary-lg">
                 <Image
-                  src="/images/mission.jpg"
+                  src="/images/mission.webp"
                   alt="Premashraya signboard - A Home for Cancer Patients"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
@@ -259,7 +259,7 @@ export default function AboutPage() {
                 key={videoSrc}
                 ref={tourVideoRef}
                 src={videoSrc}
-                poster="/images/hero.jpg"
+                poster="/images/hero.webp"
                 preload="auto"
                 loop
                 controls

@@ -2,11 +2,13 @@
 
 import { motion } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
+import FloatingGraphics from "@/components/FloatingGraphics";
 
 export default function FounderSection() {
   const { t } = useLanguage();
   return (
-    <section className="bg-surface-container-low py-12 md:py-24">
+    <section className="relative bg-surface-container-low py-12 md:py-24 overflow-hidden">
+      <FloatingGraphics theme="founder" />
       <div className="max-w-[800px] mx-auto px-4 sm:px-6 md:px-10 text-center">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}

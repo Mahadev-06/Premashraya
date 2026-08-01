@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/images/hero.jpg",
+        url: "/images/hero.webp",
         alt: "Premashraya - Free Cancer Patient Shelter in Bhubaneswar & Cuttack",
       },
     ],
@@ -44,11 +44,11 @@ export const metadata: Metadata = {
     title: "Premashraya | Free Cancer Patient Shelter in Bhubaneswar & Cuttack",
     description:
       "Premashraya provides free hygienic accommodation, nutritious meals, counselling, and emotional support for cancer patients undergoing treatment in Bhubaneswar & Cuttack.",
-    images: ["/images/hero.jpg"],
+    images: ["/images/hero.webp"],
   },
   icons: {
     icon: "/favicon.ico",
-    apple: "/images/logo.png",
+    apple: "/images/logo.webp",
   },
   alternates: {
     canonical: "https://premashraya.org",

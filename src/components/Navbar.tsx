@@ -68,7 +68,7 @@ export default function Navbar() {
         >
           <div className="w-10 h-10 md:w-12 md:h-12 shrink-0 rounded-full bg-white flex items-center justify-center p-1 shadow-sm overflow-hidden transition-transform duration-300 group-hover:scale-105">
             <Image
-              src="/images/logo.png"
+              src="/images/logo.webp"
               alt="Premashraya Logo"
               width={40}
               height={40}

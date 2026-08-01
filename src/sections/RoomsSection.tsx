@@ -5,21 +5,22 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useEffect } from "react";
 import { useLanguage } from "@/context/LanguageContext";
+import FloatingGraphics from "@/components/FloatingGraphics";
 
 const rooms = [
   {
     id: "room1",
-    image: "/images/Gallery1.jpg",
+    image: "/images/Gallery1.webp",
     video: "/videos/Comfortable Rooms.mp4",
   },
   {
     id: "room2",
-    image: "/images/Gallery4.jpg",
+    image: "/images/Gallery4.webp",
     video: "/videos/Common Space.mp4",
   },
   {
     id: "room3",
-    image: "/images/Gallery7.jpg",
+    image: "/images/Gallery7.webp",
     video: "/videos/Daily Meals.mp4",
   },
 ];
@@ -101,7 +102,8 @@ export default function RoomsSection() {
   const { t } = useLanguage();
 
   return (
-    <section className="bg-surface-container-low py-16 md:py-30">
+    <section className="relative bg-surface-container-low py-16 md:py-30 overflow-hidden">
+      <FloatingGraphics theme="rooms" />
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10">
         {/* Section Header */}
         <motion.div

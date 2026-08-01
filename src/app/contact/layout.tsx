@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     title: 'Contact Premashraya | Cancer Patient Shelter Inquiry',
     description: 'Reach out for stay inquiries and support at our free cancer patient shelter in Bhubaneswar, Odisha.',
     url: 'https://premashraya.org/contact',
-    images: [{ url: '/images/hero.jpg', width: 1200, height: 630, alt: 'Contact Premashraya cancer care shelter' }],
+    images: [{ url: '/images/hero.webp', width: 1200, height: 630, alt: 'Contact Premashraya cancer care shelter' }],
   },
 };
 

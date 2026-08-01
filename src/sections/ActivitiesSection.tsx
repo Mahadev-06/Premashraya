@@ -5,31 +5,32 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Flower2, Utensils, Sparkles, Users, HeartHandshake } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import FloatingGraphics from "@/components/FloatingGraphics";
 
 const activities = [
   {
     id: "act1",
-    image: "/images/Gallery12.jpg",
+    image: "/images/Gallery12.webp",
     icon: <Flower2 className="w-[18px] h-[18px]" />,
   },
   {
     id: "act2",
-    image: "/images/Gallery9.jpg",
+    image: "/images/Gallery9.webp",
     icon: <Utensils className="w-[18px] h-[18px]" />,
   },
   {
     id: "act3",
-    image: "/images/hygiene.jpg",
+    image: "/images/hygiene.webp",
     icon: <Sparkles className="w-[18px] h-[18px]" />,
   },
   {
     id: "act4",
-    image: "/images/Gallery11.jpg",
+    image: "/images/Gallery11.webp",
     icon: <Users className="w-[18px] h-[18px]" />,
   },
   {
     id: "act5",
-    image: "/images/support.jpg",
+    image: "/images/support.webp",
     icon: <HeartHandshake className="w-[18px] h-[18px]" />,
   },
 ];
@@ -89,7 +90,8 @@ export default function ActivitiesSection() {
   const { t } = useLanguage();
 
   return (
-    <section className="bg-surface bg-motif-pattern py-16 md:py-30">
+    <section className="relative bg-surface bg-motif-pattern py-16 md:py-30 overflow-hidden">
+      <FloatingGraphics theme="activities" />
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10">
         {/* Section Header */}
         <motion.div

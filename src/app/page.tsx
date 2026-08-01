@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     title: 'Premashraya | Free Cancer Patient Shelter in Bhubaneswar & Cuttack',
     description: 'Free hygienic shelter, nutritious meals, and emotional care for cancer patients during treatment in Odisha.',
     url: 'https://premashraya.org',
-    images: [{ url: '/images/hero.jpg', width: 1200, height: 630, alt: 'Premashraya cancer patient shelter in Bhubaneswar' }],
+    images: [{ url: '/images/hero.webp', width: 1200, height: 630, alt: 'Premashraya cancer patient shelter in Bhubaneswar' }],
   },
 };
 

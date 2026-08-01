@@ -6,7 +6,7 @@ export default function StructuredData() {
       name: "Premashraya Charitable Trust",
       alternateName: "Premashraya",
       url: "https://premashraya.org",
-      logo: "https://premashraya.org/images/logo.png",
+      logo: "https://premashraya.org/images/logo.webp",
       description:
         "Premashraya provides free hygienic accommodation, nutritious meals, counselling, and emotional support for cancer patients undergoing treatment in Bhubaneswar & Cuttack, Odisha.",
       address: {
