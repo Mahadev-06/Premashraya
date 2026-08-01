@@ -10,12 +10,11 @@ import FloatingGraphics from "@/components/FloatingGraphics";
 
 /* ── Slideshow image data ─────────────────────────── */
 const slides = [
+  { src: "/images/hero.webp", alt: "Premashraya shelter building - free cancer patient home" },
   { src: "/images/Gallery1.webp", alt: "Clean and comfortable patient rooms at Premashraya" },
-  { src: "/images/Gallery5.webp", alt: "Nutritious meals served daily at Premashraya" },
-  { src: "/images/Gallery3.webp", alt: "Welcoming common areas at Premashraya shelter" },
-  { src: "/images/Gallery8.webp", alt: "Hygienic facilities at Premashraya" },
-  { src: "/images/Gallery10.webp", alt: "Community activities at Premashraya" },
-  { src: "/images/Gallery12.webp", alt: "Peaceful healing environment at Premashraya" },
+  { src: "/images/hygiene.webp", alt: "Hygienic and sanitized environment for cancer patients" },
+  { src: "/images/meals.webp", alt: "Fresh and nutritious meals served daily" },
+  { src: "/images/yoga.webp", alt: "Evening bhajans and light yoga sessions" },
 ];
 
 const SLIDE_DURATION = 5000; // 5 seconds per slide
