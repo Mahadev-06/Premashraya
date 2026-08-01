@@ -51,6 +51,15 @@ export default function DonatePage() {
     setTimeout(() => setCopiedField(null), 2000);
   };
 
+  const handleSelectTier = (amount: number) => {
+    setSelectedAmount(amount);
+    setCustomAmount("");
+    const element = document.getElementById("donate-form");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   const displayAmount =
     selectedAmount === "custom" ? Number(customAmount || 0) : selectedAmount;
 
@@ -63,10 +72,10 @@ export default function DonatePage() {
   const amountOptions = [500, 1000, 2500, 5000];
 
   const impactItems = [
-    { icon: <Soup            className="w-6 h-6" />, color: "text-orange-500", bg: "bg-orange-50",  num: "₹500",   label: language === "en" ? "Feeds a patient & attendant for a day" : "ରୋଗୀ ଓ ସମ୍ପର୍କୀୟଙ୍କ ଦିନକର ଭୋଜନ" },
-    { icon: <Bed             className="w-6 h-6" />, color: "text-sky-500",    bg: "bg-sky-50",     num: "₹1,000", label: language === "en" ? "Covers 2 days of shelter & meals"        : "୨ ଦିନର ସ୍ୱଚ୍ଛ ରହଣି ଓ ଭୋଜନ" },
-    { icon: <HeartHandshake  className="w-6 h-6" />, color: "text-violet-500", bg: "bg-violet-50",  num: "₹2,500", label: language === "en" ? "Supports 5 days of accommodation & care" : "୫ ଦିନର ଆଶ୍ରୟ, ଭୋଜନ ଓ ସହାୟତା" },
-    { icon: <Heart           className="w-6 h-6" />, color: "text-rose-500",   bg: "bg-rose-50",    num: "₹5,000", label: language === "en" ? "Sponsors 1 full week of complete stay"   : "ସମ୍ପୂର୍ଣ୍ଣ ଏକ ସପ୍ତାହର ମାଗଣା ସେବା" },
+    { amount: 500,  icon: <Soup            className="w-6 h-6" />, color: "text-orange-500", bg: "bg-orange-50",  num: "₹500",   label: language === "en" ? "Feeds a patient & attendant for a day" : "ରୋଗୀ ଓ ସମ୍ପର୍କୀୟଙ୍କ ଦିନକର ଭୋଜନ" },
+    { amount: 1000, icon: <Bed             className="w-6 h-6" />, color: "text-sky-500",    bg: "bg-sky-50",     num: "₹1,000", label: language === "en" ? "Covers 2 days of shelter & meals"        : "୨ ଦିନର ସ୍ୱଚ୍ଛ ରହଣି ଓ ଭୋଜନ" },
+    { amount: 2500, icon: <HeartHandshake  className="w-6 h-6" />, color: "text-violet-500", bg: "bg-violet-50",  num: "₹2,500", label: language === "en" ? "Supports 5 days of accommodation & care" : "୫ ଦିନର ଆଶ୍ରୟ, ଭୋଜନ ଓ ସହାୟତା" },
+    { amount: 5000, icon: <Heart           className="w-6 h-6" />, color: "text-rose-500",   bg: "bg-rose-50",    num: "₹5,000", label: language === "en" ? "Sponsors 1 full week of complete stay"   : "ସମ୍ପୂର୍ଣ ଏକ ସପ୍ତାହର ମାଗଣା ସେବା" },
   ];
 
   const bankFields = [
@@ -108,57 +117,56 @@ export default function DonatePage() {
                 {t("donate.heroHeadline")}
               </h1>
 
-              <p className="font-sans text-sm md:text-lg text-on-surface-variant leading-relaxed mb-6 md:mb-8 max-w-lg">
+              <p className="font-sans text-base md:text-lg text-on-surface-variant leading-relaxed mb-6 md:mb-8">
                 {t("donate.heroSupporting")}
               </p>
 
-              <a
-                href="#donate-form"
-                className="btn-primary-gradient inline-flex items-center gap-2 px-6 py-3.5 md:px-8 md:py-4 rounded-full font-sans font-semibold text-sm md:text-base shadow-sanctuary transition-transform active:scale-95"
-              >
-                <Heart className="w-4 h-4" />
-                {t("donate.heroCTA")}
-              </a>
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
+                <a
+                  href="#donate-form"
+                  className="bg-primary text-on-primary font-sans font-semibold text-base px-7 py-4 rounded-xl shadow-md hover:bg-primary/90 transition-all text-center"
+                >
+                  {t("donate.heroCTA")}
+                </a>
+              </div>
             </motion.div>
 
-            {/* ── Hero image — desktop only ── */}
+            {/* ── Hero Image Card ── */}
             <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={heroInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.9, delay: 0.2 }}
-              className="relative hidden lg:block"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={heroInView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ duration: 0.75, delay: 0.2 }}
+              className="relative"
             >
-              <div className="relative rounded-[2.5rem] overflow-hidden shadow-sanctuary-lg aspect-[4/5]">
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[4/3] bg-surface-container-high">
                 <Image
-                  src="/images/hero.webp"
-                  alt="Premashraya cancer care shelter"
+                  src="/images/meals.webp"
+                  alt="Nutritious meals provided free for patients"
                   fill
-                  sizes="(max-width: 1024px) 0vw, 50vw"
                   className="object-cover"
                   priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                <div className="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur-md rounded-2xl p-4 shadow-lg">
-                  <p className="font-serif text-sm text-on-surface leading-snug mb-1.5">
-                    "No family should struggle for dignity while fighting cancer."
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                <div className="absolute bottom-6 left-6 right-6 text-white">
+                  <p className="font-serif text-lg md:text-xl font-semibold mb-1">
+                    {language === "en" ? "100% Free Food & Shelter" : "୧୦୦% ମାଗଣା ଖାଦ୍ୟ ଓ ରହିବା ସୁବିଧା"}
                   </p>
-                  <p className="font-sans text-xs text-on-surface-variant font-semibold">
-                    — Mr. Binod Agarwal, Founder
+                  <p className="font-sans text-xs md:text-sm text-white/80">
+                    {language === "en"
+                      ? "Serving cancer patients & attendants with love and dignity every day."
+                      : "ପ୍ରତିଦିନ ସ୍ନେହ ଏବଂ ସମ୍ମାନ ସହିତ କର୍କଟ ରୋଗୀ ଓ ସମ୍ପର୍କୀୟଙ୍କ ସେବା।"}
                   </p>
                 </div>
               </div>
-              <div className="absolute -z-10 -top-10 -right-10 w-72 h-72 bg-primary-container/30 rounded-full blur-3xl" />
-              <div className="absolute -z-10 -bottom-10 -left-10 w-52 h-52 bg-secondary-container/30 rounded-full blur-3xl" />
             </motion.div>
-
           </div>
         </div>
       </section>
 
       {/* ═══════════════════════════════════
-          IMPACT MAPPING
+          WHY DONATE / IMPACT
       ═══════════════════════════════════════ */}
-      <section className="bg-surface-container-low py-10 md:py-20">
+      <section className="bg-surface-container-low py-14 md:py-24">
         <div
           ref={impactRef}
           className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10"
@@ -180,23 +188,50 @@ export default function DonatePage() {
             </p>
           </motion.div>
 
-          {/* 2-col on mobile, 4-col on desktop */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5">
-            {impactItems.map((item, i) => (
-              <motion.div
-                key={item.num}
-                initial={{ opacity: 0, y: 24 }}
-                animate={impactInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.55, delay: i * 0.08 }}
-                className="bg-surface-container-lowest rounded-2xl p-4 md:p-6 border border-outline-variant/20 shadow-sanctuary cursor-default"
-              >
-                <div className={`w-10 h-10 md:w-14 md:h-14 ${item.bg} rounded-xl md:rounded-2xl flex items-center justify-center mb-3 md:mb-5 ${item.color}`}>
-                  {item.icon}
-                </div>
-                <p className="font-serif text-xl md:text-2xl font-bold text-on-surface mb-0.5">{item.num}</p>
-                <p className="font-sans text-xs md:text-sm text-on-surface-variant leading-snug">{item.label}</p>
-              </motion.div>
-            ))}
+          {/* Interactive Tier Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+            {impactItems.map((item, i) => {
+              const isSelected = selectedAmount === item.amount;
+              return (
+                <motion.button
+                  key={item.num}
+                  type="button"
+                  onClick={() => handleSelectTier(item.amount)}
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={impactInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.55, delay: i * 0.08 }}
+                  whileHover={{ y: -4 }}
+                  whileTap={{ scale: 0.98 }}
+                  className={`group text-left relative bg-surface-container-lowest rounded-2xl p-5 md:p-6 border transition-all duration-300 shadow-sanctuary cursor-pointer flex flex-col justify-between ${
+                    isSelected
+                      ? "border-primary ring-2 ring-primary/40 shadow-sanctuary-lg bg-primary/5"
+                      : "border-outline-variant/30 hover:border-primary/50 hover:shadow-sanctuary-lg"
+                  }`}
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <div className={`w-12 h-12 md:w-14 md:h-14 ${item.bg} rounded-2xl flex items-center justify-center ${item.color} group-hover:scale-110 transition-transform duration-300`}>
+                        {item.icon}
+                      </div>
+                      <span className={`text-[10px] sm:text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full transition-colors ${
+                        isSelected
+                          ? "bg-primary text-on-primary"
+                          : "bg-surface-container-high text-on-surface-variant group-hover:bg-primary group-hover:text-on-primary"
+                      }`}>
+                        {language === "en" ? "Donate" : "ଦାନ କରନ୍ତୁ"}
+                      </span>
+                    </div>
+                    <p className="font-serif text-2xl md:text-3xl font-bold text-on-surface mb-1">{item.num}</p>
+                    <p className="font-sans text-xs md:text-sm text-on-surface-variant leading-relaxed mb-4">{item.label}</p>
+                  </div>
+
+                  <div className="pt-3 border-t border-outline-variant/10 flex items-center justify-between text-xs font-semibold text-primary group-hover:translate-x-0.5 transition-transform">
+                    <span>{language === "en" ? `Donate ${item.num}` : `${item.num} ଦାନ କରନ୍ତୁ`}</span>
+                    <span>→</span>
+                  </div>
+                </motion.button>
+              );
+            })}
           </div>
         </div>
       </section>
