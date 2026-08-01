@@ -2,20 +2,12 @@
 
 import { motion } from "framer-motion";
 
-/* ── Themed SVG shapes with rich detail & stroke/fill ── */
+/* ── Clean, elegant SVG shapes (hearts, sparkles, home, cross) ── */
 
 function FloatingHeart({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
       <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-    </svg>
-  );
-}
-
-function FloatingLeaf({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-      <path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.71c.99.22 1.99.34 3.03.34C15.49 19.63 21 15.21 21 8c0-1.1-.9-2-2-2h-2zM9.69 17.63c-.78 0-1.56-.09-2.31-.27l2.44-6.97C12.07 10.08 14.1 10 17 10c-.34 3.87-3.86 7.63-7.31 7.63z" />
     </svg>
   );
 }
@@ -65,28 +57,19 @@ function FloatingSun({ className }: { className?: string }) {
 /* ── Float animation variants (smooth continuous drift) ── */
 const floatVariants = {
   float1: {
-    y: [0, -25, 0, 18, 0],
-    x: [0, 12, 0, -10, 0],
-    rotate: [0, 8, 0, -8, 0],
-    scale: [1, 1.06, 1, 0.95, 1],
+    y: [0, -20, 0, 15, 0],
+    x: [0, 10, 0, -8, 0],
+    rotate: [0, 6, 0, -6, 0],
   },
   float2: {
-    y: [0, 22, 0, -28, 0],
-    x: [0, -14, 0, 12, 0],
-    rotate: [0, -12, 0, 12, 0],
-    scale: [1, 0.94, 1, 1.08, 1],
+    y: [0, 18, 0, -22, 0],
+    x: [0, -10, 0, 8, 0],
+    rotate: [0, -8, 0, 8, 0],
   },
   float3: {
-    y: [0, -18, 0, 24, 0],
-    x: [0, 10, -8, 0, 0],
-    rotate: [0, 15, 0, -15, 0],
-    scale: [1, 1.05, 1, 0.96, 1],
-  },
-  float4: {
-    y: [0, 28, 0, -20, 0],
-    x: [0, -12, 10, 0, 0],
-    rotate: [0, -10, 0, 10, 0],
-    scale: [1, 0.95, 1, 1.05, 1],
+    y: [0, -15, 0, 20, 0],
+    x: [0, 8, -6, 0, 0],
+    rotate: [0, 10, 0, -10, 0],
   },
 };
 
@@ -99,9 +82,9 @@ export type FloatingTheme =
 
 interface FloatingItem {
   Shape: React.ComponentType<{ className?: string }>;
-  position: string; // Safe absolute positioning
-  size: string;     // Tailwind size classes (increased for prominent visibility)
-  color: string;    // Increased opacity for clear, vibrant visibility
+  position: string; // Outer margins only so it never overlaps content
+  size: string;     // Clean size
+  color: string;    // Soft translucent color
   variant: keyof typeof floatVariants;
   duration: number;
   delay: number;
@@ -109,35 +92,30 @@ interface FloatingItem {
 
 const presets: Record<FloatingTheme, FloatingItem[]> = {
   hero: [
-    { Shape: FloatingHeart, position: "top-[12%] right-[4%] md:right-[6%]", size: "w-10 h-10 md:w-16 md:h-16 lg:w-20 lg:h-20", color: "text-primary/30 drop-shadow-md", variant: "float1", duration: 10, delay: 0 },
-    { Shape: FloatingSparkle, position: "top-[48%] right-[2%] md:right-[3%]", size: "w-8 h-8 md:w-12 md:h-12 lg:w-16 lg:h-16", color: "text-secondary/40 drop-shadow-sm", variant: "float2", duration: 12, delay: 1.5 },
-    { Shape: FloatingLeaf, position: "bottom-[18%] left-[2%] md:left-[4%]", size: "w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20", color: "text-tertiary/35 drop-shadow-md", variant: "float3", duration: 14, delay: 0.5 },
-    { Shape: FloatingSun, position: "top-[28%] left-[3%] md:left-[5%]", size: "w-10 h-10 md:w-14 md:h-14 lg:w-18 lg:h-18", color: "text-secondary/35", variant: "float4", duration: 11, delay: 2 },
-    { Shape: FloatingCross, position: "bottom-[38%] right-[12%] md:right-[15%]", size: "w-8 h-8 md:w-12 md:h-12", color: "text-primary/25", variant: "float1", duration: 15, delay: 3 },
+    { Shape: FloatingHeart, position: "top-[10%] right-[3%] md:right-[5%]", size: "w-8 h-8 md:w-14 md:h-14", color: "text-primary/20", variant: "float1", duration: 12, delay: 0 },
+    { Shape: FloatingSparkle, position: "top-[45%] right-[1%] md:right-[2%]", size: "w-6 h-6 md:w-10 md:h-10", color: "text-secondary/25", variant: "float2", duration: 14, delay: 1.5 },
+    { Shape: FloatingSun, position: "top-[15%] left-[2%] md:left-[3%]", size: "w-8 h-8 md:w-12 md:h-12", color: "text-secondary/20", variant: "float3", duration: 15, delay: 2 },
+    { Shape: FloatingCross, position: "bottom-[15%] right-[8%] md:right-[12%]", size: "w-6 h-6 md:w-10 md:h-10", color: "text-primary/18", variant: "float1", duration: 16, delay: 3 },
   ],
   founder: [
-    { Shape: FloatingHeart, position: "top-[8%] left-[3%] md:left-[6%]", size: "w-10 h-10 md:w-16 md:h-16 lg:w-20 lg:h-20", color: "text-primary/30 drop-shadow-md", variant: "float2", duration: 12, delay: 0 },
-    { Shape: FloatingSparkle, position: "bottom-[12%] right-[3%] md:right-[5%]", size: "w-10 h-10 md:w-14 md:h-14 lg:w-18 lg:h-18", color: "text-secondary/35 drop-shadow-sm", variant: "float3", duration: 13, delay: 1 },
-    { Shape: FloatingCircle, position: "top-[42%] right-[2%] md:right-[4%]", size: "w-12 h-12 md:w-16 md:h-16", color: "text-tertiary/30", variant: "float1", duration: 14, delay: 2 },
-    { Shape: FloatingSun, position: "bottom-[25%] left-[2%] md:left-[4%]", size: "w-10 h-10 md:w-14 md:h-14", color: "text-secondary/30", variant: "float4", duration: 16, delay: 0.5 },
+    { Shape: FloatingHeart, position: "top-[8%] left-[2%] md:left-[4%]", size: "w-8 h-8 md:w-12 md:h-12", color: "text-primary/20", variant: "float2", duration: 12, delay: 0 },
+    { Shape: FloatingSparkle, position: "bottom-[10%] right-[2%] md:right-[4%]", size: "w-8 h-8 md:w-12 md:h-12", color: "text-secondary/25", variant: "float3", duration: 13, delay: 1 },
+    { Shape: FloatingCircle, position: "top-[40%] right-[2%] md:right-[3%]", size: "w-8 h-8 md:w-12 md:h-12", color: "text-tertiary/20", variant: "float1", duration: 14, delay: 2 },
   ],
   rooms: [
-    { Shape: FloatingHome, position: "top-[6%] right-[3%] md:right-[5%]", size: "w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20", color: "text-primary/30 drop-shadow-md", variant: "float1", duration: 14, delay: 0 },
-    { Shape: FloatingHeart, position: "bottom-[10%] left-[3%] md:left-[5%]", size: "w-10 h-10 md:w-14 md:h-14 lg:w-18 lg:h-18", color: "text-primary/35 drop-shadow-md", variant: "float3", duration: 12, delay: 1.5 },
-    { Shape: FloatingSparkle, position: "top-[32%] left-[2%] md:left-[4%]", size: "w-8 h-8 md:w-12 md:h-12 lg:w-16 lg:h-16", color: "text-secondary/40", variant: "float4", duration: 13, delay: 2 },
-    { Shape: FloatingCross, position: "bottom-[30%] right-[3%] md:right-[6%]", size: "w-10 h-10 md:w-14 md:h-14", color: "text-tertiary/30", variant: "float1", duration: 15, delay: 1 },
+    { Shape: FloatingHome, position: "top-[6%] right-[2%] md:right-[4%]", size: "w-10 h-10 md:w-14 md:h-14", color: "text-primary/20", variant: "float1", duration: 14, delay: 0 },
+    { Shape: FloatingHeart, position: "bottom-[8%] left-[2%] md:left-[4%]", size: "w-8 h-8 md:w-12 md:h-12", color: "text-primary/20", variant: "float3", duration: 12, delay: 1.5 },
+    { Shape: FloatingSparkle, position: "top-[30%] left-[1%] md:left-[2%]", size: "w-6 h-6 md:w-10 md:h-10", color: "text-secondary/25", variant: "float2", duration: 13, delay: 2 },
   ],
   activities: [
-    { Shape: FloatingLeaf, position: "top-[8%] left-[2%] md:left-[4%]", size: "w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20", color: "text-tertiary/35 drop-shadow-md", variant: "float2", duration: 13, delay: 0 },
-    { Shape: FloatingSparkle, position: "top-[18%] right-[3%] md:right-[5%]", size: "w-10 h-10 md:w-14 md:h-14 lg:w-18 lg:h-18", color: "text-secondary/35 drop-shadow-sm", variant: "float1", duration: 11, delay: 1 },
-    { Shape: FloatingHeart, position: "bottom-[12%] right-[4%] md:right-[7%]", size: "w-10 h-10 md:w-14 md:h-14 lg:w-18 lg:h-18", color: "text-primary/30 drop-shadow-md", variant: "float3", duration: 15, delay: 2 },
-    { Shape: FloatingCircle, position: "top-[52%] left-[2%] md:left-[4%]", size: "w-12 h-12 md:w-16 md:h-16", color: "text-primary/25", variant: "float4", duration: 16, delay: 0.5 },
+    { Shape: FloatingSparkle, position: "top-[15%] right-[2%] md:right-[4%]", size: "w-8 h-8 md:w-12 md:h-12", color: "text-secondary/25", variant: "float1", duration: 11, delay: 1 },
+    { Shape: FloatingHeart, position: "bottom-[10%] right-[3%] md:right-[5%]", size: "w-8 h-8 md:w-12 md:h-12", color: "text-primary/20", variant: "float3", duration: 15, delay: 2 },
+    { Shape: FloatingCircle, position: "top-[50%] left-[1%] md:left-[3%]", size: "w-8 h-8 md:w-12 md:h-12", color: "text-primary/18", variant: "float2", duration: 16, delay: 0.5 },
   ],
   caregiver: [
-    { Shape: FloatingHeart, position: "top-[10%] right-[3%] md:right-[5%]", size: "w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20", color: "text-primary/35 drop-shadow-md", variant: "float1", duration: 13, delay: 0 },
-    { Shape: FloatingCross, position: "bottom-[16%] left-[3%] md:left-[5%]", size: "w-10 h-10 md:w-14 md:h-14 lg:w-18 lg:h-18", color: "text-primary/30", variant: "float3", duration: 12, delay: 1.5 },
-    { Shape: FloatingLeaf, position: "top-[40%] left-[2%] md:left-[4%]", size: "w-10 h-10 md:w-14 md:h-14", color: "text-tertiary/35", variant: "float2", duration: 14, delay: 0.5 },
-    { Shape: FloatingSun, position: "bottom-[8%] right-[4%] md:right-[8%]", size: "w-10 h-10 md:w-14 md:h-14", color: "text-secondary/35", variant: "float4", duration: 10, delay: 2 },
+    { Shape: FloatingHeart, position: "top-[8%] right-[2%] md:right-[4%]", size: "w-10 h-10 md:w-14 md:h-14", color: "text-primary/20", variant: "float1", duration: 13, delay: 0 },
+    { Shape: FloatingCross, position: "bottom-[12%] left-[2%] md:left-[4%]", size: "w-8 h-8 md:w-12 md:h-12", color: "text-primary/20", variant: "float3", duration: 12, delay: 1.5 },
+    { Shape: FloatingSun, position: "bottom-[6%] right-[3%] md:right-[6%]", size: "w-8 h-8 md:w-12 md:h-12", color: "text-secondary/25", variant: "float2", duration: 10, delay: 2 },
   ],
 };
 
