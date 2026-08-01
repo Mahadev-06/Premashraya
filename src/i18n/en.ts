@@ -8,8 +8,9 @@ export const en = {
   },
   hero: {
     subtitle: "Cancer Care Support Shelter • Bhubaneswar & Cuttack",
-    title: "A Place of Comfort and Care for ",
-    titleHighlight: "Cancer Patients & Families",
+    brandName: "Premashraya",
+    title: "A FREE Cancer Patient Shelter",
+    titleHighlight: "for Comfort, Care & Hope",
     description: "Premashraya provides free hygienic accommodation for cancer patients and one attendant during treatment. With nutritious meals, clean facilities, and a peaceful environment, we aim to support families with dignity and care during difficult journeys.",
     cta: "Get in Touch",
   },

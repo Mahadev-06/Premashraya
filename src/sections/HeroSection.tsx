@@ -33,8 +33,9 @@ export default function HeroSection() {
             transition={{ duration: 0.9, delay: 0.1, ease: [0.4, 0, 0.2, 1] }}
             className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-on-background leading-[1.15] md:leading-[1.1] mb-8"
           >
-            {t("hero.title")}
-            <span className="text-primary">{t("hero.titleHighlight")}</span>
+            <span className="block text-on-background">{t("hero.brandName")}</span>
+            <span className="block text-primary my-1">{t("hero.title")}</span>
+            <span className="block text-on-background">{t("hero.titleHighlight")}</span>
           </motion.h1>
 
           <motion.div
