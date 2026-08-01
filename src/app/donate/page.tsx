@@ -85,6 +85,36 @@ export default function DonatePage() {
     { id: "ifsc",    label: language === "en" ? "IFSC Code"      : "IFSC କୋଡ",   value: "UTIB0000024",                copy: true  },
   ];
 
+  const donateHeroImageJSX = (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={heroInView ? { opacity: 1, scale: 1 } : {}}
+      transition={{ duration: 0.75, delay: 0.2 }}
+      className="relative w-full"
+    >
+      <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[4/3] bg-surface-container-high">
+        <Image
+          src="/images/meals.webp"
+          alt="Nutritious meals provided free for patients"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+        <div className="absolute bottom-6 left-6 right-6 text-white">
+          <p className="font-serif text-lg md:text-xl font-semibold mb-1">
+            {language === "en" ? "100% Free Food & Shelter" : "୧୦୦% ମାଗଣା ଖାଦ୍ୟ ଓ ରହିବା ସୁବିଧା"}
+          </p>
+          <p className="font-sans text-xs md:text-sm text-white/80">
+            {language === "en"
+              ? "Serving cancer patients & attendants with love and dignity every day."
+              : "ପ୍ରତିଦିନ ସ୍ନେହ ଏବଂ ସମ୍ମାନ ସହିତ କର୍କଟ ରୋଗୀ ଓ ସମ୍ପର୍କୀୟଙ୍କ ସେବା।"}
+          </p>
+        </div>
+      </div>
+    </motion.div>
+  );
+
   /* ──────────────────────────────────────────
      RENDER
   ──────────────────────────────────────────── */
@@ -92,7 +122,7 @@ export default function DonatePage() {
     <>
       {/* ═══════════════════════════════════
           HERO
-      ═══════════════════════════════════════ */}
+      ═══════════════════════════════════ */}
       <section className="relative bg-surface overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary-container/20 via-transparent to-secondary-container/10 pointer-events-none" />
 
@@ -102,7 +132,7 @@ export default function DonatePage() {
         >
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 items-center">
 
-            {/* ── Copy ── */}
+            {/* ── Copy & Mobile Layout ── */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={heroInView ? { opacity: 1, y: 0 } : {}}
@@ -121,6 +151,11 @@ export default function DonatePage() {
                 {t("donate.heroSupporting")}
               </p>
 
+              {/* Mobile Hero Image (rendered BEFORE Donate Now button on phone view) */}
+              <div className="block lg:hidden my-6">
+                {donateHeroImageJSX}
+              </div>
+
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
                 <a
                   href="#donate-form"
@@ -131,37 +166,13 @@ export default function DonatePage() {
               </div>
             </motion.div>
 
-            {/* ── Hero Image Card ── */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={heroInView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.75, delay: 0.2 }}
-              className="relative"
-            >
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[4/3] bg-surface-container-high">
-                <Image
-                  src="/images/meals.webp"
-                  alt="Nutritious meals provided free for patients"
-                  fill
-                  className="object-cover"
-                  priority
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                <div className="absolute bottom-6 left-6 right-6 text-white">
-                  <p className="font-serif text-lg md:text-xl font-semibold mb-1">
-                    {language === "en" ? "100% Free Food & Shelter" : "୧୦୦% ମାଗଣା ଖାଦ୍ୟ ଓ ରହିବା ସୁବିଧା"}
-                  </p>
-                  <p className="font-sans text-xs md:text-sm text-white/80">
-                    {language === "en"
-                      ? "Serving cancer patients & attendants with love and dignity every day."
-                      : "ପ୍ରତିଦିନ ସ୍ନେହ ଏବଂ ସମ୍ମାନ ସହିତ କର୍କଟ ରୋଗୀ ଓ ସମ୍ପର୍କୀୟଙ୍କ ସେବା।"}
-                  </p>
-                </div>
-              </div>
-            </motion.div>
+            {/* ── Desktop Hero Image Card (Right column on lg screens) ── */}
+            <div className="hidden lg:block">
+              {donateHeroImageJSX}
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* ═══════════════════════════════════
           WHY DONATE / IMPACT
