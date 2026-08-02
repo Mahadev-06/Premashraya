@@ -139,6 +139,13 @@ const galleryItems = [
     span: "col-span-1",
     height: "h-60 md:h-72",
   },
+  {
+    title: "Premashraya Counsellor Guidance",
+    image: "/images/counseller_img.webp",
+    category: "Daily Life",
+    span: "col-span-1 md:col-span-3",
+    height: "h-64 sm:h-80 md:h-[520px]",
+  },
 ];
 
 export default function GalleryPage() {

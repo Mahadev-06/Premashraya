@@ -10,6 +10,7 @@ import FloatingGraphics from "@/components/FloatingGraphics";
 
 /* ── Slideshow image data ─────────────────────────── */
 const slides = [
+  { src: "/images/counseller_img.webp", alt: "Premashraya Counsellor Guidance & Support" },
   { src: "/images/gallery13.webp", alt: "Premashraya Cancer Support & Care" },
   { src: "/images/Gallery5.webp", alt: "Premashraya Hygienic Kitchen & Cooking Facilities" },
   { src: "/images/pathway.webp", alt: "Premashraya Campus Pathway & Building Entrance" },
