@@ -175,7 +175,9 @@ export default function HeroSection() {
             >
               <span className="block text-on-background">{t("hero.brandName")}</span>
               <span className="block text-primary my-1">{t("hero.title")}</span>
-              <span className="block text-on-background">{t("hero.titleHighlight")}</span>
+              <span className="block text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-sans font-normal text-on-surface-variant mt-3 leading-snug">
+                {t("hero.titleHighlight")}
+              </span>
             </motion.h1>
 
             {/* ── Quick highlight pills ── */}
