@@ -36,6 +36,14 @@ export default function HeroSection() {
     setProgress(0);
   }, []);
 
+  /* Pre-cache all slideshow images on mount for instant transitions */
+  useEffect(() => {
+    slides.forEach((slide) => {
+      const img = new window.Image();
+      img.src = slide.src;
+    });
+  }, []);
+
   /* Auto-advance timer with progress bar */
   useEffect(() => {
     if (isPaused) return;
