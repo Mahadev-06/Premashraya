@@ -10,11 +10,12 @@ import FloatingGraphics from "@/components/FloatingGraphics";
 
 /* ── Slideshow image data ─────────────────────────── */
 const slides = [
-  { src: "/images/hero.webp", alt: "Premashraya shelter building - free cancer patient home" },
-  { src: "/images/Gallery1.webp", alt: "Clean and comfortable patient rooms at Premashraya" },
-  { src: "/images/hygiene.webp", alt: "Hygienic and sanitized environment for cancer patients" },
-  { src: "/images/meals.webp", alt: "Fresh and nutritious meals served daily" },
-  { src: "/images/yoga.webp", alt: "Evening bhajans and light yoga sessions" },
+  { src: "/images/gallery13.webp", alt: "Premashraya Cancer Support & Care" },
+  { src: "/images/Gallery5.webp", alt: "Premashraya Hygienic Kitchen & Cooking Facilities" },
+  { src: "/images/pathway.webp", alt: "Premashraya Campus Pathway & Building Entrance" },
+  { src: "/images/Gallery12.webp", alt: "Premashraya Clean Guest Accommodation" },
+  { src: "/images/Gallery11.webp", alt: "Premashraya Emotional Support & Fellowship" },
+  { src: "/images/Gallery4.webp", alt: "Premashraya Patient Rooms & Beds" },
 ];
 
 const SLIDE_DURATION = 5000; // 5 seconds per slide

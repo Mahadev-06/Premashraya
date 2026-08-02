@@ -169,22 +169,23 @@ export default function DonatePage() {
             {/* ── Desktop Hero Image Card (Right column on lg screens) ── */}
             <div className="hidden lg:block">
               {donateHeroImageJSX}
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
       {/* ═══════════════════════════════════
-          WHY DONATE / IMPACT
-      ═══════════════════════════════════════ */}
-      <section id="impact-section" className="bg-surface-container-low py-14 md:py-24">
+          DONATION SECTION (TIERS + PAYMENT)
+      ═══════════════════════════════════ */}
+      <section id="donate-form" className="bg-surface-container-low py-14 md:py-24">
         <div
-          ref={impactRef}
+          ref={formRef}
           className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10"
         >
+          {/* Section Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={impactInView ? { opacity: 1, y: 0 } : {}}
+            animate={formInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
             className="text-center mb-8 md:mb-12"
           >
@@ -200,7 +201,7 @@ export default function DonatePage() {
           </motion.div>
 
           {/* Interactive Tier Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 mb-10 md:mb-14">
             {impactItems.map((item, i) => {
               const isSelected = selectedAmount === item.amount;
               return (
@@ -209,7 +210,7 @@ export default function DonatePage() {
                   type="button"
                   onClick={() => handleSelectTier(item.amount)}
                   initial={{ opacity: 0, y: 24 }}
-                  animate={impactInView ? { opacity: 1, y: 0 } : {}}
+                  animate={formInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.55, delay: i * 0.08 }}
                   whileHover={{ y: -4 }}
                   whileTap={{ scale: 0.98 }}
@@ -244,33 +245,8 @@ export default function DonatePage() {
               );
             })}
           </div>
-        </div>
-      </section>
 
-      {/* ═══════════════════════════════════
-          DONATION FORM
-      ═══════════════════════════════════════ */}
-      <section id="donate-form" className="bg-surface py-10 md:py-20">
-        <div
-          ref={formRef}
-          className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10"
-        >
-          {/* Section header */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={formInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-8 md:mb-12"
-          >
-            <span className="inline-block font-sans text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-secondary mb-2 md:mb-3">
-              {language === "en" ? "Make a Donation" : "ଦାନ କରନ୍ତୁ"}
-            </span>
-            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-semibold text-on-background">
-              {language === "en" ? "Choose How You Want to Give" : "ଆପଣ କିପରି ଦେବାକୁ ଚାହୁଁଛନ୍ତି ବଛନ୍ତୁ"}
-            </h2>
-          </motion.div>
-
-          {/* On mobile: stacked (amount → payment). On desktop: side-by-side */}
+          {/* Payment Form & Custom Amount Grid */}
           <div className="flex flex-col lg:grid lg:grid-cols-12 gap-6 lg:gap-12 items-start">
 
             {/* ── Amount Picker ── */}
@@ -295,14 +271,6 @@ export default function DonatePage() {
                     </p>
                   </div>
                 </div>
-                {selectedAmount !== "custom" && (
-                  <a
-                    href="#impact-section"
-                    className="text-xs font-semibold text-primary hover:underline flex items-center gap-1"
-                  >
-                    {language === "en" ? "Change Tier ↑" : "ବଦଳାନ୍ତୁ ↑"}
-                  </a>
-                )}
               </div>
 
               {/* Custom Amount */}
