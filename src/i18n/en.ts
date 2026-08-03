@@ -91,7 +91,7 @@ export const en = {
   },
   gallery: {
     label: "Gallery",
-    title: "A Glimpse of Life at Premashraya",
+    title: "A Glimpse of Premashraya",
     description: "Explore our rooms, facilities, dining spaces, and peaceful environment created to support cancer patients and their families during treatment stays.",
   },
   contact: {
