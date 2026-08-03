@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import FloatingGraphics from "@/components/FloatingGraphics";
 
@@ -36,6 +36,7 @@ function RoomCard({
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const videoRef = useRef<HTMLVideoElement>(null);
   const isVideoInView = useInView(videoRef, { margin: "-50px" });
+  const [isLoading, setIsLoading] = useState(true);
   const { t } = useLanguage();
 
   useEffect(() => {
@@ -60,29 +61,31 @@ function RoomCard({
       }}
       className="group bg-surface-container-lowest rounded-t-[120px] rounded-b-2xl overflow-hidden shadow-sanctuary transition-sanctuary hover:shadow-sanctuary-lg"
     >
-      <div className="relative h-64 md:h-72 overflow-hidden bg-black">
-        {room.video ? (
-          <video
-            ref={videoRef}
-            src={room.video}
-            poster={room.image}
-            preload="auto"
-            loop
-            muted
-            controlsList="nodownload"
-            disablePictureInPicture
-            playsInline
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-          />
-        ) : (
-          <Image
-            src={room.image}
-            alt={t(`rooms.items.${room.id}.title`)}
-            fill
-            className="object-cover transition-transform duration-700 group-hover:scale-105"
-            loading="lazy"
-          />
+      <div className="relative h-64 md:h-72 overflow-hidden bg-black flex items-center justify-center">
+        {/* Loading Spinner Loader */}
+        {isLoading && (
+          <div className="absolute inset-0 z-10 bg-surface-container-dark/80 backdrop-blur-sm flex flex-col items-center justify-center gap-2.5 text-white">
+            <div className="w-8 h-8 border-3 border-white/20 border-t-primary rounded-full animate-spin" />
+            <span className="font-sans text-xs font-medium tracking-wider text-white/70">
+              Loading Video...
+            </span>
+          </div>
         )}
+
+        <video
+          ref={videoRef}
+          src={room.video}
+          preload="auto"
+          loop
+          muted
+          controlsList="nodownload"
+          disablePictureInPicture
+          playsInline
+          onCanPlay={() => setIsLoading(false)}
+          onPlaying={() => setIsLoading(false)}
+          onWaiting={() => setIsLoading(true)}
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+        />
       </div>
       <div className="p-6 sm:p-8">
         <h3 className="font-serif text-xl font-semibold text-on-surface mb-3">
