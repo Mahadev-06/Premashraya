@@ -16,7 +16,7 @@ const slides = [
   { src: "/images/pathway.webp", alt: "Premashraya Campus Pathway & Building Entrance" },
   { src: "/images/Gallery12.webp", alt: "Premashraya Clean Guest Accommodation" },
   { src: "/images/Gallery11.webp", alt: "Premashraya Emotional Support & Fellowship" },
-  { src: "/images/Gallery4.webp", alt: "Premashraya Patient Rooms & Beds" },
+  { src: "/images/hero.webp", alt: "Premashraya shelter building - free cancer patient home" },
 ];
 
 const SLIDE_DURATION = 5000; // 5 seconds per slide
