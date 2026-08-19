@@ -367,7 +367,7 @@ export default function DonatePage() {
                           {/* QR code */}
                           <div className="w-40 h-40 sm:w-44 sm:h-44 flex-shrink-0 bg-white rounded-2xl shadow-md border border-outline-variant/10 p-2.5 flex items-center justify-center">
                             <Image
-                              src="/images/qr_placeholder.webp"
+                              src="/images/upi_qr.webp"
                               alt="UPI QR Code"
                               width={160}
                               height={160}
