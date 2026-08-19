@@ -200,50 +200,30 @@ export default function DonatePage() {
             </p>
           </motion.div>
 
-          {/* Interactive Tier Cards */}
+          {/* Impact Showcase Cards (Visual Showcase) */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 mb-10 md:mb-14">
-            {impactItems.map((item, i) => {
-              const isSelected = selectedAmount === item.amount;
-              return (
-                <motion.button
-                  key={item.num}
-                  type="button"
-                  onClick={() => handleSelectTier(item.amount)}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={formInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.55, delay: i * 0.08 }}
-                  whileHover={{ y: -4 }}
-                  whileTap={{ scale: 0.98 }}
-                  className={`group text-left relative bg-surface-container-lowest rounded-2xl p-5 md:p-6 border transition-all duration-300 shadow-sanctuary cursor-pointer flex flex-col justify-between ${
-                    isSelected
-                      ? "border-primary ring-2 ring-primary/40 shadow-sanctuary-lg bg-primary/5"
-                      : "border-outline-variant/30 hover:border-primary/50 hover:shadow-sanctuary-lg"
-                  }`}
-                >
-                  <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <div className={`w-12 h-12 md:w-14 md:h-14 ${item.bg} rounded-2xl flex items-center justify-center ${item.color} group-hover:scale-110 transition-transform duration-300`}>
-                        {item.icon}
-                      </div>
-                      <span className={`text-[10px] sm:text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full transition-colors ${
-                        isSelected
-                          ? "bg-primary text-on-primary"
-                          : "bg-surface-container-high text-on-surface-variant group-hover:bg-primary group-hover:text-on-primary"
-                      }`}>
-                        {language === "en" ? "Donate" : "ଦାନ କରନ୍ତୁ"}
-                      </span>
+            {impactItems.map((item, i) => (
+              <motion.div
+                key={item.num}
+                initial={{ opacity: 0, y: 24 }}
+                animate={formInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.55, delay: i * 0.08 }}
+                className="bg-surface-container-lowest rounded-2xl p-5 md:p-6 border border-outline-variant/20 shadow-sanctuary flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className={`w-12 h-12 md:w-14 md:h-14 ${item.bg} rounded-2xl flex items-center justify-center ${item.color}`}>
+                      {item.icon}
                     </div>
-                    <p className="font-serif text-2xl md:text-3xl font-bold text-on-surface mb-1">{item.num}</p>
-                    <p className="font-sans text-xs md:text-sm text-on-surface-variant leading-relaxed mb-4">{item.label}</p>
+                    <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant">
+                      {language === "en" ? "Impact" : "ପ୍ରଭାବ"}
+                    </span>
                   </div>
-
-                  <div className="pt-3 border-t border-outline-variant/10 flex items-center justify-between text-xs font-semibold text-primary group-hover:translate-x-0.5 transition-transform">
-                    <span>{language === "en" ? `Donate ${item.num}` : `${item.num} ଦାନ କରନ୍ତୁ`}</span>
-                    <span>→</span>
-                  </div>
-                </motion.button>
-              );
-            })}
+                  <p className="font-serif text-2xl md:text-3xl font-bold text-on-surface mb-1">{item.num}</p>
+                  <p className="font-sans text-xs md:text-sm text-on-surface-variant leading-relaxed">{item.label}</p>
+                </div>
+              </motion.div>
+            ))}
           </div>
 
           {/* Payment Methods (UPI / QR Code & Bank Transfer) */}
@@ -281,19 +261,6 @@ export default function DonatePage() {
                 </motion.div>
               ) : (
                 <>
-                  {/* Selected Contribution Banner */}
-                  <div className="bg-primary/5 border border-primary/20 rounded-xl p-3.5 mb-5 flex items-center justify-between gap-3">
-                    <div className="flex items-center gap-2.5">
-                      <Heart className="w-4 h-4 text-primary fill-primary/20 flex-shrink-0" />
-                      <span className="font-sans text-xs font-semibold text-on-surface">
-                        {language === "en" ? "Selected Contribution:" : "ଆପଣଙ୍କ ଦାନ:"}{" "}
-                        <strong className="font-serif text-sm text-primary">₹{displayAmount.toLocaleString("en-IN")}</strong>
-                      </span>
-                    </div>
-                    <span className="font-sans text-[11px] font-medium text-on-surface-variant hidden sm:inline">
-                      {impactItems.find((i) => i.amount === selectedAmount)?.label || ""}
-                    </span>
-                  </div>
 
                   {/* Method Tabs */}
                   <div className="flex border-b border-outline-variant/20 mb-6 gap-1">
