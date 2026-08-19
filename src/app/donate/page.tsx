@@ -215,9 +215,6 @@ export default function DonatePage() {
                     <div className={`w-12 h-12 md:w-14 md:h-14 ${item.bg} rounded-2xl flex items-center justify-center ${item.color}`}>
                       {item.icon}
                     </div>
-                    <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant">
-                      {language === "en" ? "Impact" : "ପ୍ରଭାବ"}
-                    </span>
                   </div>
                   <p className="font-serif text-2xl md:text-3xl font-bold text-on-surface mb-1">{item.num}</p>
                   <p className="font-sans text-xs md:text-sm text-on-surface-variant leading-relaxed">{item.label}</p>
