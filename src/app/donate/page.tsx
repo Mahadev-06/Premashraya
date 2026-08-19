@@ -43,7 +43,7 @@ export default function DonatePage() {
   const trustInView  = useInView(trustRef,  { once: true, margin: "-60px" });
 
   /* ── Helpers ── */
-  const upiId = "premashrayatrust@sbi";
+  const upiId = "mab.037136000240031@axisbank";
 
   const copyField = (val: string, id: string) => {
     navigator.clipboard.writeText(val);
